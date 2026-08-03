@@ -1,6 +1,6 @@
 # Phase 0 — Foundations
 
-Hard cutoff: **September 27, 2026**. Full concept explanations and exercise
+Target date: **September 27, 2026**. Full concept explanations and exercise
 problem statements live in `docs/phase0/` (once merged in); project specs
 live in `docs/PHASE0_PROJECTS.md`. This file is just a live status checklist.
 

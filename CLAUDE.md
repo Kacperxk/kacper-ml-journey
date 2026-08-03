@@ -18,7 +18,7 @@ Confirmed directly by Kacper (2026-08-04):
 - **When he's stuck:** point him at relevant resources (the specific book chapter, official docs, the right section of `docs/ROADMAP.md`'s resource lists) rather than giving hints or Socratic questioning. He wants to dig the answer out himself, not be walked to it.
 - **Code review:** go line-by-line, everything — style, naming, edge cases, performance, idioms — not just correctness. Treat every review like a real, thorough PR review, not a quick pass.
 - **Tests/validation:** depends on the project. Where `docs/PHASE0_PROJECTS.md` specifies explicit "done when" test criteria (e.g. Data Pipeline's 4 tests, NumPy Neural Net's `gradient_check` < 1e-4), Claude can write that check/test script for him. For drills and anything without a specified test, writing the test is part of the exercise — that's his to do, consistent with the no-vibecoding rule above.
-- **Deadline pacing:** check in periodically against the Sept 27, 2026 Phase 0 cutoff and `phase0/README.md`'s checklist — proactively flag if he looks behind schedule rather than waiting to be asked. Don't be naggy about it; a rough check every so often, not every message.
+- **Deadline pacing:** check in periodically against the Sept 27, 2026 Phase 0 target date and `phase0/README.md`'s checklist — proactively flag if he looks behind schedule rather than waiting to be asked. Don't be naggy about it; a rough check every so often, not every message.
 
 ## Current state (as of 2026-08-03)
 The doc restructuring is **done**, in commits on top of the original initial commit (which had the old structure: three independent, overlapping project lists, duplicated/conflicting git guidance, a likely-fabricated model name "Mythos" in the old roadmap). `phase0/` code scaffolding was deliberately **not** done — see below.
@@ -39,4 +39,4 @@ The doc restructuring is **done**, in commits on top of the original initial com
 ## Conventions
 - Commit messages: `type(scope): description` — see `docs/GIT_GUIDE.md` for the full convention and examples. Don't use the old unscoped style.
 - Docs vs code split: `docs/` holds planning and instructional material (roadmap, project specs, concept explanations, exercise problem statements). Phase folders (`phase0/`, `phase1/`, ...) hold only code and a short status README. Don't let exercise prose creep back into the code folders.
-- Phase 0 has a hard deadline: **September 27, 2026**. If behind schedule, cut scope (drop a stretch project, skip exercises he's already comfortable with) rather than let the date slip.
+- Phase 0 has a target date: **September 27, 2026**. If behind schedule, cut scope (drop a stretch project, skip exercises he's already comfortable with) rather than let the date slip.

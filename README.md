@@ -4,7 +4,7 @@ Self-directed study toward becoming an ML engineer. Structured as a 6-phase,
 ~18-month curriculum covering Python foundations through LLMs and alignment.
 
 - **Current phase:** Phase 0 — Python, NumPy, Math Foundations
-- **Phase 0 hard cutoff:** September 27, 2026
+- **Phase 0 target date:** September 27, 2026
 - **Started:** 2026-08-03
 
 ---
@@ -24,7 +24,7 @@ project specs, and `docs/GIT_GUIDE.md` for the workflow this repo follows.
 
 | Phase | Topic | Duration | Status |
 |-------|-------|----------|--------|
-| 0 | Python · NumPy · Math Foundations | hard cutoff Sept 27, 2026 | In progress |
+| 0 | Python · NumPy · Math Foundations | target date Sept 27, 2026 | In progress |
 | 1 | Classical ML · Scikit-learn | ~8 weeks | Not started |
 | 2 | Deep Learning · Backprop · CNNs · RNNs | ~10 weeks | Not started |
 | 3 | LLMs · Transformers · Attention | ~12 weeks | Not started |
