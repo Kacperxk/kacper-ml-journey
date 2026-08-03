@@ -1,0 +1,23 @@
+# Phase 0 — Python, NumPy, Math foundations
+numpy>=1.26
+matplotlib>=3.8
+jupyter>=1.0
+requests>=2.31        # Project 1 — CLI Weather Tool (Open-Meteo API)
+scikit-learn>=1.4     # Project 3 — California Housing dataset only, not for modeling
+pytest>=8.0           # unit tests (Data Pipeline, stretch projects)
+
+# Phase 1 (add when you reach it)
+# pandas>=2.1
+# xgboost>=2.0
+# lightgbm>=4.0
+# seaborn>=0.13
+# optuna>=3.5
+
+# Phase 2 (add when you reach it)
+# torch>=2.2
+# torchvision>=0.17
+
+# Dev (optional)
+# black>=24.0
+# ruff>=0.3
+# mypy>=1.10
