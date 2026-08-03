@@ -207,4 +207,4 @@ See GIT_GUIDE.md for commit conventions, branching, and tagging.
 
 ---
 
-*Last updated: 2026-08-03*
+*Last updated: 2026-08-04*

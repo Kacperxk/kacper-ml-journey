@@ -41,4 +41,4 @@ live in `docs/PHASE0_PROJECTS.md`. This file is just a live status checklist.
 
 ---
 
-*Last updated: 2026-08-03*
+*Last updated: 2026-08-04*

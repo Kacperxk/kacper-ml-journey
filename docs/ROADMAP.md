@@ -297,4 +297,4 @@ This roadmap is your anchor. When we talk again, we can:
 
 ---
 
-*Last updated: 2026-08-03 | Version 2.0 — consolidated from four previously-inconsistent source documents; see MERGE_INSTRUCTIONS.md*
+*Last updated: 2026-08-04 | Version 2.0 — consolidated from four previously-inconsistent source documents; see MERGE_INSTRUCTIONS.md*
