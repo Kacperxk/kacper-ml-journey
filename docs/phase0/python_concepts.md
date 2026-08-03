@@ -857,7 +857,7 @@ project_name/
 
 See `docs/GIT_GUIDE.md` for the full workflow and commit convention this repo
 uses. (The original version of this section duplicated git guidance with a
-different, unscoped commit convention — consolidated into `GIT_GUIDE.md` to
+different, unscoped commit convention — consolidated into `docs/GIT_GUIDE.md` to
 avoid the two drifting apart.)
 
 ---

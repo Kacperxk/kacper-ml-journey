@@ -1,24 +1,40 @@
-# ML Course Repository — Structure and README Template
+# ML Course Repository — Structure
 
-Changes from the original: `sklearn_pandas/` renamed to `classical_ml/` (was mixing two library names), `phase0/projects/` now matches the 4 core projects in `PHASE0_PROJECTS.md` with a separate `stretch/` subfolder for the optional ones, and git setup content moved out to `GIT_GUIDE.md` instead of being embedded here.
+Reference for where things go. The `docs/` and `phase0/README.md` layout
+below already exists; the `phase0/python/`, `phase0/numpy/`, and
+`phase0/projects/` subtrees are the target — Kacper creates those files
+himself as he works through Phase 0 (see `CLAUDE.md`'s working-style note;
+Claude should not pre-create them).
 
 ---
 
 ## Directory Structure
 
 ```
-ml-engineering-course/
+kacper-ml-journey/
 │
 ├── README.md                          # master overview — your public face
-├── ROADMAP.md                         # the 18-month roadmap
-├── PHASE0_PROJECTS.md                 # Phase 0 project specs (core + stretch)
-├── GIT_GUIDE.md                       # canonical git workflow and conventions
-├── .gitignore                         # single gitignore for the whole repo (see GIT_GUIDE.md)
+├── CLAUDE.md                          # entry point for any Claude session in this repo
+├── .gitignore                         # single gitignore for the whole repo (see docs/GIT_GUIDE.md)
 ├── requirements.txt                   # grows as you add libraries each phase
 │
+├── docs/                              # planning + instructional material
+│   ├── ROADMAP.md                     # the 18-month, 6-phase roadmap
+│   ├── GIT_GUIDE.md                   # canonical git workflow and commit convention
+│   ├── REPO_STRUCTURE.md              # this file
+│   └── phase0/                        # Phase 0 teaching content, drills, and project specs
+│       ├── README.md                  # index: links, time structure, completion checklist
+│       ├── python_concepts.md         # Part 1 — Python (read, don't drill)
+│       ├── python_exercises.md        # ~70 Python drills + Git/GitHub drills
+│       ├── numpy_concepts.md          # Part 2 — NumPy
+│       ├── numpy_exercises.md         # ~60 NumPy drills
+│       ├── math_concepts.md           # Part 3 — linear algebra, calculus, probability
+│       ├── habits_and_tools.md        # engineering/debugging/learning habits, editor setup
+│       └── projects.md                # 4 core projects + 4 optional stretch, full specs
+│
 ├── phase0/                            # Foundations — target date Sept 27, 2026
-│   ├── README.md                      # phase-specific notes and progress
-│   ├── python/
+│   ├── README.md                      # live status checklist (exists)
+│   ├── python/                        # Kacper creates these as he works through python_exercises.md
 │   │   ├── section1_identity.py
 │   │   ├── section2_comprehensions.py
 │   │   ├── section3_functions.py
@@ -26,7 +42,7 @@ ml-engineering-course/
 │   │   ├── section5_errors.py
 │   │   ├── section6_types.py
 │   │   └── section7_files.py
-│   ├── numpy/
+│   ├── numpy/                         # Kacper creates these as he works through numpy_exercises.md
 │   │   ├── section1_creation.py
 │   │   ├── section2_indexing.py
 │   │   ├── section3_broadcasting.py
@@ -35,7 +51,7 @@ ml-engineering-course/
 │   │   ├── section6_einsum.py
 │   │   ├── section7_numerical.py
 │   │   └── section8_ml_patterns.py
-│   └── projects/                      # see PHASE0_PROJECTS.md for full specs
+│   └── projects/                      # see docs/phase0/projects.md for full specs
 │       ├── weather_tool/              # Project 1 — CLI Weather Tool
 │       │   ├── exceptions.py
 │       │   ├── fetcher.py
@@ -64,7 +80,7 @@ ml-engineering-course/
 │   ├── README.md
 │   ├── theory/
 │   │   └── notes.md
-│   ├── classical_ml/                  # renamed from sklearn_pandas
+│   ├── classical_ml/                  # renamed from sklearn_pandas — was mixing two library names
 │   │   ├── pandas_drills.py
 │   │   ├── sklearn_pipelines.py
 │   │   └── metrics_practice.py
@@ -104,106 +120,13 @@ ml-engineering-course/
 
 Note: Phase 5 ("Frontier Work & Portfolio") has no folder — it's ongoing, non-code work (papers, blog, open source), tracked via `resources/reading_list.md` and whatever blog/writing platform you pick, not a code phase.
 
----
-
-## requirements.txt (grows with each phase)
-
-```
-# Phase 0
-numpy>=1.26
-matplotlib>=3.8
-jupyter>=1.0
-
-# Phase 1 (add when you reach it)
-# pandas>=2.1
-# scikit-learn>=1.4
-# xgboost>=2.0
-# lightgbm>=4.0
-# seaborn>=0.13
-# optuna>=3.5
-
-# Phase 2 (add when you reach it)
-# torch>=2.2
-# torchvision>=0.17
-
-# Dev
-# pytest>=8.0
-# black>=24.0
-# ruff>=0.3
-```
+`notebooks/` and `resources/` don't exist yet either — create them if/when you actually have exploratory notebooks or paper notes to put there, same "create it when you use it" rule as the phase folders.
 
 ---
 
-## README.md Template
+## requirements.txt
 
-```markdown
-# ML Engineering Course
-
-Self-directed study toward becoming an ML engineer. Structured as a 6-phase,
-~18-month curriculum covering Python foundations through LLMs and alignment.
-
-**Current phase:** Phase 0 — Python, NumPy, Math Foundations
-**Phase 0 target date:** September 27, 2026
-**Started:** [your start date]
-**Target completion:** ~18 months from start
-
----
-
-## The Goal
-
-Working as an ML engineer on large-scale language models. The path there:
-build genuine depth in every layer of the stack — from Python internals to
-transformer training to alignment techniques.
-
-See ROADMAP.md for the full plan, PHASE0_PROJECTS.md for current project specs,
-and GIT_GUIDE.md for the workflow this repo follows.
-
----
-
-## Structure
-
-| Phase | Topic | Duration | Status |
-|-------|-------|----------|--------|
-| 0 | Python · NumPy · Math Foundations | target date Sept 27, 2026 | In progress |
-| 1 | Classical ML · Scikit-learn | ~8 weeks | Not started |
-| 2 | Deep Learning · Backprop · CNNs · RNNs | ~10 weeks | Not started |
-| 3 | LLMs · Transformers · Attention | ~12 weeks | Not started |
-| 4 | MLOps · Distributed Training · Inference | ~8 weeks | Not started |
-| 5 | Frontier Work & Portfolio | ongoing | Not started |
-
----
-
-## Phase 0 — Current Progress
-
-**Python exercises** — see phase0/python/, ~70 exercises across 7 sections
-**NumPy exercises** — see phase0/numpy/, ~60 exercises across 8 sections
-**Projects** — see PHASE0_PROJECTS.md: 4 core (Weather Tool, Data Pipeline,
-Linear Regression, NumPy Neural Network) + optional stretch
-
----
-
-## Setup
-
-\`\`\`bash
-git clone https://github.com/YOURUSERNAME/ml-engineering-course.git
-cd ml-engineering-course
-python -m venv .venv
-source .venv/bin/activate      # Windows: .venv\\Scripts\\activate
-pip install -r requirements.txt
-\`\`\`
-
----
-
-## Workflow
-
-See GIT_GUIDE.md for commit conventions, branching, and tagging.
-
----
-
-## Contact
-
-[Your name] · [Your GitHub profile link]
-```
+Lives at the repo root, already populated for Phase 0 — see `requirements.txt` directly rather than duplicating its contents here (that duplication is exactly the kind of drift this doc used to have). Add each later phase's packages when you actually reach that phase.
 
 ---
 

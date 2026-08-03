@@ -5,7 +5,7 @@
 
 > **How to use this document:** This is a living reference. Every phase has a goal, a skill checklist, concrete resources, and projects to prove you learned it. Come back here often. When you finish a phase, expand the next one in more detail.
 >
-> **v2 note:** This revises the original roadmap. Changes: removed a reference to an unverified/likely-fictional Anthropic model name ("Mythos") — don't build career narrative on facts that might not be real; added a target date for Phase 0 instead of an open-ended one; moved the Phase 0 project list out of this document into `PHASE0_PROJECTS.md` (the old version had three different, non-overlapping project lists scattered across three files — see `MERGE_INSTRUCTIONS.md` for the full explanation).
+> **v2 note:** This revises the original roadmap. Changes: removed a reference to an unverified/likely-fictional Anthropic model name ("Mythos") — don't build career narrative on facts that might not be real; added a target date for Phase 0 instead of an open-ended one; moved the Phase 0 project list out of this document into `docs/phase0/projects.md` (the old version had three different, non-overlapping project lists scattered across three files, since consolidated into one).
 
 ---
 
@@ -52,8 +52,8 @@ The goal here isn't to master everything — it's to remove blockers. You have t
 ### What's in Phase 0
 - **Concepts**: Python (OOP, functions, error handling, types, project structure, git) + NumPy (arrays, indexing, broadcasting, linear algebra, einsum) + Math (linear algebra, calculus/backprop intuition, probability). Full teaching content in `docs/phase0/python_concepts.md`, `numpy_concepts.md`, `math_concepts.md`.
 - **Drills**: ~60 NumPy exercises, ~70 Python exercises — predict-before-run methodology. See `docs/phase0/python_exercises.md` and `numpy_exercises.md`.
-- **Projects**: see `PHASE0_PROJECTS.md` — **4 core projects only**, not 9. The original plan had three separate, uncoordinated project lists (one per source document) totaling 9 projects, of which only 3 were ever wired into the actual repo structure. That's fixed now.
-- **Git**: see `GIT_GUIDE.md` — one canonical workflow and commit convention, not three slightly different ones.
+- **Projects**: see `docs/phase0/projects.md` — **4 core projects only**, not 9. The original plan had three separate, uncoordinated project lists (one per source document) totaling 9 projects, of which only 3 were ever wired into the actual repo structure. That's fixed now.
+- **Git**: see `docs/GIT_GUIDE.md` — one canonical workflow and commit convention, not three slightly different ones.
 
 ### 0A — Python: From Mediocre to Fluent
 
@@ -66,7 +66,7 @@ You need Python to feel like a natural extension of your thoughts, not something
 - **Modules and packages** — how imports work, how to structure a project with `__init__.py`, relative vs absolute imports
 - **Type hints** — `def train(model: nn.Module, lr: float) -> dict:` — standard in modern ML code
 - **Virtual environments** — `venv` or `conda`, `requirements.txt`, `pyproject.toml`
-- **Git basics** — see `GIT_GUIDE.md`. Non-negotiable for any engineering role.
+- **Git basics** — see `docs/GIT_GUIDE.md`. Non-negotiable for any engineering role.
 
 **Resources:**
 - *Fluent Python* by Luciano Ramalho — the definitive book. Read chapters 1–9 now, rest later.
@@ -297,4 +297,4 @@ This roadmap is your anchor. When we talk again, we can:
 
 ---
 
-*Last updated: 2026-08-04 | Version 2.0 — consolidated from four previously-inconsistent source documents; see MERGE_INSTRUCTIONS.md*
+*Last updated: 2026-08-04 | Version 2.0 — consolidated from four previously-inconsistent source documents*
