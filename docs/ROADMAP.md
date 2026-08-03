@@ -50,8 +50,8 @@ This date is fixed, not aspirational. University restarts in October and your da
 The goal here isn't to master everything — it's to remove blockers. You have the math. You have basic Python. This phase upgrades both to the level required for serious ML work.
 
 ### What's in Phase 0
-- **Concepts**: Python (OOP, functions, error handling, types, project structure, git) + NumPy (arrays, indexing, broadcasting, linear algebra, einsum) + Math (linear algebra, calculus/backprop intuition, probability). Full teaching content — keep as-is from your existing `phase0/README.md`-equivalent notes.
-- **Drills**: ~60 NumPy exercises, ~70 Python exercises. Keep as-is — these are genuinely well-built (predict-before-run methodology is worth keeping exactly as written).
+- **Concepts**: Python (OOP, functions, error handling, types, project structure, git) + NumPy (arrays, indexing, broadcasting, linear algebra, einsum) + Math (linear algebra, calculus/backprop intuition, probability). Full teaching content in `docs/phase0/python_concepts.md`, `numpy_concepts.md`, `math_concepts.md`.
+- **Drills**: ~60 NumPy exercises, ~70 Python exercises — predict-before-run methodology. See `docs/phase0/python_exercises.md` and `numpy_exercises.md`.
 - **Projects**: see `PHASE0_PROJECTS.md` — **4 core projects only**, not 9. The original plan had three separate, uncoordinated project lists (one per source document) totaling 9 projects, of which only 3 were ever wired into the actual repo structure. That's fixed now.
 - **Git**: see `GIT_GUIDE.md` — one canonical workflow and commit convention, not three slightly different ones.
 

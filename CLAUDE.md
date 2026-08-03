@@ -21,20 +21,21 @@ Confirmed directly by Kacper (2026-08-04):
 - **Deadline pacing:** check in periodically against the Sept 27, 2026 Phase 0 target date and `phase0/README.md`'s checklist — proactively flag if he looks behind schedule rather than waiting to be asked. Don't be naggy about it; a rough check every so often, not every message.
 
 ## Current state (as of 2026-08-04)
-The doc restructuring is **done**, in commits on top of the original initial commit (which had the old structure: three independent, overlapping project lists, duplicated/conflicting git guidance, a likely-fabricated model name "Mythos" in the old roadmap). `phase0/` code scaffolding was deliberately **not** done — see below.
+The doc restructuring AND the docs/phase0/ merge are both **done**. `phase0/` code scaffolding was deliberately **not** done — that's still Kacper's to create, see "Working style" above.
 
-**Completed this session:**
-1. `docs/ROADMAP.md`, `docs/PHASE0_PROJECTS.md`, `docs/GIT_GUIDE.md`, `docs/REPO_STRUCTURE.md`, `docs/MERGE_INSTRUCTIONS.md` are all in place under `docs/`.
-2. Root `README.md` refreshed to match the scoped commit convention and link to `docs/`.
-3. `phase0/README.md` is a living checklist (done/in-progress/next), not exercise text.
-4. Self-promotional language about Kacper (exam results, "ambitious," etc.) removed from `docs/ROADMAP.md` and this file.
-5. Committed as `refactor(structure): consolidate roadmap and project docs into docs/` and `docs: remove self-promotional language about Kacper`.
+**Repo structure now:**
+- `docs/ROADMAP.md`, `docs/PHASE0_PROJECTS.md`, `docs/GIT_GUIDE.md`, `docs/REPO_STRUCTURE.md` — planning docs.
+- `docs/phase0/README.md` — index for the Phase 0 material: links, "how to structure your time," and the full Python/NumPy/Math completion checklist.
+- `docs/phase0/python_concepts.md`, `numpy_concepts.md`, `math_concepts.md` — teaching content (read, don't drill).
+- `docs/phase0/python_exercises.md`, `numpy_exercises.md` — ~70 Python + ~60 NumPy predict-before-run drills, plus Git/GitHub drills in the Python file's Section 8.
+- `docs/phase0/habits_and_tools.md` — engineering/debugging/learning habits, editor setup.
+- `docs/MERGE_INSTRUCTIONS.md` is **deleted** — its checklist is fully done (see below).
 
-**Reverted, on purpose:** an earlier pass in this session pre-created `phase0/python/*.py`, `phase0/numpy/*.py`, and `phase0/projects/**/*.py` as docstring-only stubs, plus their folders. Kacper asked for these to be deleted — he wants to create every section/project file himself and commit it one at a time as he does the actual work, not have Claude scaffold ahead of him. See the "Working style" note above; don't redo this.
+**How the merge went (2026-08-04):** Kacper uploaded `phase0_complete.md`, `python_exercises.md`, `numpy_exercises.md`. Concepts (Parts 1–3 of `phase0_complete.md`) and drills (all sections of both exercise files) were split into the `docs/phase0/` files above, unchanged in substance. Cut during the merge, per `MERGE_INSTRUCTIONS.md` and Kacper's explicit request: `phase0_complete.md`'s Part 4 "Projects" section, and all project sections inside `python_exercises.md` (Config Manager, Data Pipeline, Mini ML Framework) and `numpy_exercises.md` (Data Preprocessing Engine, Gradient Descent Visualizer, NumPy Neural Network) — all superseded by `docs/PHASE0_PROJECTS.md`'s single canonical project list. `phase0_complete.md`'s §1.7 Git section and `python_exercises.md`'s Section 8 git-convention intro were replaced with pointers to `docs/GIT_GUIDE.md` (kept the hands-on §8.1–8.6 drills, just fixed the commit-message examples to the scoped convention). `ml_course_repo_structure.md` and `ml_engineer_roadmap.md` were never found anywhere (confirmed not needed — `REPO_STRUCTURE.md`/`ROADMAP.md` already fully replace them).
+
+**Known gap, not yet resolved:** `docs/PHASE0_PROJECTS.md`'s stretch-project entries still say "full spec in the original `numpy_exercises.md`/`python_exercises.md`/`phase0_complete.md` 'Project N'" — but those project sections were just deleted from `docs/phase0/` per the point above, so that pointer is now stale (the full detail only exists in Kacper's original uploaded files, off-repo). Low priority since stretch projects are optional/skippable and the short spec in `PHASE0_PROJECTS.md` is enough to start, but flag it if Kacper ever wants to actually build a stretch project — he may need to re-paste the relevant section from his original file, or we write a fuller spec at that point.
 
 **Confirmed:** Kacper wants Project 3 kept as the combined "Linear Regression from Scratch + Gradient Descent Visualizer" — no split needed. This is locked in.
-
-**Still open:** `docs/MERGE_INSTRUCTIONS.md` calls for deleting superseded sections from `phase0_complete.md`, `python_exercises.md`, `numpy_exercises.md` and moving their concept/exercise content into `docs/phase0/`, plus deleting `ml_course_repo_structure.md` / `ml_engineer_roadmap.md`. None of these old files exist anywhere in the repo or uploads — Kacper confirmed he hasn't uploaded them yet and will when asked. **Next session: ask Kacper to upload those 5 files, then finish this step** (extract concept + exercise content into `docs/phase0/` only — not into pre-made code stubs, delete the old files, delete `docs/MERGE_INSTRUCTIONS.md` once its checklist is fully done).
 
 ## Conventions
 - Commit messages: `type(scope): description` — see `docs/GIT_GUIDE.md` for the full convention and examples. Don't use the old unscoped style.
