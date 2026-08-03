@@ -1,5 +1,5 @@
 # ML Engineer Roadmap
-### Tailored for: Econometrics/DS student @ top PL university | 3–4 hrs/day | ~18 months
+### For: Econometrics & Data Science student, University of Warsaw | 3–4 hrs/day | ~18 months
 
 ---
 
@@ -9,10 +9,10 @@
 
 ---
 
-## Your Starting Profile (Honest Assessment)
+## Starting Profile
 
-**Strengths you already have:**
-- Strong math foundation (linear algebra, calculus, probability/stats from econometrics) — top result in Linear Algebra (1/400 on the final)
+**Background going in:**
+- Math foundation from econometrics coursework (linear algebra, calculus, probability/stats)
 - Python basics — can write scripts, understands control flow
 - Exposure to data concepts from your degree
 - C1 English — can read papers, docs, courses without friction
@@ -92,7 +92,7 @@ NumPy is the backbone of everything in ML. PyTorch tensors are conceptually the 
 
 ### 0C — Math: Confirm and Fill Gaps
 
-Your econometrics background is a genuine advantage. Run through this checklist — be honest about weak spots:
+Your econometrics background covers some of this already. Run through this checklist — be honest about weak spots:
 
 **Linear Algebra (critical — highest priority in all of ML):** matrix multiplication/transpose/inverse, dot products and cosine similarity, eigenvalues/eigenvectors, SVD, vector spaces/basis/rank/null space, norms (L1, L2, Frobenius).
 
