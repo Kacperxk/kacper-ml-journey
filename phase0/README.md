@@ -1,8 +1,10 @@
 # Phase 0 — Foundations
 
 Target date: **September 27, 2026**. Full concept explanations and exercise
-problem statements live in `docs/phase0/` (once merged in); project specs
-live in `docs/PHASE0_PROJECTS.md`. This file is just a live status checklist.
+problem statements live in `docs/phase0/`; project specs live in
+`docs/PHASE0_PROJECTS.md`. This file is just a live status checklist — the
+code itself (sections, projects) is yours to create as you go, see
+`CLAUDE.md`'s working-style note.
 
 ## Python (`phase0/python/`, 7 sections)
 
