@@ -1,6 +1,6 @@
 # Phase 0 Projects
 
-Hard cutoff for all of Phase 0 (concepts + drills + projects): **September 27, 2026**.
+Target date for all of Phase 0 (concepts + drills + projects): **September 27, 2026**.
 
 > **Why this file exists:** the original course had three independent project lists (one each in the phase0 guide, the Python exercises doc, and the NumPy exercises doc) — 9 projects total, only 3 of which were ever wired into the actual repo structure. This file replaces all three lists with one canonical set: **4 core projects** everyone should do, and 4 **optional stretch** projects, clearly marked as skippable. Full original specs for the stretch projects still exist in your old exercise docs if you want them — this file just gives the short version and tells you where to look.
 

@@ -5,7 +5,7 @@
 
 > **How to use this document:** This is a living reference. Every phase has a goal, a skill checklist, concrete resources, and projects to prove you learned it. Come back here often. When you finish a phase, expand the next one in more detail.
 >
-> **v2 note:** This revises the original roadmap. Changes: removed a reference to an unverified/likely-fictional Anthropic model name ("Mythos") — don't build career narrative on facts that might not be real; added a hard deadline for Phase 0 instead of an open-ended one; moved the Phase 0 project list out of this document into `PHASE0_PROJECTS.md` (the old version had three different, non-overlapping project lists scattered across three files — see `MERGE_INSTRUCTIONS.md` for the full explanation).
+> **v2 note:** This revises the original roadmap. Changes: removed a reference to an unverified/likely-fictional Anthropic model name ("Mythos") — don't build career narrative on facts that might not be real; added a target date for Phase 0 instead of an open-ended one; moved the Phase 0 project list out of this document into `PHASE0_PROJECTS.md` (the old version had three different, non-overlapping project lists scattered across three files — see `MERGE_INSTRUCTIONS.md` for the full explanation).
 
 ---
 
@@ -30,7 +30,7 @@
 ## The Big Picture — All 6 Phases
 
 ```
-Phase 0 │ Foundations Refresh         │ hard cutoff: 8 weeks (see below)
+Phase 0 │ Foundations Refresh         │ ~8 weeks (see below)
 Phase 1 │ ML Theory + Classical ML    │ ~8 weeks
 Phase 2 │ Deep Learning Core          │ ~10 weeks
 Phase 3 │ LLMs & Transformers         │ ~12 weeks
@@ -43,9 +43,9 @@ These phases overlap in practice. Don't treat them as strict sequential blocks �
 ---
 
 ## PHASE 0 — Foundations Refresh
-### Hard cutoff: **September 27, 2026** (~8 weeks from Aug 3, 2026) | Goal: Arrive at Phase 1 with zero weak spots holding you back
+### Target date: **September 27, 2026** (~8 weeks from Aug 3, 2026) | Goal: Arrive at Phase 1 with zero weak spots holding you back
 
-This date is fixed, not aspirational. University restarts in October and your daily hours drop — Phase 0 needs to be behind you before then. If you're not done by the cutoff, **cut remaining scope** (drop a stretch project, skip an exercise section you're already comfortable with) rather than slip the date. An unfinished Phase 0 that ends on time beats a "complete" one that eats into semester 3.
+This date is fixed, not aspirational. University restarts in October and your daily hours drop — Phase 0 needs to be behind you before then. If you're not done by the target date, **cut remaining scope** (drop a stretch project, skip an exercise section you're already comfortable with) rather than slip the date. An unfinished Phase 0 that ends on time beats a "complete" one that eats into semester 3.
 
 The goal here isn't to master everything — it's to remove blockers. You have the math. You have basic Python. This phase upgrades both to the level required for serious ML work.
 
@@ -235,7 +235,7 @@ Follow major lab research blogs, Hugging Face Blog, Karpathy, Sebastian Raschka'
 
 | Month | Primary Focus | Side Track |
 |-------|--------------|------------|
-| 1 | Phase 0 (hard cutoff Sept 27) | Git, CLI tools |
+| 1 | Phase 0 (target date Sept 27) | Git, CLI tools |
 | 2 | Phase 1: classical ML + first Kaggle project | Leetcode starts |
 | 3 | Phase 2: neural nets from scratch + backprop | Read first papers |
 | 4 | Phase 2: PyTorch core + CNN project | Fast.ai |
@@ -293,7 +293,7 @@ This roadmap is your anchor. When we talk again, we can:
 - Build out detailed week-by-week schedules for a specific phase
 - Review your project work and give feedback
 - Discuss specific papers together
-- Adjust the plan based on how you're progressing — and set a new hard deadline for the next phase before it starts, the same way Phase 0 now has one
+- Adjust the plan based on how you're progressing — and set a new target date for the next phase before it starts, the same way Phase 0 now has one
 
 ---
 
