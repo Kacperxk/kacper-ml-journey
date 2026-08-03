@@ -4,8 +4,6 @@
 ---
 
 > **How to use this document:** This is a living reference. Every phase has a goal, a skill checklist, concrete resources, and projects to prove you learned it. Come back here often. When you finish a phase, expand the next one in more detail.
->
-> **v2 note:** This revises the original roadmap. Changes: removed a reference to an unverified/likely-fictional Anthropic model name ("Mythos") — don't build career narrative on facts that might not be real; added a target date for Phase 0 instead of an open-ended one; moved the Phase 0 project list out of this document into `docs/phase0/projects.md` (the old version had three different, non-overlapping project lists scattered across three files, since consolidated into one).
 
 ---
 
