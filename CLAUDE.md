@@ -20,7 +20,7 @@ Confirmed directly by Kacper (2026-08-04):
 - **Tests/validation:** depends on the project. Where `docs/PHASE0_PROJECTS.md` specifies explicit "done when" test criteria (e.g. Data Pipeline's 4 tests, NumPy Neural Net's `gradient_check` < 1e-4), Claude can write that check/test script for him. For drills and anything without a specified test, writing the test is part of the exercise — that's his to do, consistent with the no-vibecoding rule above.
 - **Deadline pacing:** check in periodically against the Sept 27, 2026 Phase 0 target date and `phase0/README.md`'s checklist — proactively flag if he looks behind schedule rather than waiting to be asked. Don't be naggy about it; a rough check every so often, not every message.
 
-## Current state (as of 2026-08-03)
+## Current state (as of 2026-08-04)
 The doc restructuring is **done**, in commits on top of the original initial commit (which had the old structure: three independent, overlapping project lists, duplicated/conflicting git guidance, a likely-fabricated model name "Mythos" in the old roadmap). `phase0/` code scaffolding was deliberately **not** done — see below.
 
 **Completed this session:**
