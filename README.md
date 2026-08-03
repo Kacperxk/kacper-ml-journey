@@ -1,32 +1,46 @@
 # ML Engineering Course
 
-Self-directed study toward becoming an ML engineer capable of working on
-frontier language models. Structured as a 5-phase, 18-month curriculum
-covering Python foundations through LLMs and alignment.
+Self-directed study toward becoming an ML engineer. Structured as a 6-phase,
+~18-month curriculum covering Python foundations through LLMs and alignment.
 
-- **Current phase:** Phase 0 — Python, NumPy, Mathematics
+- **Current phase:** Phase 0 — Python, NumPy, Math Foundations
+- **Phase 0 hard cutoff:** September 27, 2026
 - **Started:** 2026-08-03
-- **Target completion:** 2028-02-03
 
 ---
 
 ## The Goal
 
-Gain practical, end-to-end expertise in the modern LLM stack,
-covering Python fundamentals, systems, transformer architectures,
-model training, and alignment.
+Working as an ML engineer on large-scale language models. The path there:
+build genuine depth in every layer of the stack — from Python internals to
+transformer training to alignment techniques.
+
+See `docs/ROADMAP.md` for the full plan, `docs/PHASE0_PROJECTS.md` for current
+project specs, and `docs/GIT_GUIDE.md` for the workflow this repo follows.
 
 ---
 
 ## Structure
 
-| Phase | Topic                                        | Status         |
-| ----- | -------------------------------------------- | -------------- |
-| 0     | Python · NumPy · Math Foundations            | 🔄 In progress |
-| 1     | Classical ML · Scikit-learn · PyTorch Basics | ⏳ Not started |
-| 2     | Deep Learning · Backprop · CNNs · RNNs       | ⏳ Not started |
-| 3     | LLMs · Transformers · Attention              | ⏳ Not started |
-| 4     | MLOps · Distributed Training · Inference     | ⏳ Not started |
+| Phase | Topic | Duration | Status |
+|-------|-------|----------|--------|
+| 0 | Python · NumPy · Math Foundations | hard cutoff Sept 27, 2026 | In progress |
+| 1 | Classical ML · Scikit-learn | ~8 weeks | Not started |
+| 2 | Deep Learning · Backprop · CNNs · RNNs | ~10 weeks | Not started |
+| 3 | LLMs · Transformers · Attention | ~12 weeks | Not started |
+| 4 | MLOps · Distributed Training · Inference | ~8 weeks | Not started |
+| 5 | Frontier Work & Portfolio | ongoing | Not started |
+
+---
+
+## Phase 0 — Current Progress
+
+See `phase0/README.md` for the live checklist.
+
+- **Python exercises** — `phase0/python/`, 7 sections
+- **NumPy exercises** — `phase0/numpy/`, 8 sections
+- **Projects** — see `docs/PHASE0_PROJECTS.md`: 4 core (Weather Tool, Data
+  Pipeline, Linear Regression, NumPy Neural Network) + optional stretch
 
 ---
 
@@ -42,12 +56,9 @@ pip install -r requirements.txt
 
 ---
 
-## Commit Convention
+## Workflow
 
-All commits follow `<type>: <description>` where type is one of:
-`feat` · `fix` · `refactor` · `test` · `docs` · `chore`
-
-Example: `feat: implement softmax with numerical stability (phase0/numpy)`
+See `docs/GIT_GUIDE.md` for commit conventions, branching, and tagging.
 
 ---
 
