@@ -2,7 +2,7 @@
 
 This folder holds the actual teaching content and drills for Phase 0. The
 plan, deadlines, and project specs live one level up (`docs/ROADMAP.md`,
-`docs/PHASE0_PROJECTS.md`); this is where the material itself lives.
+`docs/phase0/projects.md`); this is where the material itself lives.
 
 > **The philosophy of this phase:** Phase 0 is not about memorizing syntax.
 > It is about building mental models that will still be correct in 3 years.
@@ -24,7 +24,7 @@ plan, deadlines, and project specs live one level up (`docs/ROADMAP.md`,
 
 Projects (CLI Weather Tool, Data Pipeline, Linear Regression from Scratch,
 NumPy Neural Network, plus stretch) are specified separately in
-`docs/PHASE0_PROJECTS.md` — not duplicated here.
+`docs/phase0/projects.md` — not duplicated here.
 
 ---
 
@@ -70,7 +70,7 @@ Go through this honestly before moving to Phase 1. "I sort of know this" is not 
 - [ ] Can implement any mathematical formula in vectorized NumPy — no Python loops over array elements
 - [ ] Knows the difference between a view and a copy, and can predict which operations produce which
 - [ ] Can use `np.einsum` for at least matrix multiplication and dot products
-- [ ] Has completed the core projects (see `docs/PHASE0_PROJECTS.md`)
+- [ ] Has completed the core projects (see `docs/phase0/projects.md`)
 
 ### Math
 - [ ] Can write the MSE loss formula, differentiate it with respect to w, and implement the result in NumPy — all from scratch without references

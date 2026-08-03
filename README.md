@@ -15,7 +15,7 @@ Working as an ML engineer on large-scale language models. The path there:
 build genuine depth in every layer of the stack — from Python internals to
 transformer training to alignment techniques.
 
-See `docs/ROADMAP.md` for the full plan, `docs/PHASE0_PROJECTS.md` for current
+See `docs/ROADMAP.md` for the full plan, `docs/phase0/projects.md` for current
 project specs, and `docs/GIT_GUIDE.md` for the workflow this repo follows.
 
 ---
@@ -39,7 +39,7 @@ See `phase0/README.md` for the live checklist.
 
 - **Python exercises** — `phase0/python/`, 7 sections
 - **NumPy exercises** — `phase0/numpy/`, 8 sections
-- **Projects** — see `docs/PHASE0_PROJECTS.md`: 4 core (Weather Tool, Data
+- **Projects** — see `docs/phase0/projects.md`: 4 core (Weather Tool, Data
   Pipeline, Linear Regression, NumPy Neural Network) + optional stretch
 
 ---

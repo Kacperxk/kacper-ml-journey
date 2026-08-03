@@ -11,7 +11,7 @@
 
 > **Note:** the three projects originally at the end of this file (Data
 > Preprocessing Engine, Gradient Descent Visualizer, NumPy Neural Network)
-> have been removed — they're superseded by `docs/PHASE0_PROJECTS.md`'s
+> have been removed — they're superseded by `docs/phase0/projects.md`'s
 > single canonical project list. Data Preprocessing Engine became a stretch
 > project; Gradient Descent Visualizer was merged into Core Project 3
 > (Linear Regression from Scratch); NumPy Neural Network became Core
@@ -1171,4 +1171,4 @@ Work through this after finishing all sections and projects. Be honest.
 - [ ] Can implement k-means clustering in NumPy
 - [ ] Has built and trained a two-layer neural network in NumPy
 
-Projects (Data Preprocessing Engine, Linear Regression + Gradient Descent Visualizer, NumPy Neural Network) are tracked separately — see `docs/PHASE0_PROJECTS.md` and `phase0/README.md`.
+Projects (Data Preprocessing Engine, Linear Regression + Gradient Descent Visualizer, NumPy Neural Network) are tracked separately — see `docs/phase0/projects.md` and `phase0/README.md`.
