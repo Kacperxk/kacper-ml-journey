@@ -8,7 +8,7 @@ code itself (sections, projects) is yours to create as you go, see
 
 ## Python (`phase0/python/`, 7 sections)
 
-- [ ] Section 1 — Identity vs Equality
+- [x] Section 1 — Identity vs Equality
 - [ ] Section 2 — Comprehensions
 - [ ] Section 3 — Functions
 - [ ] Section 4 — OOP
@@ -43,4 +43,4 @@ code itself (sections, projects) is yours to create as you go, see
 
 ---
 
-*Last updated: 2026-08-04*
+_Last updated: 2026-08-04_
