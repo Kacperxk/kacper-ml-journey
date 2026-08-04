@@ -20,6 +20,13 @@ Confirmed directly by Kacper (2026-08-04):
 - **Tests/validation:** depends on the project. Where `docs/phase0/projects.md` specifies explicit "done when" test criteria (e.g. Data Pipeline's 4 tests, NumPy Neural Net's `gradient_check` < 1e-4), Claude can write that check/test script for him. For drills and anything without a specified test, writing the test is part of the exercise — that's his to do, consistent with the no-vibecoding rule above.
 - **Deadline pacing:** check in periodically against the Sept 27, 2026 Phase 0 target date and `phase0/README.md`'s checklist — proactively flag if he looks behind schedule rather than waiting to be asked. Don't be naggy about it; a rough check every so often, not every message.
 
+## Exercise-authoring convention for future phase exercise files
+Confirmed by Kacper (2026-08-04), after hitting this in Phase 0's `python_exercises.md`: Exercise 2.4's tasks C/D/E and Exercise 2.5's tasks C–F turned out to already contain fully-written, complete code in the exercise text itself — nothing actually left for him to write. That's a bug in how those exercises were authored (inherited from the original uploaded source material), not something Kacper is misreading — he flagged it correctly both times.
+
+Rule for any exercise file Claude authors or edits going forward (Phase 1's `docs/phase1/python_exercises.md` etc., and if Kacper ever asks for a pass over Phase 0's remaining un-drilled sections): every numbered/lettered **task** within an exercise must leave something for Kacper to actually write — a blank (`...`), a `pass`-bodied function stub, an instruction like "write a function that does X" with no code shown, or similar. Do not give a task's complete working code in the exercise text itself; that turns "write this" into "read this," which is exactly what he doesn't want.
+
+This doesn't apply to setup/scenario code that establishes shared context for the tasks that follow (e.g. Exercise 2.5's dataset-generation snippet, or Exercise 2.4's `numbers`/`words` lists) — that's fine to show in full, since it isn't itself one of the tasks. It also doesn't apply to short demo snippets used purely to illustrate a concept before the task list starts (e.g. showing what a generator expression looks like before asking him to write one). The distinguishing question for any given piece of code in an exercise: is this something the exercise is asking him to produce, or is it context he needs to do the actual asking? Only the former needs to stay incomplete.
+
 ## Current state (as of 2026-08-04)
 The doc restructuring AND the docs/phase0/ merge are both **done**. `phase0/` code scaffolding was deliberately **not** done — that's still Kacper's to create, see "Working style" above.
 

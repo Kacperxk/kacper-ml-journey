@@ -427,12 +427,16 @@ def merge_configs(*dicts: dict) -> dict:
 def train(model, optimizer, loss_fn, *, epochs=10, device="cpu"):
     pass
 
-# These should all work:
 base = {"epochs": 5, "device": "cuda"}
-train(None, None, None, **base)
-train(None, None, None, epochs=20)
-# This should FAIL with a TypeError — why?
-# train(None, None, None, 10, "cuda")   — uncomment and understand the error
+
+# Call train() two different correct ways: once unpacking base with **,
+# once passing epochs as a plain keyword argument (device left default).
+...
+...
+
+# This call fails with a TypeError — uncomment it, run it, then explain
+# why in a comment (hint: look at what sits right after the * in train's signature):
+# train(None, None, None, 10, "cuda")
 ```
 
 ---
@@ -460,13 +464,15 @@ for i in range(5):
 print([f() for f in functions])   # ? — might surprise you
 ```
 
-Fix the lambda trap using a default argument:
+Fix the lambda trap so each function captures its own value of `i`
+(hint: give the lambda a default argument — defaults are evaluated once, at
+definition time, same trick as the mutable-default fix from Section 1):
 ```python
 functions_fixed = []
 for i in range(5):
-    functions_fixed.append(lambda i=i: i)   # i=i creates a new binding each time
+    ...
 
-print([f() for f in functions_fixed])   # [0, 1, 2, 3, 4]
+print([f() for f in functions_fixed])   # should print [0, 1, 2, 3, 4]
 ```
 
 Now write these closures:
@@ -535,16 +541,12 @@ add(3, 4)
 
 # Part B: a decorator with an argument (a decorator factory)
 def repeat(n: int):
-    """Calls the decorated function n times."""
-    def decorator(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
-            result = None
-            for _ in range(n):
-                result = func(*args, **kwargs)
-            return result
-        return wrapper
-    return decorator
+    """Calls the decorated function n times, returns the last result."""
+    # hint: three nested functions — repeat(n) returns decorator(func), and
+    # decorator(func) returns wrapper(*args, **kwargs); wrapper is where you
+    # actually call func in a loop n times. Don't forget functools.wraps(func)
+    # on wrapper so the decorated function keeps its original name.
+    pass
 
 @repeat(3)
 def say_hello():
@@ -555,13 +557,10 @@ say_hello()   # prints "hello" three times
 # Part C: a caching decorator (memoization)
 def memoize(func):
     """Cache results. Same arguments → return cached result."""
-    cache = {}
-    @functools.wraps(func)
-    def wrapper(*args):
-        if args not in cache:
-            cache[args] = func(*args)
-        return cache[args]
-    return wrapper
+    # hint: keep a dict cache in the enclosing scope, keyed by the args
+    # tuple; in wrapper, check the cache before calling func, store the
+    # result after. Don't forget functools.wraps(func) on wrapper.
+    pass
 
 @memoize
 def fibonacci(n: int) -> int:
@@ -580,24 +579,16 @@ def typecheck(func):
     Raise TypeError with a clear message if they don't.
     Use func.__annotations__ to get the hints.
     """
+    # hint: inspect.signature(func).bind(*args, **kwargs).apply_defaults()
+    # maps every call argument to its parameter name in one dict
+    # (bound.arguments). Compare each value against func.__annotations__
+    # with isinstance(), skipping the 'return' key, and raise TypeError with
+    # a clear message when a value doesn't match its annotated type.
     import inspect
-    sig = inspect.signature(func)
-    hints = func.__annotations__
 
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
-        bound = sig.bind(*args, **kwargs)
-        bound.apply_defaults()
-        for param_name, value in bound.arguments.items():
-            if param_name in hints and param_name != "return":
-                expected_type = hints[param_name]
-                if not isinstance(value, expected_type):
-                    raise TypeError(
-                        f"{func.__name__}() argument '{param_name}' "
-                        f"must be {expected_type.__name__}, "
-                        f"got {type(value).__name__}"
-                    )
-        return func(*args, **kwargs)
+        pass
     return wrapper
 
 @typecheck
@@ -654,13 +645,12 @@ def batch_generator(data: list, batch_size: int, shuffle: bool = False, seed: in
     If shuffle=True, shuffle the data before batching.
     The last batch may be smaller than batch_size.
     """
-    import random
-    if shuffle:
-        data = data.copy()
-        random.seed(seed)
-        random.shuffle(data)
-    for start in range(0, len(data), batch_size):
-        yield data[start : start + batch_size]
+    # hint: if shuffle, shuffle a *copy* of data (random.seed(seed) then
+    # random.shuffle(copy)) — never mutate the caller's list in place.
+    # Then loop over range(0, len(data), batch_size) and yield a slice
+    # data[start : start + batch_size] each time; the last slice will
+    # naturally come out shorter if len(data) isn't a multiple of batch_size.
+    pass
 
 # Test:
 data = list(range(10))
@@ -1144,13 +1134,13 @@ class SuppressErrors:
         self.exception_types = exception_types
 
     def __enter__(self) -> "SuppressErrors":
-        return self
+        pass
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> bool:
-        # Return True to suppress, False to re-raise
-        if exc_type is not None:
-            return issubclass(exc_type, self.exception_types)
-        return False
+        # Return True to suppress the exception, False to let it propagate.
+        # hint: exc_type is None if the with-block exited cleanly; otherwise
+        # check whether exc_type is one of self.exception_types with issubclass()
+        pass
 
 
 class TempDirectory:
@@ -1167,15 +1157,15 @@ class TempDirectory:
         self.path: Optional[str] = None
 
     def __enter__(self) -> str:
-        import tempfile
-        self.path = tempfile.mkdtemp(prefix=self.prefix)
-        return self.path   # give the caller the path
+        # hint: tempfile.mkdtemp(prefix=self.prefix) creates the directory
+        # and returns its path — store it on self and return it (the return
+        # value of __enter__ is what "as tmpdir" binds to)
+        pass
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> bool:
-        import shutil
-        if self.path:
-            shutil.rmtree(self.path)
-        return False
+        # hint: shutil.rmtree(self.path) removes a directory and everything
+        # in it — only call it if self.path was actually set
+        pass
 
 
 # Tests:
@@ -1227,21 +1217,17 @@ class FileFormatError(DataError):
 class ColumnMissingError(DataError):
     """Raised when a required column is absent from the dataset."""
     def __init__(self, column: str, available: list[str]):
-        self.column = column
-        self.available = available
-        super().__init__(
-            f"Column {column!r} not found. Available: {available}"
-        )
+        # hint: same pattern as FileFormatError above — store the useful
+        # attributes on self, then build a formatted message and pass it
+        # to super().__init__()
+        pass
 
 class ShapeMismatchError(DataError):
     """Raised when array shapes are incompatible."""
     def __init__(self, expected: tuple, got: tuple, context: str = ""):
-        self.expected = expected
-        self.got = got
-        msg = f"Shape mismatch: expected {expected}, got {got}"
-        if context:
-            msg = f"{context}: {msg}"
-        super().__init__(msg)
+        # hint: same pattern again. If context is given, prepend it to the
+        # message (e.g. "context: Shape mismatch: expected ..., got ...")
+        pass
 
 class ValidationError(DataError):
     """Raised when data fails validation checks."""
@@ -1314,23 +1300,15 @@ def load_config(path: str) -> dict:
 
 # Pattern 3: Collect errors and report all at once
 def validate_config(config: dict) -> list[str]:
-    """Return a list of all validation errors (not just the first one)."""
-    errors = []
-    if "lr" not in config:
-        errors.append("Missing required key: 'lr'")
-    elif not isinstance(config["lr"], (int, float)):
-        errors.append(f"'lr' must be a number, got {type(config['lr']).__name__}")
-    elif config["lr"] <= 0:
-        errors.append(f"'lr' must be positive, got {config['lr']}")
-
-    if "epochs" not in config:
-        errors.append("Missing required key: 'epochs'")
-    elif not isinstance(config["epochs"], int):
-        errors.append(f"'epochs' must be int, got {type(config['epochs']).__name__}")
-    elif config["epochs"] < 1:
-        errors.append(f"'epochs' must be >= 1, got {config['epochs']}")
-
-    return errors
+    """
+    Return a list of all validation errors (not just the first one).
+    Check: "lr" key present, is a number, and is positive.
+           "epochs" key present, is an int, and is >= 1.
+    """
+    # hint: build a list, use if/elif per key (elif so you don't get
+    # contradictory messages about the same key), append a message string
+    # for each failure, and don't return early — collect everything first
+    pass
 
 # Test:
 errors = validate_config({"lr": -0.001, "epochs": 0})
@@ -1477,44 +1455,42 @@ from pathlib import Path
 # Pattern 1: always use context managers for file I/O
 def write_json(data: dict, path: str) -> None:
     """Write dict to JSON file. Create parent directories if needed."""
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+    # hint: Path(path).parent.mkdir(parents=True, exist_ok=True) creates any
+    # missing folders; then open the file in a `with` block and json.dump(data, f, indent=2)
+    pass
 
 def read_json(path: str) -> dict:
     """Read JSON file. Raise FileNotFoundError with informative message."""
-    if not os.path.exists(path):
-        raise FileNotFoundError(f"Config file not found: {path!r}")
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+    # hint: check os.path.exists(path) first and raise FileNotFoundError
+    # with a clear message if it's missing, otherwise open + json.load(f)
+    pass
 
 # Pattern 2: pathlib for path manipulation (modern Python)
 def find_all_python_files(root_dir: str) -> list[Path]:
     """Recursively find all .py files under root_dir."""
-    return list(Path(root_dir).rglob("*.py"))
+    # hint: Path(root_dir).rglob("*.py") recursively finds matching files —
+    # it returns a generator, so wrap it in list()
+    pass
 
 def get_experiment_path(base_dir: str, experiment_name: str, run_id: int) -> Path:
     """Return path like: base_dir/experiment_name/run_001/"""
-    return Path(base_dir) / experiment_name / f"run_{run_id:03d}"
+    # hint: Path objects support the / operator for joining path segments;
+    # zero-pad run_id with an f-string format spec like f"run_{run_id:03d}"
+    pass
 
 # Pattern 3: reading CSV without pandas
 def read_csv_as_dicts(path: str) -> list[dict]:
     """Read CSV into list of dicts (one dict per row)."""
-    with open(path, "r", newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        return list(reader)
+    # hint: csv.DictReader(f) turns each row into a dict automatically,
+    # keyed by the header row — wrap it in list() to get all rows
+    pass
 
 def write_csv(rows: list[dict], path: str, fieldnames: list[str] = None) -> None:
     """Write list of dicts to CSV."""
-    if not rows:
-        return
-    if fieldnames is None:
-        fieldnames = list(rows[0].keys())
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(rows)
+    # hint: csv.DictWriter(f, fieldnames=...) needs writeheader() then
+    # writerows(rows); if fieldnames isn't given, default it to the first
+    # row's keys. Handle the empty-rows case before you touch fieldnames.
+    pass
 
 # Exercise: use the functions above to:
 # 1. Write a config dict to "output/config.json"
@@ -1550,6 +1526,11 @@ unscoped examples originally shown in some of these drills.*
 ---
 
 ## 8.1 — Repository Setup (do this now, before the projects)
+
+**You already did this** — `kacper-ml-journey` is that repo: it's already
+initialized, configured, and pushed to GitHub. Skip straight to 8.2. This
+drill is kept below only for reference, in case you ever start a fresh repo
+from scratch for something else.
 
 Set up a repository for your Phase 0 exercises. This repo will hold all your Python and NumPy exercise work.
 

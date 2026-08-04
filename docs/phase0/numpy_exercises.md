@@ -291,8 +291,8 @@ c) Standardize X: subtract each column's mean, divide by each column's std
    Call the result X_norm. Shape: (1000, 8)
 d) Verify: X_norm.mean(axis=0) should be all ~0
            X_norm.std(axis=0) should be all ~1
-e) Now compute min-max normalization instead:
-   X_minmax = (X - X.min(axis=0)) / (X.max(axis=0) - X.min(axis=0))
+e) Now compute min-max normalization instead: for each column, subtract
+   that column's min and divide by (max - min), so every value lands in [0, 1]
    Verify: each column should be in range [0, 1]
 ```
 
@@ -724,7 +724,8 @@ w = np.random.randn(4)
 ```
 a) Batch matrix multiply: for each of the 8 pairs, compute A[i] @ B[i]
    Result shape: (8, 3, 5)
-   Write with einsum: np.einsum("bij,bjk->bik", batch_A, batch_B)
+   Write with einsum (hint: the batch index "b" appears unchanged on both
+   sides — it's the middle index that gets summed over, same as a normal matmul)
    Verify against: np.stack([batch_A[i] @ batch_B[i] for i in range(8)])
 
 b) For each of the 8 matrices in batch_A, compute the dot product of each row with w
@@ -753,10 +754,11 @@ V = np.random.randn(batch_size, seq_len, d_k)    # values
 
 Implement scaled dot-product attention:
 ```
-Step 1: Compute raw attention scores
-        scores = Q @ K.T  — but this is batched, so:
-        scores = np.einsum("bqd,bkd->bqk", Q, K)
+Step 1: Compute raw attention scores — conceptually this is Q @ K.T per
+        batch, so write the batched version yourself with einsum.
         Shape: (batch_size, seq_len, seq_len)
+        (hint: "b" stays on both sides unchanged; the "d" dimension — the
+        one shared by Q and K — is what gets summed away)
 
 Step 2: Scale by sqrt(d_k)
         scores = scores / np.sqrt(d_k)
@@ -765,9 +767,10 @@ Step 3: Apply softmax along the last axis (axis=-1)
         attention_weights = softmax(scores)
         Each row of each attention matrix should sum to 1.0
 
-Step 4: Weighted sum of values
-        output = np.einsum("bqk,bkd->bqd", attention_weights, V)
+Step 4: Weighted sum of values — combine attention_weights and V with einsum.
         Shape: (batch_size, seq_len, d_k)
+        (hint: the key-position axis is what's being summed over here — it
+        shows up in both attention_weights and V, but not in the output)
 
 Step 5: Verify attention_weights.sum(axis=-1) ≈ 1.0 everywhere
 ```
@@ -821,16 +824,18 @@ probs = np.array([0.5, 0.3, 0.2, 0.0])   # last prob is 0 — can happen
 # Problem 1: log of zero
 log_probs = np.log(probs)   # what is log(0)?
 
-# Fix: add a small epsilon
+# Fix: add a small epsilon so log() never sees exactly 0
 eps = 1e-9
-log_probs_safe = np.log(probs + eps)   # safe
+log_probs_safe = ...
 
 # Problem 2: division by zero
 counts = np.array([10, 5, 0, 3])
 ratios = probs / counts   # what happens at index 2?
 
-# Fix: use np.where or clip
-safe_ratios = np.where(counts != 0, probs / np.maximum(counts, eps), 0.0)
+# Fix: avoid ever dividing by exact zero
+# (hint: np.where(condition, value_if_true, value_if_false) lets you swap
+# in a safe value only where counts == 0, instead of dividing by it)
+safe_ratios = ...
 ```
 
 Also implement a numerically stable log-sum-exp:
