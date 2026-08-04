@@ -864,7 +864,7 @@ avoid the two drifting apart.)
 
 ## 1.8 — Virtual Environments
 
-Every project in its own environment. No exceptions.
+Every *project* in its own environment. No exceptions — but "project" means a genuinely separate codebase with its own dependencies, not every exercise or sub-folder inside one repo. This whole repo is one project with one `requirements.txt`, so one shared `.venv` at the repo root (as set up in the main `README.md`) is correct for all of Phase 0 — exercises and projects alike, since they share the same small dependency set. You'd reach for a separate environment when you start something with genuinely different or conflicting dependencies — a later phase with a much heavier stack (e.g. PyTorch), or an unrelated project outside this repo entirely.
 
 ```bash
 # Create and activate
