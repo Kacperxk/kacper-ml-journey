@@ -23,7 +23,7 @@ cd kacper-ml-journey
 ```bash
 git status                              # what changed?
 git diff                                # see the actual line changes
-git add phase0/numpy/section3_broadcasting.py   # stage a specific file
+git add phase0/numpy/section3_broadcasting.ipynb   # stage a specific file
 git add .                               # stage everything
 git commit -m "feat(p0/numpy): implement pairwise distance without loops"
 git push
@@ -78,7 +78,8 @@ git push --tags
 git log --oneline --graph          # visual branch graph
 git show HEAD                       # full diff of last commit
 git diff HEAD~1 HEAD                # changes between last two commits
-git blame phase0/numpy/section2_indexing.py   # who wrote each line (i.e. you, on which day)
+git blame phase0/python/section2_comprehensions.py   # who wrote each line (i.e. you, on which day)
+# git blame on .ipynb files is a mess (raw JSON, output cells cause noise) — use it on .py files
 git stash / git stash pop           # save work without committing
 git revert HEAD                     # undo last commit safely (new commit, no history rewrite)
 ```
@@ -150,4 +151,4 @@ Never leave a session without committing something — even if it's just a note 
 
 ---
 
-*Last updated: 2026-08-03*
+*Last updated: 2026-08-04*

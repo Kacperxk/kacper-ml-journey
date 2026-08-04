@@ -43,14 +43,16 @@ kacper-ml-journey/
 │   │   ├── section6_types.py
 │   │   └── section7_files.py
 │   ├── numpy/                         # Kacper creates these as he works through numpy_exercises.md
-│   │   ├── section1_creation.py
-│   │   ├── section2_indexing.py
-│   │   ├── section3_broadcasting.py
-│   │   ├── section4_aggregation.py
-│   │   ├── section5_linalg.py
-│   │   ├── section6_einsum.py
-│   │   ├── section7_numerical.py
-│   │   └── section8_ml_patterns.py
+│   │   │                               # .ipynb, not .py — numpy_exercises.md's own predict-before-run
+│   │   │                               # methodology is meant to run in a notebook, one per section
+│   │   ├── section1_creation.ipynb
+│   │   ├── section2_indexing.ipynb
+│   │   ├── section3_broadcasting.ipynb
+│   │   ├── section4_aggregation.ipynb
+│   │   ├── section5_linalg.ipynb
+│   │   ├── section6_einsum.ipynb
+│   │   ├── section7_numerical.ipynb
+│   │   └── section8_ml_patterns.ipynb
 │   └── projects/                      # see docs/phase0/projects.md for full specs
 │       ├── weather_tool/              # Project 1 — CLI Weather Tool
 │       │   ├── exceptions.py
