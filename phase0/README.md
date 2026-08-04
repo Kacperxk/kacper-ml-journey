@@ -9,7 +9,7 @@ code itself (sections, projects) is yours to create as you go, see
 ## Python (`phase0/python/`, 7 sections)
 
 - [x] Section 1 — Identity vs Equality
-- [ ] Section 2 — Comprehensions
+- [x] Section 2 — Comprehensions
 - [ ] Section 3 — Functions
 - [ ] Section 4 — OOP
 - [ ] Section 5 — Errors
