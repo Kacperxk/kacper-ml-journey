@@ -859,8 +859,6 @@ print("LearningRateScheduler: all tests passed")
 ```python
 from typing import Optional
 import json
-import csv
-import io
 
 class Dataset:
     """
@@ -893,11 +891,17 @@ class Dataset:
         label_col: which column is the label (-1 = last column).
         All other columns are features.
         """
+        # hint: no need for the csv module here (proper file-based CSV
+        # handling is Section 7 material) — csv_text.strip().split("\n")
+        # gives you the rows, and row.split(",") gives you each row's columns
         pass
 
     @classmethod
     def from_json_string(cls, json_text: str) -> "Dataset":
         """Parse JSON string with structure {"name": ..., "features": ..., "labels": ...}"""
+        # preview: json.loads(json_text) parses a JSON string into the
+        # equivalent Python dict/list — the json module gets covered
+        # properly in Section 7, but this one line is all you need here
         pass
 
     @staticmethod
@@ -939,6 +943,12 @@ csv_text = "1.0,2.0,0\n3.0,4.0,1\n5.0,6.0,0\n"
 d2 = Dataset.from_csv_string(csv_text, label_col=-1)
 assert len(d2) == 3
 
+# From JSON string
+json_text = '{"name": "j", "features": [[1.0, 2.0]], "labels": [1]}'
+d3 = Dataset.from_json_string(json_text)
+assert len(d3) == 1
+assert d3.name == "j"
+
 # validate_features
 assert Dataset.validate_features([[1, 2], [3, 4], [5, 6]]) is True
 assert Dataset.validate_features([[1, 2], [3, 4, 5]]) is False
@@ -955,9 +965,11 @@ print("Dataset: all tests passed")
 
 **Exercise 4.4** — Inheritance and abstract base classes.
 
+Preview, since this isn't covered elsewhere in our docs: an abstract base class (`ABC`) can't be instantiated directly — it exists to define a required interface. `@abstractmethod` marks a method every subclass *must* override; Python enforces this at instantiation time, raising `TypeError` if a subclass (or the base class itself) is missing one. `Accuracy` and `MSE` below show the pattern in action — each implements `name` and `compute`, the two abstract members `Metric` declares. Use the same pattern for `MAE`.
+
 ```python
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Optional
 
 class Metric(ABC):
     """
@@ -1083,6 +1095,11 @@ results = tracker.update(1, [0, 1, 1], [0, 1, 0])
 assert "accuracy" in results
 assert "mse" in results
 
+# MAE — written by you, and untested above until now
+mae = MAE()
+v = mae.update([1.0, 2.0, 3.0], [1.5, 2.5, 2.5])
+assert abs(v - 0.5) < 1e-10   # mean of |0.5|, |0.5|, |0.5|
+
 print("Metric system: all tests passed")
 ```
 
@@ -1090,9 +1107,15 @@ print("Metric system: all tests passed")
 
 **Exercise 4.5** — Context managers: the `__enter__` / `__exit__` protocol.
 
+Preview, since this isn't covered elsewhere in our docs either: `with Obj(...) as x:` calls `Obj(...).__enter__()` first, and whatever `__enter__` returns becomes `x`. When the block ends — normally or via an exception — `__exit__(exc_type, exc_val, exc_tb)` runs automatically, no matter what. If nothing went wrong, all three arguments are `None`. `__exit__`'s return value decides what happens to an exception that occurred inside the block: return `True` to swallow it (the `with` statement exits cleanly, nothing propagates further), return `False` (or anything falsy) to let it propagate as normal. `Timer` below is a full worked example of the pattern; `SuppressErrors` and `TempDirectory` are yours to write, following the same shape.
+
 ```python
 import time
 import logging
+import os
+import shutil
+import tempfile
+from typing import Optional
 
 class Timer:
     """
@@ -1148,10 +1171,6 @@ class TempDirectory:
     Context manager that creates a temporary directory on enter
     and deletes it (with all contents) on exit.
     """
-    import os
-    import shutil
-    import tempfile
-
     def __init__(self, prefix: str = "tmp_"):
         self.prefix = prefix
         self.path: Optional[str] = None
@@ -1180,7 +1199,6 @@ print("After suppressed error — code continues")
 with SuppressErrors(TypeError):
     int("not_a_number")   # ValueError — NOT in suppressed list, should propagate? Test it.
 
-import os
 with TempDirectory(prefix="test_") as tmpdir:
     test_file = os.path.join(tmpdir, "hello.txt")
     with open(test_file, "w") as f:
