@@ -1259,6 +1259,16 @@ def load_and_validate(path: str, required_columns: list[str], expected_shape: tu
     Load a CSV-like data structure and validate it.
     Raise appropriate custom exceptions for each failure mode.
     """
+    # hint: open(path) with no try/except — a missing file will raise
+    # FileNotFoundError on its own, which is exactly what the first test
+    # below wants. Read the first line and split it on "," to get the
+    # header/columns (same plain-string-splitting idea as Exercise 4.3's
+    # from_csv_string — no csv module needed). Check required_columns
+    # against that header *first* — ColumnMissingError takes one column
+    # name, so raise it for the first required column you don't find.
+    # Only after that passes, check that (number of remaining lines,
+    # number of columns) matches expected_shape, and raise
+    # ShapeMismatchError if not.
     pass
 
 # Test by calling with bad inputs and catching specific exceptions:
@@ -1266,6 +1276,11 @@ try:
     load_and_validate("nonexistent.csv", ["a", "b"], (100, 2))
 except FileNotFoundError:
     print("Caught FileNotFoundError")
+
+# Set up a tiny real file so the column-check path below actually runs
+# against something (rather than failing on FileNotFoundError first).
+with open("data.csv", "w") as f:
+    f.write("a,b\n1,2\n3,4\n")
 
 try:
     load_and_validate("data.csv", ["missing_col"], (100, 2))
@@ -1346,14 +1361,16 @@ for e in errors:
 **Exercise 6.1** — Type hint the following functions correctly. Use `from typing import` whatever you need.
 
 ```python
-from typing import Optional, Union, List, Dict, Tuple, Callable, Iterator, TypeVar
+from typing import Any, Optional, Union, List, Dict, Tuple, Callable, Iterator, TypeVar
 
 # A: simple types
 def greet(name: str, times: int = 1) -> str:
     return (name + " ") * times
 
 # B: optional return
-def find_index(items: list, target) -> ???:
+# preview: Any (from typing) isn't covered in python_concepts.md — it means
+# "accepts/returns a value of any type," i.e. no real type checking on it.
+def find_index(items: list, target: ???) -> ???:
     """Return index of target or None if not found."""
     for i, item in enumerate(items):
         if item == target:
@@ -1370,6 +1387,9 @@ def apply_twice(func: ???, value: float) -> float:
     return func(func(value))
 
 # E: generic return (the result type matches the input type)
+# preview: TypeVar isn't covered in python_concepts.md. T = TypeVar("T")
+# below makes a placeholder type; using it as List[T] -> T ties the return
+# type to whatever the list's element type turns out to be at each call site.
 T = TypeVar("T")
 def first(items: ???) -> ???:
     """Return first element of any list."""
@@ -1385,11 +1405,31 @@ def make_training_summary(
     return {"epoch": epoch, "train_loss": train_loss, "val_loss": val_loss, **metrics}
 
 # G: iterator/generator
+# preview: Iterator isn't covered in python_concepts.md either. A generator
+# function's return type is written Iterator[X] (from typing), where X is
+# the type of each value it yields.
 def positive_integers() -> ???:
     n = 1
     while True:
         yield n
         n += 1
+
+# Sanity checks — these confirm your hints don't have a syntax error
+# (a typo'd bracket, etc.) but can't confirm the hints are *correct*.
+# For that, run mypy on this file (see §1.5).
+assert greet("Ada", 2) == "Ada Ada "
+assert find_index([1, 2, 3], 2) == 1
+assert find_index([1, 2, 3], 9) is None
+assert stringify(3.14) == "3.14"
+assert apply_twice(lambda x: x + 1, 5) == 7
+assert first([10, 20, 30]) == 10
+assert make_training_summary(1, 0.5, 0.6, {"acc": 0.9}) == {
+    "epoch": 1, "train_loss": 0.5, "val_loss": 0.6, "acc": 0.9,
+}
+gen = positive_integers()
+assert next(gen) == 1
+assert next(gen) == 2
+print("Exercise 6.1: sanity checks passed")
 ```
 
 ---
@@ -1444,6 +1484,8 @@ class RunningStats:
 
 Add correct type hints to every method and property. Properties that might return None should use `Optional[float]`.
 
+The assertions below check behavior, not your hints — run `mypy` on the file too (see §1.5) to actually verify the hints themselves are correct.
+
 Then verify it works:
 ```python
 stats = RunningStats()
@@ -1469,6 +1511,7 @@ import json
 import csv
 import os
 from pathlib import Path
+from typing import Optional
 
 # Pattern 1: always use context managers for file I/O
 def write_json(data: dict, path: str) -> None:
@@ -1503,7 +1546,7 @@ def read_csv_as_dicts(path: str) -> list[dict]:
     # keyed by the header row — wrap it in list() to get all rows
     pass
 
-def write_csv(rows: list[dict], path: str, fieldnames: list[str] = None) -> None:
+def write_csv(rows: list[dict], path: str, fieldnames: Optional[list[str]] = None) -> None:
     """Write list of dicts to CSV."""
     # hint: csv.DictWriter(f, fieldnames=...) needs writeheader() then
     # writerows(rows); if fieldnames isn't given, default it to the first
@@ -1529,6 +1572,15 @@ results = [
 write_csv(results, "output/results.csv")
 loaded_results = read_csv_as_dicts("output/results.csv")
 assert len(loaded_results) == 3
+
+# 5. Find the .py files under the output/ folder you just wrote to
+py_files = find_all_python_files("output")
+assert isinstance(py_files, list)
+assert all(isinstance(p, Path) for p in py_files)
+
+# 6. Build a zero-padded experiment path
+run_path = get_experiment_path("experiments", "resnet50", 3)
+assert run_path == Path("experiments") / "resnet50" / "run_003"
 ```
 
 ---
