@@ -10,7 +10,7 @@ code itself (sections, projects) is yours to create as you go, see
 
 - [x] Section 1 — Identity vs Equality
 - [x] Section 2 — Comprehensions
-- [ ] Section 3 — Functions
+- [x] Section 3 — Functions
 - [ ] Section 4 — OOP
 - [ ] Section 5 — Errors
 - [ ] Section 6 — Types
@@ -43,4 +43,4 @@ code itself (sections, projects) is yours to create as you go, see
 
 ---
 
-_Last updated: 2026-08-04_
+_Last updated: 2026-08-05_
