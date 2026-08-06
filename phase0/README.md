@@ -11,7 +11,7 @@ code itself (sections, projects) is yours to create as you go, see
 - [x] Section 1 — Identity vs Equality
 - [x] Section 2 — Comprehensions
 - [x] Section 3 — Functions
-- [ ] Section 4 — OOP
+- [x] Section 4 — OOP
 - [ ] Section 5 — Errors
 - [ ] Section 6 — Types
 - [ ] Section 7 — Files
