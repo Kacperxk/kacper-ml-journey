@@ -967,6 +967,8 @@ print("Dataset: all tests passed")
 
 Preview, since this isn't covered elsewhere in our docs: an abstract base class (`ABC`) can't be instantiated directly — it exists to define a required interface. `@abstractmethod` marks a method every subclass *must* override; Python enforces this at instantiation time, raising `TypeError` if a subclass (or the base class itself) is missing one. `Accuracy` below shows the pattern in action — it implements `name`, `compute`, and `best`, the members `Metric` declares. Use the same pattern for both `MSE` and `MAE`.
 
+Also a quick primer on what the three example metrics actually measure, since this course hasn't covered ML formulas yet and these are just being used as realistic stand-ins for "some computation," not something you're expected to already know: **accuracy** (classification) is the fraction of predictions that exactly matched the true value — correct count divided by total count. **MSE**, mean squared error (regression), is the average of `(true - predicted) ** 2` across all pairs — squaring makes every error positive and punishes large misses much harder than small ones. **MAE**, mean absolute error (regression), is the same idea without squaring — the average of `abs(true - predicted)` across all pairs, so a miss of 2 counts as exactly twice as bad as a miss of 1, instead of four times as bad under MSE. Lower is better for both MSE and MAE; higher is better for accuracy.
+
 ```python
 from abc import ABC, abstractmethod
 from typing import Any, Optional
