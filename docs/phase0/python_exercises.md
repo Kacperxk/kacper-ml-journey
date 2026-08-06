@@ -1112,6 +1112,14 @@ results = tracker.update(1, [0, 1, 1], [0, 1, 0])
 assert "accuracy" in results
 assert "mse" in results
 
+# MetricTracker.summary — written by you
+summary = tracker.summary()
+assert set(summary.keys()) == {"accuracy", "mse"}
+assert summary["accuracy"]["current"] == results["accuracy"]
+assert summary["accuracy"]["best"] == tracker.metrics["accuracy"].best
+assert summary["mse"]["current"] == results["mse"]
+assert summary["mse"]["best"] == tracker.metrics["mse"].best
+
 # MAE — written by you
 mae = MAE()
 v = mae.update([1.0, 2.0, 3.0], [1.5, 2.5, 2.5])
