@@ -965,7 +965,7 @@ print("Dataset: all tests passed")
 
 **Exercise 4.4** — Inheritance and abstract base classes.
 
-Preview, since this isn't covered elsewhere in our docs: an abstract base class (`ABC`) can't be instantiated directly — it exists to define a required interface. `@abstractmethod` marks a method every subclass *must* override; Python enforces this at instantiation time, raising `TypeError` if a subclass (or the base class itself) is missing one. `Accuracy` and `MSE` below show the pattern in action — each implements `name` and `compute`, the two abstract members `Metric` declares. Use the same pattern for `MAE`.
+Preview, since this isn't covered elsewhere in our docs: an abstract base class (`ABC`) can't be instantiated directly — it exists to define a required interface. `@abstractmethod` marks a method every subclass *must* override; Python enforces this at instantiation time, raising `TypeError` if a subclass (or the base class itself) is missing one. `Accuracy` below shows the pattern in action — it implements `name`, `compute`, and `best`, the members `Metric` declares. Use the same pattern for both `MSE` and `MAE`.
 
 ```python
 from abc import ABC, abstractmethod
@@ -1032,23 +1032,31 @@ class Accuracy(Metric):
 
 
 class MSE(Metric):
-    """Mean Squared Error (for regression)."""
+    """Mean Squared Error (for regression). Implement this one yourself."""
 
     @property
     def name(self) -> str:
-        return "mse"
+        # hint: same shape as Accuracy.name above — just a short string id
+        pass
 
     def compute(self, y_true: list, y_pred: list) -> float:
-        return sum((t - p)**2 for t, p in zip(y_true, y_pred)) / len(y_true)
+        """MSE = average of (true - predicted)**2 across all pairs."""
+        # hint: same zip(y_true, y_pred) shape as Accuracy.compute above,
+        # just a different formula applied to each pair
+        pass
 
     @property
     def best(self) -> Optional[float]:
-        """For MSE, best = minimum."""
-        return min(self._history) if self._history else None
+        """For MSE, lower is better — best = minimum seen so far."""
+        # hint: same shape as Accuracy.best above, min() instead of max(),
+        # still None on empty history
+        pass
 
 
 class MAE(Metric):
-    """Implement this one yourself."""
+    """Mean Absolute Error (for regression). Implement this one yourself too."""
+    # hint: same overall shape as MSE above — name, compute, best — but
+    # compute uses abs(t - p) instead of squaring, and lower is still better
     pass
 
 
@@ -1090,12 +1098,19 @@ assert abs(v1 - 0.75) < 1e-10
 assert abs(v2 - 0.75) < 1e-10
 assert acc.best == 0.75
 
+# MSE — written by you
+mse = MSE()
+assert mse.best is None
+v_mse = mse.update([1.0, 2.0, 3.0], [1.5, 2.5, 2.5])
+assert abs(v_mse - 0.25) < 1e-10   # mean of 0.25, 0.25, 0.25
+assert mse.best == v_mse
+
 tracker = MetricTracker(Accuracy(), MSE())
 results = tracker.update(1, [0, 1, 1], [0, 1, 0])
 assert "accuracy" in results
 assert "mse" in results
 
-# MAE — written by you, and untested above until now
+# MAE — written by you
 mae = MAE()
 v = mae.update([1.0, 2.0, 3.0], [1.5, 2.5, 2.5])
 assert abs(v - 0.5) < 1e-10   # mean of |0.5|, |0.5|, |0.5|
