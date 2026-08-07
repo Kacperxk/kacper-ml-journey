@@ -1313,6 +1313,18 @@ except ColumnMissingError as e:
     print(f"Missing column: {e.column}")
 except DataError as e:
     print(f"General data error: {e}")
+
+# data.csv actually has 2 data rows and 2 columns — a fully valid call
+# should raise nothing at all:
+load_and_validate("data.csv", ["a", "b"], (2, 2))
+print("Valid data.csv passed validation")
+
+# Same file, but claiming it should have 100 rows — shape check should catch it:
+try:
+    load_and_validate("data.csv", ["a", "b"], (100, 2))
+    assert False, "Should raise ShapeMismatchError"
+except ShapeMismatchError as e:
+    print(f"Shape mismatch: expected {e.expected}, got {e.got}")
 ```
 
 ---
