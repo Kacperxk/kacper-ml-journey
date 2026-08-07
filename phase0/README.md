@@ -12,7 +12,7 @@ code itself (sections, projects) is yours to create as you go, see
 - [x] Section 2 — Comprehensions
 - [x] Section 3 — Functions
 - [x] Section 4 — OOP
-- [ ] Section 5 — Errors
+- [x] Section 5 — Errors
 - [ ] Section 6 — Types
 - [ ] Section 7 — Files
 
