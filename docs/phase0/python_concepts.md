@@ -712,6 +712,25 @@ except DataError:
     print("Some data problem occurred")
 ```
 
+`ShapeError`/`RangeError` above carry no extra data — they just reuse `Exception`'s default behavior. An exception can also carry structured data of its own, by overriding `__init__` like any other class and calling `super().__init__(message)` to still set up the printable message:
+
+```python
+class ColumnMissingError(DataError):
+    def __init__(self, column: str, available: list[str]):
+        self.column = column              # stored like any object's state
+        self.available = list(available)
+        super().__init__(f"missing column {column!r}, available: {available}")
+        # ^ hands a formatted string up to Exception.__init__, which is what
+        # makes the exception printable/str()-able. Skip this and raising
+        # still works, but printing the exception shows nothing useful.
+
+try:
+    raise ColumnMissingError("label", ["a", "b"])
+except ColumnMissingError as e:
+    print(e.column)       # "label" — read back the structured data directly
+    print(e.available)    # ["a", "b"]
+```
+
 ### Logging instead of print
 
 `print` is for quick experiments. Real code uses `logging`:
