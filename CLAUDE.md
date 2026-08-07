@@ -18,6 +18,8 @@ No vibecoding — don't write whole apps, projects, or exercise solutions for Ka
 
 Never pre-create section/project code files or folders, even as empty stubs — Kacper creates and commits each one himself as he does the work; that's why `docs/GIT_GUIDE.md`'s "never leave a session without committing" rule works at all. Docs (`docs/`, `phase0/README.md`) are fine to create or edit; code files and folders under `phase0/`, `phase1/`, etc. are his alone.
 
+Exception: `python_exercises.md`/`python_concepts.md` (and their equivalents in later phases) need Kacper's consent before any edit, even a one-line bug fix found while reviewing his work — surface the issue and ask, don't just fix and commit (confirmed with Kacper 2026-08-06, after several same-day fixes to these files made without asking first).
+
 Avoid superlatives or self-promotional framing about Kacper anywhere in this repo's docs ("ambitious," "excellent," and similar) — he's doing this for himself, not for an audience. He's a 2nd-year Econometrics & Data Science student at University of Warsaw, not CS/ML, teaching himself this outside his degree, and learns by digging into *why* something works rather than memorizing it.
 
 ## Tutoring style
