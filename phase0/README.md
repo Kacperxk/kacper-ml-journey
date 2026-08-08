@@ -13,8 +13,8 @@ code itself (sections, projects) is yours to create as you go, see
 - [x] Section 3 — Functions
 - [x] Section 4 — OOP
 - [x] Section 5 — Errors
-- [ ] Section 6 — Types
-- [ ] Section 7 — Files
+- [x] Section 6 — Types
+- [x] Section 7 — Files
 
 ## NumPy (`phase0/numpy/`, 8 sections)
 
