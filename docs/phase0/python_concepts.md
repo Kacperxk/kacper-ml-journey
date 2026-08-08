@@ -759,19 +759,19 @@ logger.error("Failed to load checkpoint: %s", path)
 
 ## 1.5 — Type Hints
 
-Type hints are documentation that static analysis tools can check automatically.
+Type hints are documentation that static analysis tools can check automatically. Modern Python (3.9+) lets you subscript the builtin container types directly — `list[int]`, `dict[str, float]` — instead of importing `List`/`Dict` from `typing`, and 3.10+ lets you write unions with `|` instead of `Optional`/`Union`. That's the style below; no import needed for any of it.
 
 ```python
-from typing import Optional, List, Dict, Tuple, Callable
+from typing import Callable
 
 def train(
-    data: List[float],
-    labels: List[int],
+    data: list[float],
+    labels: list[int],
     lr: float = 0.001,
     epochs: int = 10,
-    callback: Optional[Callable[[float], None]] = None,
-) -> Dict[str, List[float]]:
-    history: Dict[str, List[float]] = {"loss": [], "accuracy": []}
+    callback: Callable[[float], None] | None = None,
+) -> dict[str, list[float]]:
+    history: dict[str, list[float]] = {"loss": [], "accuracy": []}
     # ...
     return history
 ```
@@ -779,24 +779,22 @@ def train(
 Most commonly used types:
 
 ```python
-from typing import Optional, List, Dict, Tuple, Union
-
-def find(key: str) -> Optional[int]:           # might return None
+def find(key: str) -> int | None:              # might return None
     pass
 
-def mean(numbers: List[float]) -> float:
+def mean(numbers: list[float]) -> float:
     pass
 
-def bounds(data: List[float]) -> Tuple[float, float]:
+def bounds(data: list[float]) -> tuple[float, float]:
     return min(data), max(data)
 
-def process(x: Union[List, str]) -> str:       # accepts either type
-    pass
-
-# Python 3.10+ — cleaner syntax with |
-def process(x: list | str) -> str:
+def process(x: list | str) -> str:              # accepts either type
     pass
 ```
+
+`Callable` still needs importing from `typing` — there's no builtin equivalent for it. Same story for a handful of others you'll meet later: `TypeVar`, `Protocol`, `TypedDict`, `Any`.
+
+You'll see the older style constantly in existing code, libraries, and tutorials — `from typing import Optional, List, Dict, Tuple, Union`, then `Optional[int]`, `List[float]`, `Dict[str, int]`, `Union[list, str]`. It means exactly the same thing as the syntax above. Recognize it when you see it, but prefer the newer form for anything you write yourself.
 
 Run `mypy your_file.py` to catch type errors before running the code. Install with `pip install mypy`.
 
