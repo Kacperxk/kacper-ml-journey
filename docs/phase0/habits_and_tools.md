@@ -1,13 +1,9 @@
 # Phase 0 — Engineering Habits and Tools
 
-Part 5 of the original teaching content: debugging habits, math-to-code
-habits, learning habits, and editor setup. Applies across Python, NumPy,
-and the projects — not specific to one section. Originally part of
-`phase0_complete.md`.
+Debugging habits, math-to-code habits, learning habits, and editor setup.
+Applies across Python, NumPy, and the projects — not specific to one section.
 
 ---
-
-# PART 5 — TOOLS, HABITS, AND BEST PRACTICES
 
 ## Engineering Habits
 
@@ -67,7 +63,7 @@ Do this before writing the code. This prevents the majority of shape bugs.
 
 **Timebox confusion.** Stuck for more than 25 minutes? Write down exactly what you tried and what happened. Search with those specific terms. Give it 15 more minutes. If still stuck, ask — here, StackOverflow, Discord ML communities.
 
-**Teach it.** After studying any concept, write a plain-language explanation in `notes/concept_name.md`. If you cannot write two clear paragraphs about it, you do not understand it yet.
+**Teach it.** After studying any concept, write a plain-language explanation in `resources/notes/concept_name.md`. If you cannot write two clear paragraphs about it, you do not understand it yet.
 
 **Spaced repetition.** Use Anki (apps.ankiweb.net) for things you need to know cold: softmax formula, what a Jacobian is, broadcasting rules, when to use L1 vs L2 norm. 10 minutes of card review per day.
 
@@ -101,3 +97,5 @@ Do this before writing the code. This prevents the majority of shape bugs.
 - Ctrl+D — select next occurrence of selected text
 
 ---
+
+*Last updated: 2026-08-08*

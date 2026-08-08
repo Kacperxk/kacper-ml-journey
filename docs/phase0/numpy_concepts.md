@@ -1,11 +1,8 @@
 # Phase 0 — NumPy Concepts
 
-Part 2 of the Phase 0 teaching content (concepts, not drills — drills are in
-`numpy_exercises.md` in this folder). Originally part of `phase0_complete.md`.
+Concepts, not drills — drills are in `numpy_exercises.md` in this folder.
 
 ---
-
-# PART 2 — NUMPY
 
 ## The Right Mindset
 
@@ -15,7 +12,7 @@ This matters for two reasons. NumPy operations run in compiled C — they are 10
 
 ---
 
-## 2.1 — What is an ndarray?
+## 1.1 — What is an ndarray?
 
 An `ndarray` (N-dimensional array) is a grid of numbers, all of the same type, with any number of dimensions.
 
@@ -72,7 +69,7 @@ Why dtype matters: PyTorch uses `float32`. NumPy defaults to `float64`. You will
 
 ---
 
-## 2.2 — Indexing and Slicing
+## 1.2 — Indexing and Slicing
 
 ```python
 a = np.array([[1, 2, 3],
@@ -115,7 +112,7 @@ Views exist for performance. But they cause confusing bugs. When in doubt, call 
 
 ---
 
-## 2.3 — Broadcasting — The Most Important NumPy Concept
+## 1.3 — Broadcasting — The Most Important NumPy Concept
 
 Broadcasting lets NumPy operate on arrays of different shapes. It is also exactly how PyTorch tensors work. Misunderstanding this causes hours of debugging.
 
@@ -156,7 +153,7 @@ X - mean                              # shape (100, 3) — works correctly
 
 ---
 
-## 2.4 — Vectorization: Think in Arrays
+## 1.4 — Vectorization: Think in Arrays
 
 When you catch yourself writing a Python loop over a NumPy array, stop. Ask: "can I do this as an array operation?"
 
@@ -191,7 +188,7 @@ np.clip(a, 1.5, 3.0)  # [1.5, 2.0, 3.0, 3.0] — clamp to range
 
 ---
 
-## 2.5 — Aggregation and Reduction
+## 1.5 — Aggregation and Reduction
 
 ```python
 a = np.array([[1, 2, 3],
@@ -227,7 +224,7 @@ X_norm = (X - mean) / std      # (100,5) - (5,) — broadcasting handles it
 
 ---
 
-## 2.6 — Shape Manipulation
+## 1.6 — Shape Manipulation
 
 ```python
 a = np.arange(12)           # shape (12,)
@@ -259,7 +256,7 @@ np.concatenate([a, b])         # [1,2,3,4,5,6] — join along existing axis
 
 ---
 
-## 2.7 — Linear Algebra Operations
+## 1.7 — Linear Algebra Operations
 
 ```python
 A = np.array([[1.0, 2.0], [3.0, 4.0]])
@@ -300,7 +297,7 @@ scores = np.einsum("bqd,bkd->bqk", Q, K)  # (8, 10, 10)
 
 ---
 
-## 2.8 — Common Pitfalls
+## 1.8 — Common Pitfalls
 
 ```python
 # 1. Float comparison
@@ -325,10 +322,12 @@ a = a + 1   # creates a NEW array — b still points to old one
 
 ---
 
-## 2.9 — Resources for NumPy
+## 1.9 — Resources for NumPy
 
 - NumPy official quickstart: numpy.org/doc/stable/user/quickstart.html
 - CS231n Python/NumPy tutorial: cs231n.github.io/python-numpy-tutorial
 - 100 NumPy Exercises (github.com/rougier/numpy-100) — do all 100
 
 ---
+
+*Last updated: 2026-08-08*

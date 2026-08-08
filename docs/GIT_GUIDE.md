@@ -1,6 +1,6 @@
 # Git Guide
 
-The canonical git reference for this repo. Previously this content was duplicated (with two different, conflicting commit-message conventions) across the phase0 guide, the Python exercises doc, and the repo structure doc. This file replaces all three — the others should just link here.
+The canonical git reference for this repo.
 
 ---
 
@@ -34,7 +34,7 @@ git push
 Format: `<type>(<scope>): <description>`
 
 - **type**: one of `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
-- **scope**: which phase/area — `p0/python`, `p0/numpy`, `p0/projects`, `p1/sklearn`, etc. Since every phase lives in one repo, the scope is what keeps `git log` readable.
+- **scope**: which phase/area — `p0/python`, `p0/numpy`, `p0/projects`, `p1/sklearn`, etc. Keeps `git log` readable across all phases in one repo.
 
 ```bash
 git commit -m "feat(p0/numpy): implement pairwise distance without loops"
@@ -44,7 +44,7 @@ git commit -m "docs(p0): update phase 0 progress checklist"
 git commit -m "chore: add matplotlib to requirements.txt"
 ```
 
-This is the one convention to use everywhere — don't mix in the unscoped style from earlier drafts.
+Use this convention everywhere.
 
 ## Branching (use for every project, not for exercise drills)
 
@@ -78,7 +78,7 @@ git push --tags
 git log --oneline --graph          # visual branch graph
 git show HEAD                       # full diff of last commit
 git diff HEAD~1 HEAD                # changes between last two commits
-git blame phase0/python/section2_comprehensions.py   # who wrote each line (i.e. you, on which day)
+git blame phase0/python/section2_comprehensions.py   # line-by-line history
 # git blame on .ipynb files is a mess (raw JSON, output cells cause noise) — use it on .py files
 git stash / git stash pop           # save work without committing
 git revert HEAD                     # undo last commit safely (new commit, no history rewrite)
@@ -123,6 +123,7 @@ checkpoints/
 *.safetensors
 
 # Outputs — generated, reproducible from code
+output/
 outputs/
 results/
 logs/
@@ -147,8 +148,8 @@ Thumbs.db
 
 ## Rule for every exercise/project session
 
-Never leave a session without committing something — even if it's just a note in a markdown file. Consistency beats intensity. If you've written 30+ minutes of code without committing, you're overdue.
+Never leave a session without committing something — even if it's just a note in a markdown file. If you've written 30+ minutes of code without committing, you're overdue.
 
 ---
 
-*Last updated: 2026-08-04*
+*Last updated: 2026-08-08*

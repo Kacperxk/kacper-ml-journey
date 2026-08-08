@@ -1,13 +1,10 @@
 # Phase 0 — Math Concepts
 
-Part 3 of the Phase 0 teaching content — linear algebra, calculus, and
-probability, connected directly to ML code. Originally part of
-`phase0_complete.md`. No separate drills file for math; the "formula → code"
-habit described here is the practice.
+Linear algebra, calculus, and probability, connected directly to ML code.
+No separate drills file for math — the "formula → code" habit described here
+is the practice.
 
 ---
-
-# PART 3 — MATH
 
 ## The Right Mindset
 
@@ -15,7 +12,7 @@ Your econometrics degree means you know most of this math already. The goal is n
 
 ---
 
-## 3.1 — Linear Algebra: The ML Perspective
+## 1.1 — Linear Algebra: The ML Perspective
 
 ### Why every ML operation is linear algebra
 
@@ -77,7 +74,7 @@ M_approx = U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :]
 
 ---
 
-## 3.2 — Calculus: Backpropagation Intuition
+## 1.2 — Calculus: Backpropagation Intuition
 
 ### The gradient — direction of steepest increase
 
@@ -141,7 +138,7 @@ PyTorch's `.backward()` does exactly this for every parameter simultaneously.
 
 ---
 
-## 3.3 — Probability: The Language of ML
+## 1.3 — Probability: The Language of ML
 
 ### Softmax — turning numbers into probabilities
 
@@ -232,7 +229,7 @@ print(kl_divergence(P, P))   # 0.0
 
 ---
 
-## 3.4 — Resources for Math
+## 1.4 — Resources for Math
 
 - *Mathematics for Machine Learning* (Deisenroth, Faisal, Ong) — free PDF at mml-book.github.io. Directly connects math to ML. With your background you can move fast.
 - 3Blue1Brown "Essence of Linear Algebra" on YouTube — visual intuition first.
@@ -240,3 +237,5 @@ print(kl_divergence(P, P))   # 0.0
 - StatQuest with Josh Starmer on YouTube — probability and statistics with extraordinary clarity.
 
 ---
+
+*Last updated: 2026-08-08*

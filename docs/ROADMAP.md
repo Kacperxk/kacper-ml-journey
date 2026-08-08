@@ -3,7 +3,7 @@
 
 ---
 
-> **How to use this document:** This is a living reference. Every phase has a goal, a skill checklist, concrete resources, and projects to prove you learned it. Come back here often. When you finish a phase, expand the next one in more detail.
+> **How to use this document:** A living reference. Every phase has a goal, a skill checklist, concrete resources, and projects to prove you learned it. When you finish a phase, expand the next one in more detail.
 
 ---
 
@@ -21,7 +21,7 @@
 - ML library stack (PyTorch above all) is essentially untouched
 - No experience yet with model training pipelines, distributed systems, or deployment
 
-**The honest timeline:** 18 months at 3–4 hrs/day is achievable to reach junior/mid ML Engineer level competitive for roles at serious AI labs — but only if you are consistent and project-driven, and only if each phase has a real deadline. Open-ended phases expand to fill the time available; that's what happened to the original Phase 0 plan (see below).
+**The honest timeline:** 18 months at 3–4 hrs/day is achievable to reach junior/mid ML Engineer level competitive for roles at serious AI labs — but only if you are consistent and project-driven, and only if each phase has a real deadline. Open-ended phases expand to fill the time available.
 
 ---
 
@@ -50,8 +50,8 @@ The goal here isn't to master everything — it's to remove blockers. You have t
 ### What's in Phase 0
 - **Concepts**: Python (OOP, functions, error handling, types, project structure, git) + NumPy (arrays, indexing, broadcasting, linear algebra, einsum) + Math (linear algebra, calculus/backprop intuition, probability). Full teaching content in `docs/phase0/python_concepts.md`, `numpy_concepts.md`, `math_concepts.md`.
 - **Drills**: ~60 NumPy exercises, ~70 Python exercises — predict-before-run methodology. See `docs/phase0/python_exercises.md` and `numpy_exercises.md`.
-- **Projects**: see `docs/phase0/projects.md` — **4 core projects only**, not 9. The original plan had three separate, uncoordinated project lists (one per source document) totaling 9 projects, of which only 3 were ever wired into the actual repo structure. That's fixed now.
-- **Git**: see `docs/GIT_GUIDE.md` — one canonical workflow and commit convention, not three slightly different ones.
+- **Projects**: see `docs/phase0/projects.md` — 4 core projects, done in order.
+- **Git**: see `docs/GIT_GUIDE.md`.
 
 ### 0A — Python: From Mediocre to Fluent
 
@@ -191,7 +191,7 @@ Inference optimization (vLLM, TensorRT-LLM, ONNX), REST APIs (FastAPI), batch in
 ### Duration: Ongoing from month ~15
 
 ### 5A — Reading Research Papers
-How to read a paper (abstract/conclusion → figures → intro → methods → experiments). Build a reading list over time covering architecture foundations, training techniques, efficiency/systems, and alignment/safety — pull from arxiv.org, Papers With Code, and lab research blogs as you go, rather than committing to a fixed list now (avoids baking in facts that may be wrong or outdated).
+How to read a paper (abstract/conclusion → figures → intro → methods → experiments). Build a reading list over time covering architecture foundations, training techniques, efficiency/systems, and alignment/safety — pull from arxiv.org, Papers With Code, and lab research blogs as you go, rather than committing to a fixed list now.
 
 ### 5B — Open Source Contributions
 Start small (docs, examples, tests) in a major ML repo (e.g. Hugging Face Transformers). Graduate to implementing a paper or improving a training script.
@@ -284,15 +284,4 @@ Note: months 2–14 will compress against university semester load — this sche
 
 ---
 
-## How We'll Use This Document
-
-This roadmap is your anchor. When we talk again, we can:
-- Deep-dive into any specific topic from any phase
-- Build out detailed week-by-week schedules for a specific phase
-- Review your project work and give feedback
-- Discuss specific papers together
-- Adjust the plan based on how you're progressing — and set a new target date for the next phase before it starts, the same way Phase 0 now has one
-
----
-
-*Last updated: 2026-08-04 | Version 2.0 — consolidated from four previously-inconsistent source documents*
+*Last updated: 2026-08-08*
