@@ -1,52 +1,55 @@
 # CLAUDE.md
 
-This is `ml-engineering-course` (GitHub: Kacperxk/kacper-ml-journey) — Kacper's self-directed ML engineering curriculum, currently in Phase 0 (Python/NumPy/Math foundations). Read this file first in any session working in this repo.
+`ml-engineering-course` (GitHub: Kacperxk/kacper-ml-journey) — Kacper's self-directed ML engineering curriculum, currently Phase 0 (Python/NumPy/Math foundations). Read this file first in any session in this repo.
 
-This file is only for things specific to how Claude should *operate* in this repo — behavior, not content. For what the course covers or where things live, the real source of truth is elsewhere; don't duplicate it here, go read it:
+This file covers only how Claude should *operate* here — not course content. Source of truth for content:
 
-- `docs/ROADMAP.md` — the full 6-phase plan
-- `docs/REPO_STRUCTURE.md` — where every file lives and why (a target to work toward, not something to pre-build — see Working style below)
+- `docs/ROADMAP.md` — full 6-phase plan
+- `docs/REPO_STRUCTURE.md` — file layout (a target, not pre-built — see Working style)
 - `docs/phase0/projects.md` — current phase's project specs
 - `docs/GIT_GUIDE.md` — git workflow and commit conventions
-- `phase0/README.md` — live progress tracker (which sections/projects are done)
-- `docs/phase0/README.md`'s "Phase 0 Completion Checklist" — a **different thing**: a mastery self-check ("can I do this without looking anything up"), meant to be gone through once at the end of Phase 0, not updated section-by-section like the progress tracker above. Don't merge these two or treat either as redundant with the other (confirmed with Kacper 2026-08-05).
+- `phase0/README.md` — live progress tracker (sections/projects done)
+- `docs/phase0/README.md`'s "Phase 0 Completion Checklist" — separate thing: a one-time end-of-phase mastery self-check, not a section-by-section tracker. Don't merge with the above (2026-08-05).
 
-Keep this file lean going forward: one compressed sentence plus a short anchor beats a paragraph of narrative, and if a decision is already reflected in the real docs (`projects.md`, `REPO_STRUCTURE.md`, etc.), don't re-document it here too — link to it instead (confirmed with Kacper 2026-08-05, after compressing this file for exactly this reason).
+Keep this file lean: one compressed sentence + anchor beats a paragraph. If a decision already lives in `projects.md`/`REPO_STRUCTURE.md`/etc., link to it, don't duplicate it.
 
 ## Working style
-No vibecoding — don't write whole apps, projects, or exercise solutions for Kacper. He wants explanations, debugging help, refactoring feedback, and code review, not a replacement worker. Guide and critique rather than hand him a finished implementation, unless he explicitly asks for a full solution to compare against his own after he's already tried it.
 
-Never pre-create section/project code files or folders, even as empty stubs — Kacper creates and commits each one himself as he does the work; that's why `docs/GIT_GUIDE.md`'s "never leave a session without committing" rule works at all. Docs (`docs/`, `phase0/README.md`) are fine to create or edit; code files and folders under `phase0/`, `phase1/`, etc. are his alone.
+No vibecoding — no whole apps/projects/exercise solutions for Kacper. Explanations, debugging help, refactoring feedback, code review only. Full solutions only if he explicitly asks, after he's already tried it himself.
 
-Exception: `python_exercises.md`/`python_concepts.md` are now considered finalized — no more edits to them at all, not even with consent. They got a real modernization pass (typing syntax) on 2026-08-08 and that's the last change; surface anything found while reviewing Kacper's work as a comment, don't touch the files (confirmed with Kacper 2026-08-08, after this same rule was first "ask first" on 2026-08-06 and tightened to "don't touch" two days later). Later phases' equivalents (`numpy_concepts.md`, `math_concepts.md`, Phase 1+ docs, etc.) aren't written yet, so this doesn't apply to them until they're finalized too.
+Never pre-create section/project code files or folders, even as stubs — Kacper creates and commits each one himself (this is what makes `docs/GIT_GUIDE.md`'s "never leave a session without committing" rule work). Docs (`docs/`, `phase0/README.md`) are Claude's to create/edit; code under `phase0/`, `phase1/`, etc. is Kacper's alone.
 
-Avoid superlatives or self-promotional framing about Kacper anywhere in this repo's docs ("ambitious," "excellent," and similar) — he's doing this for himself, not for an audience. He's a 2nd-year Econometrics & Data Science student at University of Warsaw, not CS/ML, teaching himself this outside his degree, and learns by digging into *why* something works rather than memorizing it.
+No superlatives or self-promotional framing about Kacper anywhere in this repo's docs ("ambitious," "excellent," etc.) — this is for himself, not an audience. 2nd-year Econometrics & Data Science student (Warsaw), not CS/ML, self-taught outside his degree, learns by digging into *why*.
 
 ## Tutoring style
-Confirmed directly by Kacper (2026-08-04):
 
-- **When he's stuck:** point him at relevant resources (the specific book chapter, official docs, the right `docs/ROADMAP.md` resource list) rather than giving hints or Socratic questioning. He wants to dig the answer out himself, not be walked to it.
-- **Code review:** line-by-line, everything — style, naming, edge cases, performance, idioms, not just correctness. Treat every review like a real, thorough PR review, not a quick pass.
-- **Tests/validation:** where a project spec gives explicit "done when" test criteria, Claude can write that check for him. For drills and anything without a specified test, writing the test is his to do, consistent with no-vibecoding above.
-- **Deadline pacing:** check in periodically against the Sept 27, 2026 Phase 0 target and `phase0/README.md`'s checklist — flag proactively if he looks behind schedule, without being naggy about it (a rough check every so often, not every message).
+Confirmed 2026-08-04:
+
+- **Stuck:** point to resources (book chapter, official docs, `docs/ROADMAP.md`'s list) — not hints or Socratic questioning. He digs out the answer himself.
+- **Code review:** line-by-line — style, naming, edge cases, performance, idioms. Real PR-review depth, not a quick pass.
+- **Tests:** projects with explicit "done when" criteria — Claude can write the check. Drills without a specified test — his to write.
+- **Deadline pacing:** check against the Sept 27, 2026 target / `phase0/README.md` checklist periodically. Flag if behind, without being naggy about it.
 
 ## Exercise-authoring rules
-Applies to any exercise file Claude writes or edits, this phase or later. Before calling a new exercise file or section done, verify both:
 
-1. **Does every numbered/lettered task leave Kacper something to actually write** — a blank, a `pass` stub, or an instruction with no code shown? Setup/scenario code and short concept-illustrating demos are fine to show in full; the test is whether a given snippet is what the exercise is asking him to produce, or context he needs to do the asking. (Hit this in Phase 0's Ex 2.4 C–E and Ex 2.5 C–F, which were fully solved already — inherited from the original source material, Kacper caught it.)
-2. **Does every task rely only on concepts already taught earlier** — check against `python_concepts.md` (or the phase's equivalent) itself, by its own section order, not the exercise doc's section grouping: Kacper reads that doc cover-to-cover before drilling, so anything in it is fair game regardless of which exercise section it lands in. If a task genuinely needs something not in that doc at all, it needs a real explanation with a worked example (a concept doc entry, or if truly one-off, a preview comment showing the syntax *in use*, not just the bare syntax) — a one-line "here's the type annotation" is not enough, he needs to see what it does before he can apply it. (Hit this with Ex 3.5's `read_numbers`, which needed file I/O never covered anywhere in the concepts doc; hit again in Ex 6.1 task D, where `Callable` was used with zero explanation or example anywhere — concepts.md never covered it and the exercise gave no preview either, unlike sibling tasks B/E/G in the same exercise which did get preview comments.) Concepts and exercises docs need to stay in sync on this: whatever a concept doc teaches, teach it with a runnable example, not just prose or a comment-only mention.
-3. **Does every written task have a test or assertion checking it** — somewhere in the exercise doc, not just a docstring describing what it should do. A task with no check means a wrong implementation passes silently. (Hit this in Section 4: `from_json_string` and `MAE` were writable tasks with zero coverage.)
-4. **Does all given/scaffold code in the exercise actually run, and does it produce the exact values the given assertions check for** — imports, class skeletons, test blocks — not just "does it look structurally right." Trace through it as if executing, and when a given assert compares to a literal number, compute that number by hand (or run it) rather than trusting the literal matches the algorithm. Running-without-crashing is not sufficient. (Hit this in Section 4: `Optional` used but never imported in two places, causing an immediate `NameError`; `os`/`shutil`/`tempfile` imported inside a class body where methods can't see them as bare names. Hit again in Ex 6.2: the given `RunningStats.variance` divides by `count - 1` (sample variance) but the given asserts checked against the `count` (population variance) result — code ran fine, no crash, just silently didn't match its own test.)
-5. **Does every task avoid assuming ML/domain knowledge that hasn't been taught yet** — Phase 0 is Python-only until its math section, so ML vocabulary used as example context (loss functions, metrics like MSE/MAE/accuracy, hyperparameter names) needs a plain-language explanation of what it *means*, not just the Python syntax to implement it — same treatment as an untaught Python concept under rule 2, just checked against what's actually been taught conceptually, not against a doc. (Hit this in Ex 4.4: MSE and MAE were tasks to implement with zero explanation of what either one measures.)
-6. **Use modern Python typing syntax, not the older `typing`-heavy style** — `X | None` not `Optional[X]`, `X | Y` not `Union[X, Y]`, builtin generics (`list[X]`, `dict[X, Y]`, `tuple[X, ...]`) not `List`/`Dict`/`Tuple` from `typing`, `collections.abc` (e.g. `Iterator`) not the `typing` duplicates, and PEP 695 generics (`def f[T](...)`) not `T = TypeVar("T")`. Kacper is targeting a recent Python (upgrading to 3.13) for an ML/AI-focused path, not maximum backward-compatibility — note version floors inline where one applies (PEP 695 needs 3.12+) (confirmed with Kacper 2026-08-08).
-7. **Keep comments light** — don't over-explain in inline comments; a short hint beats a paragraph embedded in the code. This applies to new exercise/concept files going forward (`numpy_exercises.md`, `math_concepts.md`, Phase 1+ docs) — the Python-phase docs are finalized as of 2026-08-08 and won't get a comment-density pass retroactively (confirmed with Kacper 2026-08-08).
+Applies to any exercise file Claude writes or edits, this phase or later. Before marking a file/section done, verify:
+
+1. **Every task leaves something to write** — a blank, a `pass` stub, or a code-free instruction. Setup/demo code can be shown in full. (Ex 2.4 C–E, 2.5 C–F: fully solved already, inherited from source material.)
+2. **Every task relies only on concepts already taught** — checked against the concepts doc's own section order, not the exercise doc's. Anything genuinely new needs a real explanation + worked example, not a bare syntax mention. (Ex 3.5 `read_numbers`: file I/O never covered. Ex 6.1 task D: `Callable` used with zero explanation, unlike sibling tasks B/E/G.)
+3. **Every written task has a test/assertion** — not just a docstring. (Section 4: `from_json_string`, `MAE` had zero coverage.)
+4. **Given/scaffold code runs and matches its own asserts' literal values** — hand-compute, don't trust the literal. (Section 4: `Optional` unimported → `NameError`. Ex 6.2: `RunningStats.variance` used sample variance, asserts expected population variance — ran fine, silently wrong.)
+5. **No untaught ML/domain knowledge assumed** — Phase 0 is Python-only until its math section; ML terms (loss functions, MSE/MAE/accuracy) need plain-language explanation, same treatment as an untaught Python concept. (Ex 4.4: MSE/MAE implemented with zero explanation of what either measures.)
+6. **Modern Python typing** — `X | None` not `Optional[X]`, `X | Y` not `Union[X, Y]`, builtin generics not `List`/`Dict`/`Tuple`, `collections.abc` not `typing` duplicates, PEP 695 `def f[T](...)` not `TypeVar`. Targeting Python 3.13; note version floors inline (PEP 695 needs 3.12+).
+7. **Light comments** — a short hint beats a paragraph embedded in code. Applies to new files going forward (`numpy_exercises.md`, `math_concepts.md`, Phase 1+); no retroactive comment-density pass on `python_concepts.md`/`python_exercises.md` unless asked.
 
 ## Git identity — never set it locally in this repo
-If a commit fails with "Author identity unknown," do not run `git config user.name` / `user.email` without `--global`. A local, repo-scoped config silently overrides Kacper's real identity for *every* future commit to this repo, from any tool, including his own terminal — and breaks GitHub's contribution-graph attribution, since commits then carry an email GitHub can't verify against his account. This happened twice before being caught on 2026-08-05, misattributing 18 of the repo's first ~22 commits. If identity ever needs fixing, ask Kacper for his exact name/email rather than inventing one.
+
+If a commit fails with "Author identity unknown," never run `git config user.name`/`user.email` without `--global` — a local config silently overrides Kacper's identity for every future commit from any tool, and breaks GitHub attribution. Happened twice, misattributed 18 of the first ~22 commits (caught 2026-08-05). If identity ever needs fixing, ask Kacper for his exact name/email.
 
 ## Conventions
 
-- Commit messages: `type(scope): description` — see `docs/GIT_GUIDE.md` for the full convention and examples.
-- `docs/` holds planning and instructional material; phase folders (`phase0/`, `phase1/`, ...) hold only code and a short status README. Don't let exercise prose creep into code folders.
-- When moving or deleting a doc, grep the whole repo for its old filename before considering the job done — stale cross-references are an easy, repeatable miss.
-- Phase 0 target date: **September 27, 2026**. If behind, cut scope (drop a stretch project, skip exercises he's already comfortable with) rather than let the date slip.
+- Minimal prose in every `.md` file, this one included — state the fact, stop. No parenthetical justification or narrated reasoning; that goes in chat instead. (A `Time: ~10-14 hours` line in `projects.md` got padded with a justification + calendar-math footnote — zero added value; 2026-08-08.)
+- Commit messages: `type(scope): description` — see `docs/GIT_GUIDE.md`.
+- `docs/` = planning/instructional material. Phase folders (`phase0/`, `phase1/`, ...) = code + short status README only. No exercise prose in code folders.
+- Moving/deleting a doc: grep the whole repo for the old filename first — stale cross-references are an easy, repeatable miss.
+- Phase 0 target: **September 27, 2026**. If behind, cut scope (drop a stretch project, skip comfortable exercises) rather than let the date slip.
