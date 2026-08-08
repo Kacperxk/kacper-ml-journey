@@ -15,11 +15,11 @@ plan, deadlines, and project specs live one level up (`docs/ROADMAP.md`,
 
 | File | Content |
 |------|---------|
-| `python_concepts.md` | Part 1 — Python fundamentals, OOP, functions, error handling, types, project structure. Read this, don't drill it. |
+| `python_concepts.md` | Python fundamentals, OOP, functions, error handling, types, project structure. Read this, don't drill it. |
 | `python_exercises.md` | ~70 Python drill exercises across 7 sections, plus Git/GitHub drills. Predict-before-run methodology — do these. |
-| `numpy_concepts.md` | Part 2 — NumPy mindset, indexing, broadcasting, vectorization, linear algebra ops, einsum. |
+| `numpy_concepts.md` | NumPy mindset, indexing, broadcasting, vectorization, linear algebra ops, einsum. |
 | `numpy_exercises.md` | ~60 NumPy drill exercises across 8 sections. Same predict-before-run methodology. |
-| `math_concepts.md` | Part 3 — linear algebra, calculus/backprop intuition, and probability, connected directly to ML code. |
+| `math_concepts.md` | Linear algebra, calculus/backprop intuition, and probability, connected directly to ML code. |
 | `habits_and_tools.md` | Engineering habits, math-to-code habits, learning habits, editor setup. Applies throughout, not section-specific. |
 
 Projects (CLI Weather Tool, Data Pipeline, Linear Regression from Scratch,
@@ -31,8 +31,7 @@ NumPy Neural Network, plus stretch) are specified separately in
 ## How to Structure Your Time
 
 Target: ~8 weeks (started 2026-08-03, target date 2026-09-27 — see
-`docs/ROADMAP.md`), 3–4 hours/day = roughly 170–220 hours. Here is how to use
-them.
+`docs/ROADMAP.md`), 3–4 hours/day = roughly 170–220 hours.
 
 **Each study session:**
 - 15 min — review yesterday's notes or code. Fix anything that felt unclear.
@@ -45,7 +44,7 @@ them.
 - Saturday: build or extend the week's project
 - Sunday: review the week, fill gaps, push clean code to GitHub
 
-Rule: never leave a session without committing something to Git, even if it is just a note in a markdown file. Consistency beats intensity.
+Rule: never leave a session without committing something to Git — see `docs/GIT_GUIDE.md`.
 
 ---
 
@@ -83,4 +82,4 @@ Go through this honestly before moving to Phase 1. "I sort of know this" is not 
 
 ---
 
-*Last updated: 2026-08-04*
+*Last updated: 2026-08-08*
