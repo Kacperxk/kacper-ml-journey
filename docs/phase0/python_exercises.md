@@ -1395,10 +1395,11 @@ for e in errors:
 
 ---
 
-**Exercise 6.1** — Type hint the following functions correctly. Use `from typing import` whatever you need.
+**Exercise 6.1** — Type hint the following functions correctly. Use whatever imports you need, from `typing` or `collections.abc`.
 
 ```python
-from typing import Any, Optional, Union, List, Dict, Tuple, Callable, Iterator, TypeVar
+from typing import Any, Callable
+from collections.abc import Iterator
 
 # A: simple types
 def greet(name: str, times: int = 1) -> str:
@@ -1424,11 +1425,13 @@ def apply_twice(func: ???, value: float) -> float:
     return func(func(value))
 
 # E: generic return (the result type matches the input type)
-# preview: TypeVar isn't covered in python_concepts.md. T = TypeVar("T")
-# below makes a placeholder type; using it as List[T] -> T ties the return
-# type to whatever the list's element type turns out to be at each call site.
-T = TypeVar("T")
-def first(items: ???) -> ???:
+# preview: this uses Python 3.12+ generic syntax (PEP 695) — a generic
+# parameter is declared directly in [] right after the function name, no
+# separate TypeVar import or assignment needed. def first[T](items: list[T]) -> T
+# ties the return type to whatever the list's element type turns out to be
+# at each call site. Needs Python 3.12+ to run — on older versions the def
+# line itself is a SyntaxError.
+def first[T](items: ???) -> ???:
     """Return first element of any list."""
     return items[0]
 
@@ -1443,8 +1446,9 @@ def make_training_summary(
 
 # G: iterator/generator
 # preview: Iterator isn't covered in python_concepts.md either. A generator
-# function's return type is written Iterator[X] (from typing), where X is
-# the type of each value it yields.
+# function's return type is written Iterator[X] (from collections.abc,
+# directly subscriptable since Python 3.9), where X is the type of each
+# value it yields.
 def positive_integers() -> ???:
     n = 1
     while True:
@@ -1519,7 +1523,7 @@ class RunningStats:
         self._M2 = 0.0
 ```
 
-Add correct type hints to every method and property. Properties that might return None should use `Optional[float]`.
+Add correct type hints to every method and property. Properties that might return None should use `float | None`.
 
 The assertions below check behavior, not your hints — run `mypy` on the file too (see §1.5) to actually verify the hints themselves are correct.
 
@@ -1548,7 +1552,6 @@ import json
 import csv
 import os
 from pathlib import Path
-from typing import Optional
 
 # Pattern 1: always use context managers for file I/O
 def write_json(data: dict, path: str) -> None:
@@ -1583,7 +1586,7 @@ def read_csv_as_dicts(path: str) -> list[dict]:
     # keyed by the header row — wrap it in list() to get all rows
     pass
 
-def write_csv(rows: list[dict], path: str, fieldnames: Optional[list[str]] = None) -> None:
+def write_csv(rows: list[dict], path: str, fieldnames: list[str] | None = None) -> None:
     """Write list of dicts to CSV."""
     # hint: csv.DictWriter(f, fieldnames=...) needs writeheader() then
     # writerows(rows); if fieldnames isn't given, default it to the first
@@ -1870,7 +1873,7 @@ Be honest. These are standards, not aspirations.
 - [ ] Always catches specific exceptions, never bare `except:` or `except Exception: pass`
 - [ ] Uses logging instead of print in all project code
 - [ ] Applies type hints to every function and method signature
-- [ ] Knows the most common types: Optional, Union, List, Dict, Tuple, Callable, TypeVar
+- [ ] Knows the most common types: `X | None`, `X | Y` unions, builtin generics (`list[X]`, `dict[X, Y]`, `tuple[X, ...]`), `Callable`, and PEP 695 generics (`def f[T](...)`)
 
 ## Git
 - [ ] Has a GitHub repo with at least 20 commits for this exercise set
