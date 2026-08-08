@@ -11,11 +11,7 @@
 
 ---
 
-> **Note:** the three projects originally at the end of this file (Config
-> Manager, Data Pipeline, Mini ML Framework) have been removed — they're
-> superseded by `docs/phase0/projects.md`'s single canonical project list.
-> Data Pipeline became Core Project 2; Config Manager and Mini ML Framework
-> became stretch projects. Full specs are preserved there.
+> **Note:** projects live in `docs/phase0/projects.md`, not in this file.
 
 ---
 
@@ -1631,7 +1627,7 @@ assert run_path == Path("experiments") / "resnet50" / "run_003"
 *Not Python exercises — structured Git tasks, done in order, in a real
 terminal, in a real repo. Use the commit convention from `docs/GIT_GUIDE.md`
 (scoped, e.g. `feat(p0/python): ...`) for all commits below, not the
-unscoped examples originally shown in some of these drills.*
+unscoped examples shown in some of these drills.*
 
 ---
 
@@ -1882,4 +1878,8 @@ Be honest. These are standards, not aspirations.
 - [ ] Knows git status, diff, log, add, commit, push, pull, branch, checkout, merge, stash, revert
 - [ ] Has a correct .gitignore that excludes __pycache__, .venv, data files, and model checkpoints
 
-Projects (Weather Tool, Data Pipeline, Linear Regression, NumPy Neural Net, and stretch) are tracked separately — see `docs/phase0/projects.md` and `phase0/README.md`.
+Projects are tracked separately — see `docs/phase0/projects.md` and `phase0/README.md`.
+
+---
+
+*Last updated: 2026-08-08*

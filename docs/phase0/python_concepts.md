@@ -1,12 +1,8 @@
 # Phase 0 — Python Concepts
 
-Part 1 of the Phase 0 teaching content (concepts, not drills — drills are in
-`python_exercises.md` in this folder). Originally part of `phase0_complete.md`;
-split out here per `docs/REPO_STRUCTURE.md`'s `docs/phase0/` structure.
+Concepts, not drills — drills are in `python_exercises.md` in this folder.
 
 ---
-
-# PART 1 — PYTHON
 
 ## Why This Level of Fluency Matters
 
@@ -872,10 +868,7 @@ project_name/
 
 ## 1.7 — Git
 
-See `docs/GIT_GUIDE.md` for the full workflow and commit convention this repo
-uses. (The original version of this section duplicated git guidance with a
-different, unscoped commit convention — consolidated into `docs/GIT_GUIDE.md` to
-avoid the two drifting apart.)
+See `docs/GIT_GUIDE.md` for the full workflow and commit convention this repo uses.
 
 ---
 
@@ -905,7 +898,7 @@ deactivate
 For ML work, conda handles CUDA libraries better:
 
 ```bash
-conda create -n phase0 python=3.11
+conda create -n phase0 python=3.13
 conda activate phase0
 pip install numpy matplotlib jupyter
 ```
@@ -921,3 +914,5 @@ pip install numpy matplotlib jupyter
 - Missing Semester of CS Education (MIT) — missing.csail.mit.edu. Git, shell, tooling in one week.
 
 ---
+
+*Last updated: 2026-08-08*
