@@ -34,12 +34,12 @@ git push
 Format: `<type>(<scope>): <description>`
 
 - **type**: one of `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
-- **scope**: which phase/area — `p0/python`, `p0/numpy`, `p0/projects`, `p1/sklearn`, etc. Keeps `git log` readable across all phases in one repo.
+- **scope**: which phase/area — `p0/python`, `p0/numpy`, `p1/sklearn`, etc. For a project specifically, scope to that project, not the generic `p0/projects` — e.g. `p0/weather-tool`, `p0/data-pipeline` — so `git log` can tell which project a commit belongs to.
 
 ```bash
 git commit -m "feat(p0/numpy): implement pairwise distance without loops"
 git commit -m "feat(p0/python): complete make_counter with nonlocal"
-git commit -m "fix(p0/projects): correct gradient check in numpy neural net"
+git commit -m "fix(p0/numpy-neural-net): correct gradient check"
 git commit -m "docs(p0): update phase 0 progress checklist"
 git commit -m "chore: add matplotlib to requirements.txt"
 ```
