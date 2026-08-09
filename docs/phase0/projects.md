@@ -77,8 +77,12 @@ class WeatherData:
 class WeatherFetcher:
     """Fetches weather data from the Open-Meteo API."""
 
-    def __init__(self, base_url: str = "https://api.open-meteo.com/v1") -> None:
-        """Store the API base URL used for requests."""
+    def __init__(
+        self,
+        weather_url: str = "https://api.open-meteo.com/v1",
+        geocoding_url: str = "https://geocoding-api.open-meteo.com/v1",
+    ) -> None:
+        """Store the two API base URLs used for requests — Open-Meteo splits weather and geocoding across separate subdomains."""
 
     def geocode(self, city: str) -> tuple[float, float]:
         """Resolve a city name to (latitude, longitude). Raises CityNotFoundError if no match is found."""
