@@ -22,6 +22,7 @@ data/
 *.feather
 *.h5
 *.hdf5
+*.json
 *.json.gz
 
 # Models — large binary files do not belong in git
