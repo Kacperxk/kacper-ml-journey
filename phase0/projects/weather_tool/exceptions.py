@@ -14,3 +14,7 @@ class CityNotFoundError(WeatherError):
 
 class ParseError(WeatherError):
     """Raised when an API response is missing expected fields or can't be parsed into a WeatherData."""
+
+
+class StorageError(WeatherError):
+    """Raised when saving or loading weather records fails (permission error, disk full, or corrupted file)."""
