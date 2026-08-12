@@ -13,8 +13,12 @@ class Pipeline:
 
     def map(self, fn: Callable) -> "Pipeline":
         def inner():
-            for x in self.source:
-                yield fn(x)
+            for i, x in enumerate(self.source):
+                try:
+                    result = fn(x)
+                except Exception as e:
+                    raise PipelineError("map", i, e) from e
+                yield result
 
         return Pipeline(inner())
 
@@ -22,18 +26,28 @@ class Pipeline:
         def inner():
             for i, x in enumerate(self.source):
                 try:
-                    if predicate(x):
-                        yield x
+                    keep = predicate(x)
                 except Exception as e:
                     raise PipelineError("filter", i, e) from e
+                if keep:
+                    yield x
 
         return Pipeline(inner())
 
     def batch(self, size: int) -> "Pipeline":
-        pass
+        def inner():
+            chunk = []
+            for item in self.source:
+                chunk.append(item)
+                if size == len(chunk):
+                    yield chunk
+                    chunk = []
+            yield chunk
+
+        return Pipeline(inner())
 
 
-test1 = Pipeline([1, 2, 3]).map(lambda x: x + 2).filter(lambda x: x % 2 == 1)
-it = iter(test1)
-print(next(it))
-print(next(it))
+# test1 = Pipeline([1, 2, 3, 4, 5]).map(lambda x: x + 2).batch(3)
+# it = iter(test1)
+# print(next(it))
+# print(next(it))
