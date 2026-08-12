@@ -16,4 +16,7 @@ def read_jsonl(path: str) -> Iterator[dict]:
 
     with open(path) as f:
         for line in f:
+            line = line.strip()
+            if not line:
+                continue
             yield json.loads(line)
