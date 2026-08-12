@@ -24,6 +24,7 @@ data/
 *.hdf5
 *.json
 *.json.gz
+*.jsonl
 
 # Models — large binary files do not belong in git
 checkpoints/
