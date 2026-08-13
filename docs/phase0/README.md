@@ -19,6 +19,7 @@ plan, deadlines, and project specs live one level up (`docs/ROADMAP.md`,
 | `python_exercises.md` | ~70 Python drill exercises across 7 sections, plus Git/GitHub drills. Predict-before-run methodology — do these. |
 | `numpy_concepts.md` | NumPy mindset, indexing, broadcasting, vectorization, linear algebra ops, einsum. |
 | `numpy_exercises.md` | ~60 NumPy drill exercises across 8 sections. Same predict-before-run methodology. |
+| `matplotlib_concepts.md` | Figure/Axes anatomy, plot types, subplots, log scale, heatmaps, saving figures. |
 | `math_concepts.md` | Linear algebra, calculus/backprop intuition, and probability, connected directly to ML code. |
 | `habits_and_tools.md` | Engineering habits, math-to-code habits, learning habits, editor setup. Applies throughout, not section-specific. |
 
@@ -77,9 +78,10 @@ Go through this honestly before moving to Phase 1. "I sort of know this" is not 
 - [ ] Can implement softmax and cross-entropy from scratch in NumPy without looking up the formulas
 - [ ] Can explain the connection between cross-entropy loss and maximum likelihood estimation
 - [ ] Can implement gradient descent from scratch and explain what each line does and why
+- [ ] Can implement k-means clustering from scratch in NumPy
 
 **When all of these feel solid — not just familiar, but solid — you are ready for Phase 1.**
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-13*
