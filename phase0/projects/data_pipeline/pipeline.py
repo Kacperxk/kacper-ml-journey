@@ -67,7 +67,16 @@ class Pipeline:
 
         return Pipeline(inner())
 
+    def take(self, n: int) -> "Pipeline":
+        def inner():
+            index = 0
+            for item in self.source:
+                if index >= n:
+                    break
+                yield item
+                index += 1
 
-# test1 = Pipeline([1, 2, 3, 4, 5]).map(lambda x: x + 2).shuffle(2)
-# for i in test1:
-#     print(i)
+        return Pipeline(inner())
+
+    def collect(self) -> list:
+        return list(self.source)
