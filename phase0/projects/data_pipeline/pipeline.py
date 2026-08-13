@@ -1,5 +1,6 @@
 from collections.abc import Iterable, Iterator, Callable
 from .exceptions import PipelineError
+import random
 
 
 class Pipeline:
@@ -42,12 +43,31 @@ class Pipeline:
                 if size == len(chunk):
                     yield chunk
                     chunk = []
-            yield chunk
+            if chunk:
+                yield chunk
+
+        return Pipeline(inner())
+
+    def shuffle(self, buffer_size: int) -> "Pipeline":
+        def inner():
+            it = iter(self.source)
+            buffer = []
+            for _ in range(buffer_size):
+                try:
+                    buffer.append(next(it))
+                except StopIteration:
+                    break
+            while buffer:
+                index = random.randrange(len(buffer))
+                yield buffer[index]
+                try:
+                    buffer[index] = next(it)
+                except StopIteration:
+                    buffer.pop(index)
 
         return Pipeline(inner())
 
 
-# test1 = Pipeline([1, 2, 3, 4, 5]).map(lambda x: x + 2).batch(3)
-# it = iter(test1)
-# print(next(it))
-# print(next(it))
+# test1 = Pipeline([1, 2, 3, 4, 5]).map(lambda x: x + 2).shuffle(2)
+# for i in test1:
+#     print(i)
