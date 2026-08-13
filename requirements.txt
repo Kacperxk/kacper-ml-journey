@@ -1,6 +1,6 @@
 # Phase 0 — Python, NumPy, Math foundations
 numpy>=1.26
-matplotlib>=3.8
+matplotlib>=3.8       # Projects 3 & 4 — loss curves, scatter plots, training curves
 jupyter>=1.0
 requests>=2.31        # Project 1 — CLI Weather Tool (Open-Meteo API)
 scikit-learn>=1.4     # Project 3 — California Housing dataset only, not for modeling
