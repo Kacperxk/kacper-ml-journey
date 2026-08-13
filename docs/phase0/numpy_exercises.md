@@ -422,11 +422,11 @@ print(M[0, 0, 0])       # changed?
 ```python
 v = np.array([1.0, 2.0, 3.0, 4.0, 5.0])   # shape (5,)
 
-# Create all of these from v:
-row_vector  = ?    # shape (1, 5)
-col_vector  = ?    # shape (5, 1)
-tensor_3d   = ?    # shape (1, 5, 1)
-# Use np.newaxis, reshape, and expand_dims — try all three approaches
+# Create all three of these from v — use np.newaxis, reshape, and
+# expand_dims, try all three approaches:
+#   row_vector: shape (1, 5)
+#   col_vector: shape (5, 1)
+#   tensor_3d:  shape (1, 5, 1)
 
 # Squeeze:
 x = np.random.randn(1, 5, 1, 3, 1)
@@ -476,6 +476,7 @@ Practical task: you have a list of 8 images, each represented as an array of sha
 
 # SECTION 5 — Linear Algebra
 *This is where NumPy connects directly to ML math. Every operation here appears in neural networks.*
+*Read `math_concepts.md` 1.1 first — eigenvalues, SVD, and PCA are explained there.*
 
 ---
 
@@ -604,11 +605,15 @@ M = A.T @ A    # symmetric, positive semi-definite
 a) Compute eigenvalues and eigenvectors of M
 b) Verify the eigenvalue equation: M @ v ≈ λ * v for each eigenvector
    (Check all 4 eigenvectors in a loop — this is fine, it's verification not computation)
-c) Sort eigenvalues from largest to smallest
-d) The largest eigenvalue corresponds to the direction of greatest variance.
-   Verify: np.linalg.norm(M @ eigenvectors[:, 0]) is larger than
-           np.linalg.norm(M @ eigenvectors[:, -1])
-e) Reconstruct M from its eigendecomposition:
+c) Sort eigenvalues from largest to smallest, and reorder the eigenvector
+   COLUMNS to match (same pattern as math_concepts.md's PCA example:
+   idx = np.argsort(eigenvalues)[::-1], then eigenvalues[idx] and
+   eigenvectors[:, idx]). np.linalg.eig does not return them pre-sorted.
+d) Using the SORTED eigenvectors from (c): the largest eigenvalue
+   corresponds to the direction of greatest variance. Verify:
+   np.linalg.norm(M @ sorted_eigenvectors[:, 0]) is larger than
+   np.linalg.norm(M @ sorted_eigenvectors[:, -1])
+e) Reconstruct M from its (original, unsorted) eigendecomposition:
    M ≈ eigenvectors @ np.diag(eigenvalues) @ eigenvectors.T
    Verify with np.allclose
 ```
@@ -795,17 +800,26 @@ For each False result: use `np.isclose` with appropriate tolerance instead. Writ
 **Exercise 7.2** — Integer overflow. Understand why dtype matters for computation.
 
 ```python
-a = np.array([200, 200, 200], dtype=np.int8)   # int8 range: -128 to 127
-print(a.sum())    # What happens?
+# int8 range: -128 to 127. A literal that doesn't fit raises immediately:
+a = np.array([200], dtype=np.int8)   # what happens here?
 
-b = np.array([200, 200, 200], dtype=np.int32)
-print(b.sum())    # What happens now?
+# Values that DO fit individually can still overflow once combined:
+a = np.array([100, 100, 100], dtype=np.int8)
+print(a + a)          # element-wise add, still int8 — what happens?
 
-c = np.array([1000, 1000, 1000], dtype=np.int16)  # int16 range: -32768 to 32767
-print(c.sum())    # Overflow?
+# .sum() is actually safe here — NumPy widens the accumulator for small
+# integer types during a reduction:
+print(a.sum())         # what dtype does the result have? what value?
+print(a.sum().dtype)
 ```
 
-Then fix each by casting to an appropriate dtype before summing.
+```python
+c = np.array([20000, 20000], dtype=np.int16)  # int16 range: -32768 to 32767
+print(c + c)     # element-wise — overflow?
+```
+
+Predict each output before running. Then fix the element-wise case by
+casting to a wider dtype first (`a.astype(np.int32) + a.astype(np.int32)`).
 
 ---
 
@@ -880,6 +894,8 @@ Write a summary: "When should I use shape (n,) vs (n,1)?"
 
 # SECTION 8 — ML-Specific Patterns
 *The exact NumPy patterns that appear in the neural networks you will build.*
+*Read `math_concepts.md` 1.2 and 1.3 first — softmax, cross-entropy, and
+matrix calculus (the gradient formulas used in 8.3) are explained there.*
 
 ---
 
@@ -1070,7 +1086,8 @@ def analytical_dW():
     _, dW, _ = linear_layer_gradients(d_out, x, W)
     return dW
 
-num_grad = numerical_gradient(loss, W.copy())
+num_grad = numerical_gradient(loss, W)   # NOT W.copy() — loss() reads the
+                                           # global W, so this must perturb it directly
 anal_grad = analytical_dW()
 print(np.allclose(num_grad, anal_grad, atol=1e-5))   # should be True
 ```
@@ -1174,4 +1191,4 @@ Projects are tracked separately — see `docs/phase0/projects.md` and `phase0/RE
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-13*
