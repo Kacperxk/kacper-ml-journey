@@ -130,6 +130,47 @@ w_new = w - 0.01 * d_loss_d_w   # 3.0 - 0.08 = 2.92
 
 PyTorch's `.backward()` does exactly this for every parameter simultaneously.
 
+### Matrix calculus — gradients w.r.t. a matrix
+
+The chain rule above was scalar. `W` in `y = x @ W + b` is a whole matrix —
+`dL/dW` has the same shape as `W`. The practical shortcut: **shape-matching**.
+Given the upstream gradient `d_out = dL/dy` (same shape as `y`), there's
+usually only one way to multiply it against the other known arrays that
+produces the right shape — that multiplication is the gradient.
+
+```python
+# y = x @ W + b
+# x: (n, in)   W: (in, out)   b: (out,)   y, d_out: (n, out)
+np.random.seed(0)
+x = np.random.randn(4, 3)      # n=4, in=3
+W = np.random.randn(3, 5)      # in=3, out=5
+b = np.random.randn(5)
+y_true = np.random.randn(4, 5)
+
+y = x @ W + b
+d_out = 2 / y.size * (y - y_true)   # dL/dy for MSE loss
+
+d_x = d_out @ W.T          # (4,5) @ (5,3) -> (4,3)  — matches x's shape
+d_W = x.T @ d_out          # (3,4) @ (4,5) -> (3,5)  — matches W's shape
+d_b = d_out.sum(axis=0)    # (5,) — matches b's shape; sum over the batch
+                             # axis because every sample's error contributed
+                             # to the same shared bias
+
+# Verify d_W against a finite-difference numerical gradient
+eps = 1e-5
+num_dW = np.zeros_like(W)
+for i in range(W.shape[0]):
+    for j in range(W.shape[1]):
+        W[i, j] += eps
+        loss_plus = np.mean((x @ W + b - y_true) ** 2)
+        W[i, j] -= 2 * eps
+        loss_minus = np.mean((x @ W + b - y_true) ** 2)
+        W[i, j] += eps                       # restore
+        num_dW[i, j] = (loss_plus - loss_minus) / (2 * eps)
+
+print(np.allclose(num_dW, d_W, atol=1e-5))   # True
+```
+
 ### Gradient descent variants
 
 - **Batch GD**: gradient over all n samples per update. Accurate but slow for large n.
@@ -156,7 +197,7 @@ def softmax(logits):
 
 logits = np.array([2.0, 1.0, 0.5])
 probs = softmax(logits)
-print(probs)           # [0.59, 0.24, 0.17]
+print(probs)           # [0.63, 0.23, 0.14]
 print(probs.sum())     # 1.0
 ```
 
@@ -238,4 +279,4 @@ print(kl_divergence(P, P))   # 0.0
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-13*
