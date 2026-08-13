@@ -1,5 +1,5 @@
 # NumPy Exercises — Phase 0 Proficiency
-## 2–3 days of focused practice | ~60 exercises
+## ~60 exercises across 8 sections
 
 ---
 
