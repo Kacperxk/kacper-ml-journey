@@ -1,5 +1,5 @@
 # Python Exercises — Phase 0 Proficiency
-## 2–3 days of focused practice | ~70 exercises + Git/GitHub drills
+## ~70 exercises across 7 sections + Git/GitHub drills
 
 ---
 
