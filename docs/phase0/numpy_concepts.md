@@ -1,6 +1,8 @@
 # Phase 0 — NumPy Concepts
 
 Concepts, not drills — drills are in `numpy_exercises.md` in this folder.
+Sections 1.7 onward connect to `math_concepts.md` — read the relevant part
+of that file alongside Sections 5 and 8 of the exercises.
 
 ---
 
@@ -60,12 +62,28 @@ np.random.seed(42)                        # ALWAYS set this for reproducibility
 np.random.randn(3, 4)                     # 3x4 standard normal
 np.random.rand(3, 4)                      # 3x4 uniform [0, 1)
 np.random.randint(0, 10, size=(3, 4))    # 3x4 random integers
+np.random.uniform(-1.0, 1.0, size=(3, 4)) # 3x4 uniform [-1, 1)
+np.random.choice(10, size=5, replace=False)  # 5 unique picks from range(10)
+np.random.permutation(5)                  # a shuffled [0,1,2,3,4]
 
 np.array([1, 2, 3], dtype=np.float32)    # 32-bit float (GPU prefers this)
 np.array([1, 2, 3], dtype=np.float64)    # 64-bit float (NumPy default)
 ```
 
 Why dtype matters: PyTorch uses `float32`. NumPy defaults to `float64`. You will be converting between them, so always know what you have.
+
+### dtype upcasting
+
+Mixing dtypes in one operation always promotes to the more precise/general type — never silently loses precision.
+
+```python
+a = np.array([1, 2, 3])                      # int64
+b = np.array([1.0, 2.0, 3.0])                # float64
+c = np.array([1, 2, 3], dtype=np.float32)    # float32
+
+(a + b).dtype    # float64 — int64 + float64 -> float64
+(a + c).dtype    # float64 — int64 + float32 -> float64 (needs float64 to hold int64's range)
+```
 
 ---
 
@@ -86,11 +104,35 @@ a[0, :]       # [1, 2, 3] — whole first row
 a[:, 1]       # [2, 5, 8] — whole second column
 a[0:2, 0:2]   # [[1,2],[4,5]] — top-left 2x2
 
+# Slices with a step: [start:end:step]
+b = np.array([[ 1,  2,  3,  4],
+              [ 5,  6,  7,  8],
+              [ 9, 10, 11, 12],
+              [13, 14, 15, 16]])
+b[::2, ::2]        # [[1,3],[9,11]] — every other row, every other column
+b[::-1]            # rows reversed
+b[0:3:2, 1:4:2]    # [[2,4],[10,12]] — rows 0,2 and cols 1,3
+
 # Boolean indexing
 mask = a > 5
 a[mask]          # [6, 7, 8, 9] — values where mask is True
 a[a > 5] = 0     # set those values to 0 in place
 ```
+
+### Fancy indexing
+
+Index with a list/array of integers to select arbitrary positions — not a contiguous range like a slice.
+
+```python
+a = np.array([10, 20, 30, 40, 50])
+a[[0, 2, 3]]                # [10, 30, 40] — arbitrary rows/positions, any order, repeats allowed
+
+M = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+M[[0, 2]]                   # rows 0 and 2
+M[[0, 1, 2], [0, 1, 2]]     # paired indices -> diagonal: [1, 5, 9]
+```
+
+Used constantly for batching/sampling: `data[batch_indices]` pulls an arbitrary batch of rows in one call.
 
 ### Views vs copies — the most important gotcha:
 
@@ -106,9 +148,18 @@ print(a)        # [1, 99, 3, 4, 5] — a was changed through b!
 c = a[1:4].copy()
 c[0] = 0
 print(a)        # unchanged
+
+# Boolean and fancy indexing ALWAYS return a COPY, never a view
+d = a[a > 1]     # boolean index -> copy
+d[0] = -1
+print(a)         # unchanged
+
+e = a[[0, 1]]    # fancy index -> copy
+e[0] = -1
+print(a)         # unchanged
 ```
 
-Views exist for performance. But they cause confusing bugs. When in doubt, call `.copy()`.
+**The rule:** slicing → view. Boolean or fancy (integer-array) indexing → copy. Views exist for performance but cause confusing bugs — when in doubt, call `.copy()`.
 
 ---
 
@@ -186,6 +237,15 @@ np.maximum(a, 2.5)    # [2.5, 2.5, 3.0, 4.0] — element-wise max (this is ReLU!
 np.clip(a, 1.5, 3.0)  # [1.5, 2.0, 3.0, 3.0] — clamp to range
 ```
 
+### Vectorized conditionals: `np.where`
+
+`np.where(condition, if_true, if_false)` — an element-wise ternary, no loop.
+
+```python
+a = np.array([1, -2, 3, -4, 5])
+np.where(a > 0, a, 0)     # [1, 0, 3, 0, 5] — keep positives, zero out the rest
+```
+
 ---
 
 ## 1.5 — Aggregation and Reduction
@@ -211,6 +271,33 @@ a.max(axis=1)    # [3, 6]
 
 a.argmax(axis=1) # [2, 2] — column index of max in each row
 ```
+
+### Sorting: `argsort`
+
+`np.argsort` returns the *indices* that would sort an array — not the sorted values themselves. Combine it with fancy indexing to actually reorder something (an array itself, or a second array by the first's order — e.g. reordering eigenvectors by their eigenvalues).
+
+```python
+a = np.array([30, 10, 20])
+np.argsort(a)            # [1, 2, 0] — index of smallest, then next, then next
+a[np.argsort(a)]          # [10, 20, 30] — a, sorted ascending
+a[np.argsort(a)[::-1]]    # [30, 20, 10] — sorted descending
+```
+
+### `keepdims` — for feeding the result back into broadcasting
+
+Reducing along an axis drops that dimension by default. `keepdims=True` keeps it as size 1, so the result still broadcasts cleanly against the original array.
+
+```python
+X = np.random.randn(4, 3)
+
+row_sum = X.sum(axis=1)                    # shape (4,) — dimension dropped
+X / row_sum                                 # ERROR — (4,3) vs (4,) don't align
+
+row_sum_k = X.sum(axis=1, keepdims=True)   # shape (4, 1) — dimension kept
+X / row_sum_k                               # works — (4,3) / (4,1) broadcasts
+```
+
+Use `keepdims=True` any time a reduction feeds back into a divide/subtract against the original array — softmax (subtract per-row max, divide by per-row sum) is the canonical example.
 
 ML use case — normalizing features:
 
@@ -247,11 +334,27 @@ np.expand_dims(v, axis=0)  # same as v[np.newaxis, :]
 b = np.array([[[1, 2, 3]]])   # shape (1, 1, 3)
 np.squeeze(b)                  # shape (3,)
 
+# Flatten to 1D
+M = np.random.randn(3, 4)
+M.flatten()      # always a COPY
+M.ravel()        # a VIEW when possible, falls back to a copy if it can't be
+
 # Stacking
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 np.stack([a, b], axis=0)       # [[1,2,3],[4,5,6]] — new axis → (2, 3)
 np.concatenate([a, b])         # [1,2,3,4,5,6] — join along existing axis
+
+# vstack/hstack — shortcuts for the common 2D cases
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+np.vstack([A, B])              # shape (4, 2) — stacked as more rows
+np.hstack([A, B])              # shape (2, 4) — stacked as more columns
+
+# column_stack — turn separate 1D vectors into columns of a 2D array
+x1 = np.array([1, 2, 3])
+x2 = np.array([4, 5, 6])
+np.column_stack([x1, x2])      # [[1,4],[2,5],[3,6]] — shape (3, 2)
 ```
 
 ---
@@ -270,34 +373,142 @@ v = np.array([1.0, 2.0, 3.0])
 w = np.array([4.0, 5.0, 6.0])
 np.dot(v, w)               # dot product → 32
 
-np.linalg.inv(A)           # matrix inverse
-np.linalg.solve(A, b)      # solve Ax=b (more stable than inv)
-np.linalg.eig(A)           # eigenvalues and eigenvectors
-np.linalg.svd(A)           # SVD decomposition
+b_vec = np.array([5.0, 6.0])
+np.linalg.inv(A)              # matrix inverse
+np.linalg.solve(A, b_vec)     # solve Ax=b — more stable than inv(A) @ b
+np.linalg.eig(A)              # eigenvalues and eigenvectors
+np.linalg.svd(A)              # SVD decomposition
 
 np.linalg.norm(v)          # L2 norm
 np.linalg.norm(v, ord=1)   # L1 norm
 np.linalg.norm(A, ord='fro') # Frobenius norm
+
+# np.diag does two different things depending on the input's ndim:
+np.diag(A)                    # A is 2D -> extracts the diagonal, shape (2,)
+np.diag(np.array([1.0, 2.0])) # input is 1D -> builds a diagonal matrix, shape (2, 2)
 ```
 
-### np.einsum — a preview
-
-Expresses any sum over indices in compact notation. You do not need to master it now — just know it exists.
-
-```python
-np.einsum("ij,jk->ik", A, B)   # same as A @ B
-np.einsum("i,i->", v, w)        # dot product → scalar
-np.einsum("ij->ji", A)           # transpose
-
-# Batch matrix multiply — used in transformer attention
-Q = np.random.randn(8, 10, 64)   # (batch, seq, d_k)
-K = np.random.randn(8, 10, 64)
-scores = np.einsum("bqd,bkd->bqk", Q, K)  # (8, 10, 10)
-```
+Deeper treatment of what eigenvalues/SVD *mean* and PCA built from them: `math_concepts.md` 1.1.
 
 ---
 
-## 1.8 — Common Pitfalls
+## 1.8 — einsum
+
+Einstein summation notation — one compact syntax for sums, products, transposes, matrix multiplies, and batched versions of all of them.
+
+### The one rule
+
+`np.einsum("input_labels->output_labels", *arrays)`. Every axis gets a letter.
+
+- A letter that appears in the **inputs but not the output** gets summed over.
+- A letter that appears in **both inputs and output** is kept, matched position-by-position across arrays.
+- Repeating a letter across two inputs means "multiply element-wise along that axis, aligned by the letter" — combined with the summation rule above, that's how it produces dot products and matrix multiplies.
+
+Build it up from the simplest cases:
+
+```python
+a = np.array([1.0, 2.0, 3.0])
+b = np.array([4.0, 5.0, 6.0])
+A = np.random.randn(3, 4)
+B = np.random.randn(4, 5)
+
+np.einsum("i->", a)          # sum all elements — same as a.sum()
+np.einsum("ij->ji", A)       # transpose — same as A.T
+np.einsum("ij->i", A)        # row sums — same as A.sum(axis=1)
+np.einsum("ij->j", A)        # column sums — same as A.sum(axis=0)
+
+np.einsum("i,i->", a, b)     # dot product — "i" in both inputs, absent from
+                              # output -> multiply elementwise then sum -> scalar
+                              # same as np.dot(a, b)
+
+np.einsum("i,j->ij", a, b)   # outer product — "i" and "j" each only appear
+                              # once, both kept -> every pairwise product
+                              # same as np.outer(a, b), shape (3, 3)
+
+np.einsum("ij,jk->ik", A, B) # matrix multiply — "j" appears in both inputs,
+                              # absent from output -> summed over
+                              # same as A @ B
+
+M = np.random.randn(4, 4)
+np.einsum("ii->i", M)        # diagonal — same as np.diag(M)
+np.einsum("ij,ij->i", A, A)  # sum of squares per row — same as (A*A).sum(axis=1),
+                              # also same as np.diag(A @ A.T) but without
+                              # ever forming the full (3,3) gram matrix
+```
+
+### Batched versions
+
+Add a batch letter (conventionally `b`) that appears unchanged in every input and the output — it's never summed, just carried along.
+
+```python
+# Batch matmul: 8 independent (3,4) @ (4,5) multiplies at once
+batch_A = np.random.randn(8, 3, 4)
+batch_B = np.random.randn(8, 4, 5)
+np.einsum("bij,bjk->bik", batch_A, batch_B)   # shape (8, 3, 5)
+# same as np.stack([batch_A[i] @ batch_B[i] for i in range(8)]) — einsum
+# does it in one vectorized call, no Python loop
+
+# Attention scores: Q @ K.T per batch, without ever forming K.T explicitly
+Q = np.random.randn(2, 5, 8)   # (batch, seq, d_k)
+K = np.random.randn(2, 5, 8)
+scores = np.einsum("bqd,bkd->bqk", Q, K)   # shape (2, 5, 5)
+# "b" carried through unchanged, "d" appears in both inputs and not the
+# output -> summed over (that's the dot product between each query and key)
+```
+
+This last pattern is exactly the raw attention-score computation inside a transformer's self-attention.
+
+---
+
+## 1.9 — Numerical Stability
+
+Two operations blow up quietly: `exp` of a large number overflows to `inf`, and `log` of exactly `0` returns `-inf`. Both happen routinely in ML code (softmax, cross-entropy) and both have standard fixes.
+
+```python
+# exp overflow
+x = np.array([1000.0, 1001.0, 1002.0])
+np.exp(x)          # [inf, inf, inf]
+
+# log(0)
+np.log(0.0)         # -inf
+```
+
+**Fix for `log`:** add a small epsilon so it never sees exactly zero.
+
+```python
+eps = 1e-9
+probs = np.array([0.5, 0.3, 0.2, 0.0])
+np.log(probs + eps)   # finite everywhere, last value just very negative
+```
+
+**Fix for division by zero:** don't compute `x / y` directly if `y` might be 0 — swap in a safe value first with `np.where`.
+
+```python
+counts = np.array([10, 5, 0, 3])
+values = np.array([1.0, 2.0, 3.0, 4.0])
+values / counts                                          # inf at index 2
+np.where(counts == 0, 0.0, values / np.where(counts == 0, 1, counts))
+# [0.1, 0.4, 0.0, 1.33] — the inner np.where avoids the division ever
+# happening on a 0; the outer one picks the final safe value
+```
+
+**Fix for `exp` overflow — the subtract-max trick.** `log(sum(exp(x)))` ("log-sum-exp") is the core of softmax and cross-entropy. Subtracting the max before exponentiating gives the identical mathematical result but never overflows, because the largest exponent is now exactly 0:
+
+```python
+def log_sum_exp(x):
+    m = np.max(x)
+    return m + np.log(np.sum(np.exp(x - m)))
+
+x = np.array([1000.0, 1001.0, 1002.0])
+np.log(np.sum(np.exp(x)))   # inf — naive version overflows
+log_sum_exp(x)                # 1002.41 — stable version doesn't
+```
+
+This is exactly why `math_concepts.md`'s `softmax` implementation subtracts `np.max(logits, ..., keepdims=True)` before calling `np.exp`.
+
+---
+
+## 1.10 — Common Pitfalls
 
 ```python
 # 1. Float comparison
@@ -318,11 +529,18 @@ a = np.array([1.0, 2.0, 3.0])
 b = a
 a += 1      # modifies a IN PLACE — b also changes (same object)
 a = a + 1   # creates a NEW array — b still points to old one
+
+# 4. Integer dtypes overflow silently on element-wise ops (not on .sum() —
+#    NumPy widens the accumulator there). Constructing an out-of-range
+#    literal now raises immediately instead of wrapping:
+np.array([200], dtype=np.int8)      # raises OverflowError (int8 max is 127)
+a = np.array([100], dtype=np.int8)
+a + a                                 # [-56] — 200 wraps silently, still int8
 ```
 
 ---
 
-## 1.9 — Resources for NumPy
+## 1.11 — Resources for NumPy
 
 - NumPy official quickstart: numpy.org/doc/stable/user/quickstart.html
 - CS231n Python/NumPy tutorial: cs231n.github.io/python-numpy-tutorial
@@ -330,4 +548,4 @@ a = a + 1   # creates a NEW array — b still points to old one
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-13*
