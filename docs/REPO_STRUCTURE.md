@@ -28,6 +28,7 @@ kacper-ml-journey/
 │       ├── python_exercises.md        # ~70 Python drills + Git/GitHub drills
 │       ├── numpy_concepts.md          # NumPy — arrays, broadcasting, linear algebra, einsum
 │       ├── numpy_exercises.md         # ~60 NumPy drills
+│       ├── matplotlib_concepts.md     # figure/axes, plot types, subplots, saving
 │       ├── math_concepts.md           # linear algebra, calculus, probability
 │       ├── habits_and_tools.md        # engineering/debugging/learning habits, editor setup
 │       └── projects.md                # 4 core projects + 4 optional stretch, full specs
@@ -121,4 +122,4 @@ Lives at the repo root, already populated for Phase 0 — see `requirements.txt`
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-13*
