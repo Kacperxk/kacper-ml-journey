@@ -30,7 +30,7 @@ code itself (sections, projects) is yours to create as you go, see
 ## Core Projects (`phase0/projects/`)
 
 - [x] Project 1 — CLI Weather Tool
-- [ ] Project 2 — Data Pipeline
+- [x] Project 2 — Data Pipeline
 - [ ] Project 3 — Linear Regression from Scratch (incl. GD/momentum/Adam comparison)
 - [ ] Project 4 — NumPy Neural Network (capstone)
 
@@ -43,4 +43,4 @@ code itself (sections, projects) is yours to create as you go, see
 
 ---
 
-_Last updated: 2026-08-11_
+_Last updated: 2026-08-13_
