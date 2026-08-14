@@ -18,7 +18,7 @@ code itself (sections, projects) is yours to create as you go, see
 
 ## NumPy (`phase0/numpy/`, 8 sections)
 
-- [ ] Section 1 — Array Creation
+- [x] Section 1 — Array Creation
 - [ ] Section 2 — Indexing
 - [ ] Section 3 — Broadcasting
 - [ ] Section 4 — Aggregation
