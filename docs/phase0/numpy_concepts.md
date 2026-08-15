@@ -64,13 +64,27 @@ np.random.rand(3, 4)                      # 3x4 uniform [0, 1)
 np.random.randint(0, 10, size=(3, 4))    # 3x4 random integers
 np.random.uniform(-1.0, 1.0, size=(3, 4)) # 3x4 uniform [-1, 1)
 np.random.choice(10, size=5, replace=False)  # 5 unique picks from range(10)
-np.random.permutation(5)                  # a shuffled [0,1,2,3,4]
+np.random.permutation(5)                  # int in -> shuffled [0,1,2,3,4]
 
 np.array([1, 2, 3], dtype=np.float32)    # 32-bit float (GPU prefers this)
 np.array([1, 2, 3], dtype=np.float64)    # 64-bit float (NumPy default)
 ```
 
 Why dtype matters: PyTorch uses `float32`. NumPy defaults to `float64`. You will be converting between them, so always know what you have.
+
+### `np.random.permutation` on an array, not just an int
+
+Give it an integer and it shuffles `arange(n)`. Give it an array instead, and it shuffles that array along **axis 0 only** — always rows for a 2D array, never columns — and returns a shuffled copy, leaving the original untouched.
+
+```python
+data = np.arange(20).reshape(5, 4)   # 5 samples, 4 features each
+shuffled = np.random.permutation(data)
+# rows get reordered as whole units — each row's 4 values stay together,
+# exactly as they were, just in a different position. Columns are never
+# touched independently.
+```
+
+This is exactly the behavior you want for a dataset: reorder which sample comes first, without scrambling which feature values belong to which sample. `np.random.permutation(data)[:10]` — shuffle then slice — is a standard pattern for sampling N rows without replacement.
 
 ### dtype upcasting
 
@@ -270,6 +284,21 @@ a.mean(axis=0)   # [2.5, 3.5, 4.5]
 a.max(axis=1)    # [3, 6]
 
 a.argmax(axis=1) # [2, 2] — column index of max in each row
+```
+
+### `np.all` / `np.any` — checking a condition across an axis
+
+`np.all(condition, axis=...)` is True only if *every* element along that axis satisfies the condition. `np.any` is True if *at least one* does. Both are reductions like `sum`/`mean` — same `axis` rules apply, and combine with `.sum()` to count how many rows/columns satisfy the condition.
+
+```python
+X = np.array([[1, 2, -3],
+              [4, 5, 6]])
+
+np.all(X > 0)              # False — at least one element isn't > 0
+np.all(X > 0, axis=1)      # [False, True] — row 0 has a negative, row 1 doesn't
+np.any(X < 0, axis=1)      # [True, False]
+
+np.all(X > 0, axis=1).sum()   # 1 — count of rows where every value is positive
 ```
 
 ### Sorting: `argsort`
