@@ -19,7 +19,7 @@ code itself (sections, projects) is yours to create as you go, see
 ## NumPy (`phase0/numpy/`, 8 sections)
 
 - [x] Section 1 — Array Creation
-- [ ] Section 2 — Indexing
+- [x] Section 2 — Indexing
 - [ ] Section 3 — Broadcasting
 - [ ] Section 4 — Aggregation
 - [ ] Section 5 — Linear Algebra
@@ -43,4 +43,4 @@ code itself (sections, projects) is yours to create as you go, see
 
 ---
 
-_Last updated: 2026-08-13_
+_Last updated: 2026-08-15_
