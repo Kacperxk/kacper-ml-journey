@@ -63,8 +63,6 @@ Do this before writing the code. This prevents the majority of shape bugs.
 
 **Timebox confusion.** Stuck for more than 25 minutes? Write down exactly what you tried and what happened. Search with those specific terms. Give it 15 more minutes. If still stuck, ask — here, StackOverflow, Discord ML communities.
 
-**Teach it.** After studying any concept, write a plain-language explanation in `resources/notes/concept_name.md`. If you cannot write two clear paragraphs about it, you do not understand it yet.
-
 **Spaced repetition.** Use Anki (apps.ankiweb.net) for things you need to know cold: softmax formula, what a Jacobian is, broadcasting rules, when to use L1 vs L2 norm. 10 minutes of card review per day.
 
 ## VS Code Setup
@@ -98,4 +96,4 @@ Do this before writing the code. This prevents the majority of shape bugs.
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-16*
