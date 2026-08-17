@@ -853,7 +853,6 @@ print("LearningRateScheduler: all tests passed")
 **Exercise 4.3** — Class methods and static methods: factory patterns.
 
 ```python
-from typing import Optional
 import json
 
 class Dataset:
@@ -967,7 +966,7 @@ Also a quick primer on what the three example metrics actually measure, since th
 
 ```python
 from abc import ABC, abstractmethod
-from typing import Any, Optional
+from typing import Any
 
 class Metric(ABC):
     """
@@ -1000,7 +999,7 @@ class Metric(ABC):
         return list(self._history)
 
     @property
-    def best(self) -> Optional[float]:
+    def best(self) -> float | None:
         """Return best value from history, or None if history is empty."""
         pass
 
@@ -1024,7 +1023,7 @@ class Accuracy(Metric):
         return sum(t == p for t, p in zip(y_true, y_pred)) / len(y_true)
 
     @property
-    def best(self) -> Optional[float]:
+    def best(self) -> float | None:
         """For accuracy, best = maximum."""
         return max(self._history) if self._history else None
 
@@ -1044,7 +1043,7 @@ class MSE(Metric):
         pass
 
     @property
-    def best(self) -> Optional[float]:
+    def best(self) -> float | None:
         """For MSE, lower is better — best = minimum seen so far."""
         # hint: same shape as Accuracy.best above, min() instead of max(),
         # still None on empty history
@@ -1136,7 +1135,6 @@ import logging
 import os
 import shutil
 import tempfile
-from typing import Optional
 
 class Timer:
     """
@@ -1194,7 +1192,7 @@ class TempDirectory:
     """
     def __init__(self, prefix: str = "tmp_"):
         self.prefix = prefix
-        self.path: Optional[str] = None
+        self.path: str | None = None
 
     def __enter__(self) -> str:
         # hint: tempfile.mkdtemp(prefix=self.prefix) creates the directory
@@ -1882,4 +1880,4 @@ Projects are tracked separately — see `docs/phase0/projects.md` and `phase0/RE
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-17*
