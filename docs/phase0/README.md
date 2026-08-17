@@ -17,7 +17,7 @@ plan, deadlines, and project specs live one level up (`docs/ROADMAP.md`,
 |------|---------|
 | `python_concepts.md` | Python fundamentals, OOP, functions, error handling, types, project structure. Read this, don't drill it. |
 | `python_exercises.md` | ~70 Python drill exercises across 7 sections, plus Git/GitHub drills. Predict-before-run methodology — do these. |
-| `numpy_concepts.md` | NumPy mindset, indexing, broadcasting, vectorization, linear algebra ops, einsum. |
+| `numpy_concepts.md` | NumPy mindset, indexing, broadcasting, vectorization, linear algebra ops, einsum, numerical stability. |
 | `numpy_exercises.md` | ~60 NumPy drill exercises across 8 sections. Same predict-before-run methodology. |
 | `matplotlib_concepts.md` | Figure/Axes anatomy, plot types, subplots, log scale, heatmaps, saving figures. |
 | `math_concepts.md` | Linear algebra, calculus/backprop intuition, and probability, connected directly to ML code. |
@@ -84,4 +84,4 @@ Go through this honestly before moving to Phase 1. "I sort of know this" is not 
 
 ---
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-08-17*
