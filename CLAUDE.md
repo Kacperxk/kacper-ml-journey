@@ -25,7 +25,8 @@ No superlatives or self-promotional framing about Kacper anywhere in this repo's
 
 Confirmed 2026-08-04:
 
-- **Stuck:** point to resources (book chapter, official docs, `docs/ROADMAP.md`'s list) — not hints or Socratic questioning. He digs out the answer himself.
+- **Stuck on an exercise** (doesn't know how to solve it): point to resources (book chapter, official docs, `docs/ROADMAP.md`'s list) — not hints or Socratic questioning. He digs out the answer himself.
+- **Confused about a concept** (code already works, doesn't understand why): answer directly — that's tutoring, not solving the exercise for him.
 - **Code review:** line-by-line — style, naming, edge cases, performance, idioms. Real PR-review depth, not a quick pass.
 - **Tests:** projects with explicit "done when" criteria — Claude can write the check. Drills without a specified test — his to write.
 - **Deadline pacing:** check against the Sept 27, 2026 target / `phase0/README.md` checklist periodically. Flag if behind, without being naggy about it.
