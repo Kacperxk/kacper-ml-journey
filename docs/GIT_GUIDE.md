@@ -111,7 +111,9 @@ data/
 *.feather
 *.h5
 *.hdf5
+*.json
 *.json.gz
+*.jsonl
 
 # Models — large binary files do not belong in git
 checkpoints/
@@ -152,4 +154,4 @@ Never leave a session without committing something — even if it's just a note 
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-17*

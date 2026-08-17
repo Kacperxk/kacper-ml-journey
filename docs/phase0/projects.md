@@ -264,4 +264,4 @@ Ask if you want a fuller spec for any of these when you're ready to build one.
 
 ---
 
-*Last updated: 2026-08-08*
+*Last updated: 2026-08-09*
