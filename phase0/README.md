@@ -21,7 +21,7 @@ code itself (sections, projects) is yours to create as you go, see
 - [x] Section 1 — Array Creation
 - [x] Section 2 — Indexing
 - [x] Section 3 — Broadcasting
-- [ ] Section 4 — Aggregation
+- [x] Section 4 — Aggregation
 - [ ] Section 5 — Linear Algebra
 - [ ] Section 6 — Einsum
 - [ ] Section 7 — Numerical Stability
@@ -43,4 +43,4 @@ code itself (sections, projects) is yours to create as you go, see
 
 ---
 
-_Last updated: 2026-08-16_
+_Last updated: 2026-08-17_
