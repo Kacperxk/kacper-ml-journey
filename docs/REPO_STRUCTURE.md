@@ -2,9 +2,9 @@
 
 Reference for where everything lives in this repo. `docs/` and each phase's
 `README.md` already exist; the code subtrees inside each phase folder
-(`phase0/python/`, `phase1/classical_ml/`, etc.) are targets — Kacper
-creates those files himself as he works through each phase (see
-`CLAUDE.md`'s working-style note; Claude should not pre-create them).
+(`phase0/python/`, `phase0/numpy/`, etc.) are targets — Kacper creates
+those files himself as he works through each phase (see `CLAUDE.md`'s
+working-style note; Claude should not pre-create them).
 
 ---
 
@@ -34,26 +34,12 @@ kacper-ml-journey/
 │       └── projects.md                # 4 core projects + 4 optional stretch, full specs
 │
 ├── phase0/                            # Foundations — target date Sept 27, 2026
-│   ├── README.md                      # live status checklist (exists)
-│   ├── python/                        # Kacper creates these as he works through python_exercises.md
-│   │   ├── section1_identity.py
-│   │   ├── section2_comprehensions.py
-│   │   ├── section3_functions.py
-│   │   ├── section4_oop.py
-│   │   ├── section5_errors.py
-│   │   ├── section6_typeHints.py
-│   │   └── section7_fileIO.py
-│   ├── numpy/                         # Kacper creates these as he works through numpy_exercises.md
-│   │   │                               # .ipynb, not .py — numpy_exercises.md's own predict-before-run
-│   │   │                               # methodology is meant to run in a notebook, one per section
-│   │   ├── section1_creation.ipynb
-│   │   ├── section2_indexing.ipynb
-│   │   ├── section3_broadcasting.ipynb
-│   │   ├── section4_aggregation.ipynb
-│   │   ├── section5_linalg.ipynb
-│   │   ├── section6_einsum.ipynb
-│   │   ├── section7_numerical.ipynb
-│   │   └── section8_ml_patterns.ipynb
+│   ├── README.md                      # live status checklist — section topics tracked here,
+│   │                                   # not duplicated below
+│   ├── python/                        # section1_*.py .. section7_*.py, one per section
+│   ├── numpy/                         # section1_*.ipynb .. section8_*.ipynb — notebooks, not
+│   │                                   # .py (numpy_exercises.md's predict-before-run methodology
+│   │                                   # runs in a notebook)
 │   └── projects/                      # docs/phase0/projects.md has the class/function-level spec
 │       │                               # for each; each project's own README.md (written once
 │       │                               # you build it) has its precise, as-built file structure
@@ -67,31 +53,11 @@ kacper-ml-journey/
 │           ├── microtensor/
 │           └── mini_ml/
 │
-├── phase1/                            # Classical ML
-│   ├── README.md
-│   ├── theory/
-│   │   └── notes.md
-│   ├── classical_ml/
-│   │   ├── pandas_drills.py
-│   │   ├── sklearn_pipelines.py
-│   │   └── metrics_practice.py
-│   └── projects/
-│       └── ml_pipeline/
-│           ├── eda.ipynb
-│           ├── pipeline.py
-│           ├── models.py
-│           └── evaluate.py
+├── phase1/                            # Classical ML — structure TBD, expand once you start
+│   └── README.md                      # see docs/ROADMAP.md Phase 1 for topics/projects
 │
-├── phase2/                            # Deep Learning Core
-│   ├── README.md
-│   ├── backprop/
-│   │   └── manual_backprop.py         # MLP from scratch
-│   ├── cnn/
-│   │   └── cifar10.py
-│   ├── rnn/
-│   │   └── char_lm.py
-│   └── projects/
-│       └── paper_reproduction/        # fill in once you pick a paper
+├── phase2/                            # Deep Learning Core — structure TBD, expand once you start
+│   └── README.md                      # see docs/ROADMAP.md Phase 2 for topics/projects
 │
 ├── phase3/                            # LLMs and Transformers (future)
 │   └── README.md
@@ -103,8 +69,6 @@ kacper-ml-journey/
 │   └── python_scratchpad.ipynb
 │
 └── resources/                         # your notes, summaries, reading list
-    ├── notes/                         # plain-language concept write-ups (see habits_and_tools.md)
-    │   └── concept_name.md
     ├── paper_notes/
     │   └── attention_is_all_you_need.md
     └── reading_list.md
@@ -122,4 +86,4 @@ Lives at the repo root, already populated for Phase 0 — see `requirements.txt`
 
 ---
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-08-17*
