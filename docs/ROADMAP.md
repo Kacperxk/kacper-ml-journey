@@ -79,7 +79,7 @@ NumPy is the backbone of everything in ML. PyTorch tensors are conceptually the 
 - Array creation, indexing/slicing (including boolean indexing)
 - **Broadcasting** — the concept most people underestimate. Understand it deeply.
 - Vectorized operations — never write a Python loop where NumPy can do it
-- Linear algebra ops: `np.dot`, `@`, `np.linalg.inv`, `np.linalg.eig`, `np.linalg.svd`
+- Linear algebra ops: `np.dot`, `@`, `np.linalg.solve`, `np.linalg.inv`, `np.linalg.eig`, `np.linalg.svd`
 - Shape manipulation: `reshape`, `transpose`, `squeeze`, `expand_dims`, `stack`, `concatenate`
 - Reduction ops: `sum`, `mean`, `std`, `max`, `argmax` along specific axes
 - `np.einsum` — one notation for dot products, matmul, batched matmul, attention-score patterns
@@ -286,4 +286,4 @@ Note: months 2–14 will compress against university semester load — this sche
 
 ---
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-08-18*
