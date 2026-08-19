@@ -79,9 +79,10 @@ Go through this honestly before moving to Phase 1. "I sort of know this" is not 
 - [ ] Can explain the connection between cross-entropy loss and maximum likelihood estimation
 - [ ] Can implement gradient descent from scratch and explain what each line does and why
 - [ ] Can implement k-means clustering from scratch in NumPy
+- [ ] Can apply Bayes' theorem to compute a posterior from a prior and a likelihood, and explain expectation/variance/covariance in plain language
 
 **When all of these feel solid — not just familiar, but solid — you are ready for Phase 1.**
 
 ---
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-08-18*

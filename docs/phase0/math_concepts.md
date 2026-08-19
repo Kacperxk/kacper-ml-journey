@@ -181,6 +181,48 @@ print(np.allclose(num_dW, d_W, atol=1e-5))   # True
 
 ## 1.3 — Probability: The Language of ML
 
+### Expectation, variance, and covariance
+
+Expectation `E[X]` is the probability-weighted average outcome of a random variable — for a sample of data, the empirical estimate is just the mean. Variance `Var(X) = E[(X - E[X])^2]` measures spread around that mean; standard deviation is its square root, in the same units as X. Covariance measures how two variables move together: `Cov(X,Y) = E[(X-E[X])(Y-E[Y])]` — positive means they rise and fall together, negative means one rises as the other falls, near-zero means no linear relationship.
+
+In ML: a loss function averaged over a batch (`np.mean(losses)`) is an empirical estimate of an expectation over the data distribution — this is what "expected loss" / "risk" means. Variance shows up in weight initialization (Xavier/Kaiming scale weights by variance to keep activations stable across layers) and in batch norm. The covariance matrix is exactly what `np.cov` computed in the PCA example above — this is the formal definition behind that call.
+
+```python
+X = np.array([1.0, 2.0, 3.0, 4.0, 5.0])
+mean = X.mean()          # 3.0 — E[X]
+var = X.var()             # 2.0 — average squared distance from the mean
+std = X.std()              # 1.414 — sqrt(var)
+
+Y = 2 * X                                  # moves perfectly with X
+Z = np.array([5.0, 1.0, 4.0, 2.0, 3.0])   # unrelated to X
+
+print(np.cov(X, Y)[0, 1])   # 5.0  — strongly positive: X and Y move together
+print(np.cov(X, Z)[0, 1])   # -0.75 — near zero: little linear relationship
+```
+
+### Bayes' theorem
+
+Bayes' theorem updates a belief in light of new evidence:
+
+`P(A|B) = P(B|A) * P(A) / P(B)`
+
+`P(A)` is the prior — what you believed before seeing the evidence. `P(A|B)` is the posterior — the updated belief after seeing evidence `B`. `P(B|A)` is the likelihood — how probable the evidence is if `A` is true.
+
+```python
+# Spam filter: does the word "free" make an email more likely to be spam?
+p_spam = 0.3                 # prior: 30% of emails are spam
+p_free_given_spam = 0.6      # 60% of spam emails contain "free"
+p_free_given_not_spam = 0.05 # 5% of legitimate emails contain "free"
+
+p_not_spam = 1 - p_spam
+p_free = p_free_given_spam * p_spam + p_free_given_not_spam * p_not_spam   # 0.215
+p_spam_given_free = (p_free_given_spam * p_spam) / p_free
+
+print(p_spam_given_free)   # 0.837 — seeing "free" pushes spam probability from 30% to 84%
+```
+
+In ML: Naive Bayes classifiers apply this formula directly. More broadly, MLE (above) is the special case of Bayesian inference where you ignore the prior entirely and only maximize the likelihood term `P(data | θ)` — a full Bayesian approach instead keeps a prior over θ and computes a posterior.
+
 ### Softmax — turning numbers into probabilities
 
 A model's final layer outputs raw scores (logits). Softmax converts them to probabilities: all positive, all sum to 1.
@@ -279,4 +321,4 @@ print(kl_divergence(P, P))   # 0.0
 
 ---
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-08-18*
