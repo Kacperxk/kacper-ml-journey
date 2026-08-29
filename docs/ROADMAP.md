@@ -3,7 +3,7 @@
 
 ---
 
-> **How to use this document:** A living reference. Every phase has a goal, a skill checklist, concrete resources, and projects to prove you learned it. When you finish a phase, expand the next one in more detail.
+> **How to use this document:** A living reference. Every phase has a goal, a skill checklist, concrete resources, and projects to prove you learned it. Before expanding the next phase, check its plan against current tools and practices first — content written this far ahead will drift, so verify before trusting it, then expand in more detail.
 
 ---
 
@@ -286,4 +286,4 @@ Note: months 2–14 will compress against university semester load — this sche
 
 ---
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-29*
