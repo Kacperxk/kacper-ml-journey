@@ -286,4 +286,4 @@ Note: months 2–14 will compress against university semester load — this sche
 
 ---
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-08-19*
