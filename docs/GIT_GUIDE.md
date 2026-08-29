@@ -154,4 +154,4 @@ Never leave a session without committing something — even if it's just a note 
 
 ---
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-08-18*

@@ -1880,4 +1880,4 @@ Projects are tracked separately — see `docs/phase0/projects.md` and `phase0/RE
 
 ---
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-08-18*
