@@ -731,7 +731,7 @@ b) For each of the 8 matrices in batch_A, compute the dot product of each row wi
    Result shape: (8, 3)
    Write with einsum.
 
-c) For each of the 8 matrices in batch_A, compute A[i].T @ A[i]  (3x3 gram matrix)
+c) For each of the 8 matrices in batch_A, compute A[i].T @ A[i]  (4x4 gram matrix)
    Result shape: (8, 4, 4)
    Write with einsum.
 ```
@@ -1191,4 +1191,4 @@ Projects are tracked separately — see `docs/phase0/projects.md` and `phase0/RE
 
 ---
 
-*Last updated: 2026-08-13*
+*Last updated: 2026-08-29*
