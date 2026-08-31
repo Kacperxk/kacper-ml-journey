@@ -390,13 +390,142 @@ def main() -> None:
 
 ### Project 4 — NumPy Neural Network (capstone)
 **Focus:** full forward/backward pass, gradient checking, mini-batch training
-**Time:** ~6–10 hours
+**Time:** ~10–15 hours
 
-A `TwoLayerNet` class (`Linear → ReLU → Linear → Softmax`, cross-entropy loss) implemented entirely in NumPy, including manual backward pass via the chain rule. Trained with mini-batch SGD on synthetic MNIST-style data. Must pass a numerical gradient check (`gradient_check` function, relative error < 1e-4) before you trust the training results.
+A `TwoLayerNet` class (`Linear → ReLU → Linear → Softmax`, cross-entropy loss) implemented entirely in NumPy, including a manual backward pass via the chain rule. Trained with mini-batch SGD on synthetic classification data. Must pass a numerical gradient check before you trust any training results.
 
-This is the Phase 0 capstone and directly sets up Phase 2's PyTorch/backprop work — it fully replaces the need for the two "stretch" tensor-wrapper projects below, which cover the same ground at lower depth.
+This is the Phase 0 capstone and directly sets up Phase 2's PyTorch/backprop work — it fully replaces the need for the Mini Tensor Library stretch project below, which covers the same ground at lower depth.
 
-**Done when:** loss ≈ log(10) ≈ 2.3 at initialization, gradient check passes, validation accuracy exceeds 60% after 30 epochs, training curves plotted.
+**On the backward pass:** the hard part is the very first gradient — from the loss back through softmax. Don't derive softmax's own Jacobian; `math_concepts.md` 1.3 has the combined softmax+cross-entropy shortcut (`d_logits = (probs - y_true) / n`), which is where backprop actually starts here. Everything after that (through the second Linear, through ReLU, through the first Linear) is the same shape-matching chain-rule pattern from `math_concepts.md` 1.2, just applied twice in sequence.
+
+**On weight initialization:** use small random values for `W1`/`W2` (`randn * 0.01`, the same scale already used in `numpy_exercises.md` Ex 5.2) and zeros for `b1`/`b2`. Xavier/Kaiming initialization is real and better, but it's scoped to Phase 2 in `docs/ROADMAP.md` — simple fixed-scale init is enough to hit every target below.
+
+#### Structure
+
+Rough file breakdown — how you split logic within each file is yours to decide:
+
+```
+numpy_neural_net/
+├── __init__.py
+├── layers.py            # relu, relu_backward, softmax, cross_entropy
+├── model.py              # TwoLayerNet — forward, backward, predict, gradient_check
+├── train.py               # mini-batch SGD training loop
+├── visualize.py             # training curves
+└── run_experiments.py        # synthetic data, gradient check, training, plotting
+```
+
+#### `layers.py`
+
+```python
+def relu(x: np.ndarray) -> np.ndarray:
+    """max(0, x), elementwise."""
+
+def relu_backward(dout: np.ndarray, x: np.ndarray) -> np.ndarray:
+    """Backprop through relu: dout where x > 0, else 0. Same drelu/dz logic as
+    math_concepts.md 1.2's scalar chain-rule example, applied elementwise."""
+
+def softmax(logits: np.ndarray) -> np.ndarray:
+    """Numerically stable softmax along the last axis. See math_concepts.md 1.3."""
+
+def cross_entropy(y_true_onehot: np.ndarray, probs: np.ndarray) -> float:
+    """Mean cross-entropy loss. See math_concepts.md 1.3."""
+```
+
+#### `model.py`
+
+```python
+class TwoLayerNet:
+    """Linear -> ReLU -> Linear -> Softmax, trained with cross-entropy loss."""
+
+    def __init__(self, n_features: int, n_hidden: int, n_classes: int, seed: int = 42) -> None:
+        """Initialize W1 (n_features, n_hidden), b1 (n_hidden,), W2 (n_hidden,
+        n_classes), b2 (n_classes,). See the weight initialization note above."""
+
+    def forward(self, X: np.ndarray) -> tuple[np.ndarray, dict]:
+        """z1 = X@W1+b1, a1 = relu(z1), z2 = a1@W2+b2, probs = softmax(z2).
+        Return (probs, cache) — cache holds whatever backward() will need
+        (X, z1, a1, z2, probs at minimum)."""
+
+    def backward(self, y_true_onehot: np.ndarray, cache: dict) -> dict:
+        """Full backward pass via the chain rule — see the backward pass note
+        above for where to start. Return {"W1":..., "b1":..., "W2":..., "b2":...}."""
+
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        """Predicted class indices — argmax of forward(X)'s probs."""
+
+    def params(self) -> dict:
+        """{"W1": self.W1, "b1": self.b1, "W2": self.W2, "b2": self.b2}."""
+
+    def gradient_check(self, X: np.ndarray, y_true_onehot: np.ndarray, eps: float = 1e-5) -> dict:
+        """For each parameter array, perturb every scalar entry by +-eps,
+        rerun forward + cross_entropy each time, and compare against
+        backward()'s analytic gradient — same numerical_gradient pattern as
+        math_concepts.md 1.2's finite-difference example, looped over every
+        parameter instead of just one. Return relative error per parameter
+        name. Run on a small subset (8-16 samples) — looping over every
+        scalar entry is slow at full batch size."""
+```
+
+#### `train.py`
+
+```python
+def train(
+    model: "TwoLayerNet",
+    X_train: np.ndarray,
+    y_train_onehot: np.ndarray,
+    X_val: np.ndarray,
+    y_val: np.ndarray,
+    lr: float = 0.5,
+    batch_size: int = 32,
+    n_epochs: int = 30,
+) -> dict:
+    """Mini-batch SGD. Each epoch: shuffle, iterate over batches, forward +
+    backward + update each param in place (param -= lr * grad). After each
+    epoch, record training loss and validation accuracy.
+    Return {"train_loss": [...], "val_accuracy": [...]}, one entry per epoch."""
+```
+
+#### `visualize.py`
+
+```python
+def plot_training_curves(train_loss: list[float], val_accuracy: list[float]) -> None:
+    """Two subplots sharing the epoch axis: loss on top, accuracy on bottom.
+    Save to figures/training_curves.png."""
+```
+
+#### `run_experiments.py`
+
+```python
+def generate_synthetic_data(
+    n_classes: int = 10, n_features: int = 30, n_samples_per_class: int = 200,
+    center_scale: float = 1.0, noise_scale: float = 2.0, seed: int = 0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """"MNIST-style" here means n_classes clusters in n_features-dim space,
+    shaped like a real classification problem — not literal 28x28 images.
+    For each class, sample a random center (scale=center_scale), then
+    sample n_samples_per_class points around it (scale=noise_scale). Stack
+    and shuffle. Return (X, y): X shape (n_classes*n_samples_per_class,
+    n_features), y shape (n_classes*n_samples_per_class,) of class indices.
+    These defaults are tuned to land around 70-75% val accuracy with a
+    correct implementation — comfortably above the 60% bar without being
+    trivial to hit."""
+
+def main() -> None:
+    """
+    1. generate_synthetic_data(), split 80/20 into train/val, one-hot
+       encode y_train.
+    2. Build TwoLayerNet(n_features=30, n_hidden=64, n_classes=10). Check
+       the loss on the full training set before any training — should
+       land close to log(10) ≈ 2.303 (a random classifier's cross-entropy
+       over 10 balanced classes: -log(1/10)). Explain why in a comment.
+    3. Run model.gradient_check on a small batch of the training data.
+       Every relative error should be under 1e-4 — if not, stop and find
+       the bug in backward() before training on it.
+    4. Train with train() for 30 epochs. Plot with plot_training_curves.
+    """
+```
+
+**Done when:** loss at initialization is within ~0.05 of log(10) ≈ 2.303; `gradient_check`'s relative errors are all under 1e-4; validation accuracy exceeds 60% after 30 epochs; training curves (loss and accuracy) are plotted.
 
 ---
 
