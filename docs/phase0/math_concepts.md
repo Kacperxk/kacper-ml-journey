@@ -177,6 +177,63 @@ print(np.allclose(num_dW, d_W, atol=1e-5))   # True
 - **SGD**: gradient over 1 sample per update. Fast but very noisy.
 - **Mini-batch GD**: gradient over a small batch (32–512). The standard. Best balance.
 
+### Momentum and Adam — smoothing out noisy gradients
+
+Mini-batch and SGD gradients are noisy estimates of the true gradient — each batch only sees a slice of the data. **Momentum** keeps a running average of past gradients (a "velocity") and steps with that instead of the raw noisy gradient:
+
+```
+v = β * v + (1 - β) * grad
+params = params - lr * v
+```
+
+β (typically 0.9) controls how much history to keep. Averaging over recent gradients cancels out noise that points in random directions while reinforcing the direction the gradient consistently agrees on.
+
+**Adam** tracks both a momentum-style average of the gradient (first moment `m`) and an average of the *squared* gradient (second moment `v`), then divides the step by the square root of the second moment — giving each parameter its own adaptive step size:
+
+```
+m = β1*m + (1-β1)*grad              # mean of gradients
+v = β2*v + (1-β2)*grad**2           # mean of squared gradients
+m_hat = m / (1 - β1**t)             # bias correction — m, v start at 0
+v_hat = v / (1 - β2**t)
+params = params - lr * m_hat / (sqrt(v_hat) + eps)
+```
+
+Common defaults: β1=0.9, β2=0.999, eps=1e-8.
+
+In ML: Adam (or a close variant) is the default optimizer for most neural network training. But adaptive methods aren't automatically better — on a small, smooth, noise-free problem, a well-tuned plain gradient descent can match or beat them. Momentum and Adam earn their keep specifically when gradients are noisy (mini-batches) or the loss surface is large and messy (real neural networks). Verify this yourself rather than assuming it:
+
+```python
+def f(params):
+    x, y = params
+    return x**2 + 5*y**2
+
+def noisy_grad(params, noise_std=1.0):
+    x, y = params
+    true_grad = np.array([2*x, 10*y])
+    return true_grad + np.random.randn(2) * noise_std   # simulates a noisy mini-batch estimate
+
+start = np.array([3.0, 3.0])
+lr = 0.05
+
+# Vanilla GD on noisy gradients
+np.random.seed(0)
+params = start.copy()
+for _ in range(100):
+    params = params - lr * noisy_grad(params)
+print(f(params))   # ~0.034
+
+# Momentum on the exact same noisy gradients
+np.random.seed(0)
+params = start.copy()
+v = np.zeros(2)
+beta = 0.9
+for _ in range(100):
+    grad = noisy_grad(params)
+    v = beta * v + (1 - beta) * grad
+    params = params - lr * v
+print(f(params))   # ~0.020 — momentum's averaging cancels noise vanilla GD reacts to directly
+```
+
 ---
 
 ## 1.3 — Probability: The Language of ML
@@ -321,4 +378,4 @@ print(kl_divergence(P, P))   # 0.0
 
 ---
 
-*Last updated: 2026-08-19*
+*Last updated: 2026-08-29*
