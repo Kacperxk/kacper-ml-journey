@@ -225,17 +225,166 @@ class Pipeline:
 
 ### Project 3 — Linear Regression from Scratch (with visualization)
 **Focus:** NumPy vectorization, gradient descent, math-to-code translation
-**Time:** ~1.5 weeks
+**Time:** ~1–1.5 weeks
 
-Build a `LinearRegression` class in pure NumPy, in stages:
-1. Closed-form OLS solution (`np.linalg.lstsq`, not `inv` — more stable)
-2. Batch gradient descent
-3. Mini-batch gradient descent
-4. Ridge regression (L2 regularization, don't regularize the bias term)
+Build a `LinearRegression` class in pure NumPy, in stages: closed-form OLS, batch gradient descent, mini-batch gradient descent, and optional L2 (ridge) regularization. Then visualize the results and compare three gradient descent variants — vanilla, momentum, and Adam — on a toy function. Test the final class on both synthetic data (recover known weights) and a real dataset (California Housing via sklearn).
 
-Then visualize: loss curves for batch vs mini-batch GD on the same plot, predictions-vs-truth scatter, weight convergence over epochs, and compare **vanilla GD, momentum, and Adam** on the ill-conditioned toy function `f(x,y) = x² + 5y²`, showing Adam converges faster. Test the final class on both synthetic data (recover known weights) and a real dataset (California Housing via sklearn — expect R² ~0.5–0.7).
+**On L2 (ridge) regularization:** adds a penalty `alpha * sum(w**2)` to the MSE loss, discouraging large weights — this reduces overfitting by keeping the model simpler. Its gradient contribution is `2 * alpha * w`, added only to `w`'s gradient — never regularize the bias term `b`; penalizing it would just push every prediction toward zero rather than controlling model complexity.
 
-**Done when:** gradient descent matches OLS within 0.01 on toy data, all plots exist with clear labels, code runs correctly on California Housing.
+**On the optimizer comparison — don't assume Adam wins.** Momentum and Adam formulas are in `math_concepts.md` 1.2, including a worked example. That example is worth re-reading closely before you build this: on a small, smooth, noise-free toy function, plain gradient descent with a well-tuned learning rate can match or beat both — adaptive methods earn their keep specifically when gradients are *noisy* (mini-batches) or the loss surface is large and messy (real neural networks). So run this comparison with **noisy gradients** (add small random noise to each gradient to simulate a mini-batch estimate, same as the `math_concepts.md` example) rather than clean ones, and go in ready to explain whatever you actually observe rather than expecting a predetermined winner.
+
+#### Structure
+
+Rough file breakdown — how you split logic within each file is yours to decide:
+
+```
+linear_regression/
+├── __init__.py
+├── model.py             # LinearRegression — fit (closed-form / batch / mini-batch / ridge), predict, score
+├── optimizers.py        # vanilla_step, momentum_step, adam_step — shared by model.py and the toy-function comparison
+├── metrics.py           # r_squared, mse
+├── visualize.py         # the four required plots
+└── run_experiments.py   # ties it together — synthetic data, California Housing, the optimizer comparison
+```
+
+#### `model.py`
+
+```python
+class LinearRegression:
+    """Linear regression y = X @ w + b, fit via closed-form OLS or gradient descent."""
+
+    def __init__(
+        self,
+        method: str = "gd",
+        lr: float = 0.01,
+        n_epochs: int = 100,
+        batch_size: int | None = None,
+        alpha: float = 0.0,
+        optimizer: str = "vanilla",
+        seed: int = 42,
+    ) -> None:
+        """
+        method: "closed_form" (via np.linalg.lstsq — see the note on np.linalg.solve
+                vs lstsq vs inv in numpy_concepts.md 1.7) or "gd" (gradient descent).
+        batch_size: None = full-batch GD each epoch; an int = mini-batch GD.
+        alpha: L2 penalty strength (0 = plain OLS/GD). See the ridge note above.
+        optimizer: "vanilla", "momentum", or "adam" — only used when method="gd".
+        Store hyperparameters. Initialize self.w, self.b as None (set during fit)
+        and self.loss_history as an empty list.
+        """
+
+    def fit(self, X: np.ndarray, y: np.ndarray) -> "LinearRegression":
+        """
+        Fit self.w (shape (n_features,)) and self.b (scalar). Dispatch to
+        _fit_closed_form or _fit_gd based on self.method. Return self, so
+        .fit(X, y).predict(...) chains (same convention as scikit-learn).
+        """
+
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        """Return X @ self.w + self.b."""
+
+    def score(self, X: np.ndarray, y: np.ndarray) -> float:
+        """R² of predictions on (X, y). See metrics.r_squared."""
+
+    def _fit_closed_form(self, X: np.ndarray, y: np.ndarray) -> None:
+        """Solve for w and b via np.linalg.lstsq. Account for the bias term
+        (e.g. prepend a column of 1s to X before solving, then split the
+        result back into w and b)."""
+
+    def _fit_gd(self, X: np.ndarray, y: np.ndarray) -> None:
+        """
+        Run gradient descent for self.n_epochs epochs. Each epoch: split
+        into batches of self.batch_size (one full-batch step if None),
+        compute the MSE loss gradient w.r.t. w and b (shape-matching
+        approach — see math_concepts.md 1.2), add the ridge penalty
+        gradient to w's gradient only if self.alpha > 0, then step using
+        self.optimizer (see optimizers.py). Append each epoch's average
+        loss to self.loss_history.
+        """
+```
+
+#### `optimizers.py`
+
+```python
+def vanilla_step(params: np.ndarray, grad: np.ndarray, lr: float) -> np.ndarray:
+    """One vanilla GD step. See math_concepts.md 1.2."""
+
+def momentum_step(
+    params: np.ndarray, grad: np.ndarray, velocity: np.ndarray, lr: float, beta: float = 0.9
+) -> tuple[np.ndarray, np.ndarray]:
+    """One momentum step. Return (new_params, new_velocity). See math_concepts.md 1.2."""
+
+def adam_step(
+    params: np.ndarray, grad: np.ndarray, m: np.ndarray, v: np.ndarray, t: int,
+    lr: float, beta1: float = 0.9, beta2: float = 0.999, eps: float = 1e-8,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """One Adam step, with bias correction. Return (new_params, new_m, new_v). See math_concepts.md 1.2."""
+```
+
+These take plain arrays, not a `LinearRegression` specifically — reuse them both inside `model.py`'s `_fit_gd` (on `w`/`b`) and standalone in `run_experiments.py`'s toy-function comparison (on `[x, y]`).
+
+#### `metrics.py`
+
+```python
+def mse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    """Mean squared error — the GD loss."""
+
+def r_squared(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    """R² = 1 - SS_res/SS_tot. Same function shown (docstring-only) in habits_and_tools.md — implement it for real here."""
+```
+
+#### `visualize.py`
+
+```python
+def plot_loss_curves(batch_losses: list[float], minibatch_losses: list[float]) -> None:
+    """Both loss curves on one figure, labeled legend. Save to figures/loss_curves.png."""
+
+def plot_predictions_vs_truth(y_true: np.ndarray, y_pred: np.ndarray) -> None:
+    """Scatter of predicted vs true values plus a y=x reference line. Save to figures/predictions.png."""
+
+def plot_weight_convergence(weight_history: np.ndarray) -> None:
+    """Each weight's value over epochs, one figure. Save to figures/weight_convergence.png."""
+
+def plot_optimizer_comparison(loss_histories: dict[str, list[float]]) -> None:
+    """One line per optimizer (vanilla/momentum/adam), labeled legend. Save to figures/optimizer_comparison.png."""
+```
+
+`figures/` is already excluded in `.gitignore` — plots are regenerated by rerunning `run_experiments.py`, not committed.
+
+#### `run_experiments.py`
+
+```python
+def main() -> None:
+    """
+    1. Generate synthetic data from known w, b plus small noise. Fit with
+       method="closed_form" and method="gd", and verify both recover the
+       known weights within tolerance.
+    2. Fit with batch GD and mini-batch GD on the same synthetic data.
+       Plot both loss curves together (plot_loss_curves).
+    3. Add a couple of near-duplicate (collinear) features to the synthetic
+       data. Fit with alpha=0 and alpha>0, and compare recovered weight
+       magnitudes — ridge's weights should shrink relative to the
+       unregularized fit.
+    4. Load California Housing (sklearn.datasets.fetch_california_housing).
+       Its features are on very different scales (income ~0-15, population
+       ~3-35000, etc.) — GD will struggle or need a tiny learning rate
+       without standardizing first (subtract mean, divide by std, per
+       feature). Standardize, fit, report score() (R², expect roughly
+       0.5-0.7). Plot predictions vs truth. (This is the "Data Preprocessing
+       Engine" stretch item's StandardScaler, folded in here instead of
+       built standalone — write it from scratch if you have time, or use
+       sklearn.preprocessing.StandardScaler if you'd rather focus the time
+       elsewhere this project.)
+    5. Toy-function optimizer comparison: run vanilla GD, momentum, and
+       Adam (via optimizers.py) on f(x, y) = x**2 + 5*y**2 starting from
+       (3, 3), using noisy gradients (see the ridge/optimizer note above
+       and math_concepts.md 1.2's worked example). Plot all three loss
+       curves together and write a couple sentences on what you observe
+       and why.
+    """
+```
+
+**Done when:** closed-form and GD solutions agree with each other within 0.01 on synthetic data with known weights; batch vs mini-batch loss curves are plotted together with clear labels; ridge regression visibly shrinks weight magnitudes relative to the unregularized fit on collinear synthetic features; California Housing R² lands in the 0.5–0.7 range with a labeled predictions-vs-truth plot; the vanilla/momentum/Adam comparison on the toy function uses noisy gradients and is plotted, and you can explain in a sentence or two why the result came out the way it did.
 
 ---
 
@@ -264,4 +413,4 @@ Ask if you want a fuller spec for any of these when you're ready to build one.
 
 ---
 
-*Last updated: 2026-08-09*
+*Last updated: 2026-08-29*
