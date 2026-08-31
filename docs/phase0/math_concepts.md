@@ -334,6 +334,37 @@ print(cross_entropy(y_true, y_good))   # ~0.105 — low, good
 print(cross_entropy(y_true, y_bad))    # ~1.099 — high, bad
 ```
 
+### The gradient of softmax + cross-entropy — the elegant shortcut
+
+Cross-entropy is almost always applied directly to softmax's output. Individually, softmax's derivative and log's derivative are both messy — but chained together for this specific pairing, nearly everything cancels, leaving one of the simplest gradients in ML:
+
+`dL/dlogits = (probs - y_true_onehot) / n`
+
+(n = batch size, for the mean loss.) `logits` here means the raw scores *before* softmax — this gradient skips straight past softmax's own Jacobian entirely. This is the very first gradient computed in backprop for any classifier: every other gradient (each layer's `dW`, `db`) chains backward starting from this one.
+
+```python
+logits = np.array([[2.0, 1.0, 0.5], [0.1, 0.2, 3.0]])
+y_true = np.array([[1, 0, 0], [0, 0, 1]])
+n = logits.shape[0]
+
+probs = softmax(logits)
+d_logits = (probs - y_true) / n
+
+# Verify against a finite-difference numerical gradient
+eps = 1e-6
+num_grad = np.zeros_like(logits)
+for i in range(logits.shape[0]):
+    for j in range(logits.shape[1]):
+        logits[i, j] += eps
+        loss_plus = cross_entropy(y_true, softmax(logits))
+        logits[i, j] -= 2 * eps
+        loss_minus = cross_entropy(y_true, softmax(logits))
+        logits[i, j] += eps
+        num_grad[i, j] = (loss_plus - loss_minus) / (2 * eps)
+
+print(np.allclose(d_logits, num_grad, atol=1e-6))   # True
+```
+
 ### Why cross-entropy equals MLE
 
 Maximum Likelihood Estimation: find parameters θ maximizing `P(data | θ)`.
