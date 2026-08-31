@@ -409,4 +409,4 @@ print(kl_divergence(P, P))   # 0.0
 
 ---
 
-*Last updated: 2026-08-29*
+*Last updated: 2026-08-31*
