@@ -400,6 +400,8 @@ This is the Phase 0 capstone and directly sets up Phase 2's PyTorch/backprop wor
 
 **On weight initialization:** use small random values for `W1`/`W2` (`randn * 0.01`, the same scale already used in `numpy_exercises.md` Ex 5.2) and zeros for `b1`/`b2`. Xavier/Kaiming initialization is real and better, but it's scoped to Phase 2 in `docs/ROADMAP.md` — simple fixed-scale init is enough to hit every target below.
 
+**On the train/validation split:** `X_val`/`y_val` are a slice of data the model never trains on — held out purely to check performance on. The reason: a model can get very good at the exact training examples it's seen (memorizing rather than learning the underlying pattern) while still doing poorly on new data — that gap is called **overfitting**. Reporting accuracy on held-out validation data catches this; training accuracy alone can't, since a model can look perfect there while having learned nothing generalizable. (Proper train/val/test methodology, cross-validation, etc. is real Phase 1 content — this project only needs the simple version: one 80/20 split, done once.)
+
 #### Structure
 
 Rough file breakdown — how you split logic within each file is yours to decide:
@@ -461,9 +463,12 @@ class TwoLayerNet:
         rerun forward + cross_entropy each time, and compare against
         backward()'s analytic gradient — same numerical_gradient pattern as
         math_concepts.md 1.2's finite-difference example, looped over every
-        parameter instead of just one. Return relative error per parameter
-        name. Run on a small subset (8-16 samples) — looping over every
-        scalar entry is slow at full batch size."""
+        parameter instead of just one. For each parameter, report relative
+        error = norm(numeric - analytic) / (norm(numeric) + norm(analytic))
+        (see math_concepts.md 1.2 for why relative, not absolute). Return
+        one relative error per parameter name. Run on a small subset
+        (8-16 samples) — looping over every scalar entry is slow at full
+        batch size."""
 ```
 
 #### `train.py`
@@ -542,4 +547,4 @@ Ask if you want a fuller spec for any of these when you're ready to build one.
 
 ---
 
-*Last updated: 2026-08-31*
+*Last updated: 2026-09-01*

@@ -78,7 +78,7 @@ M_approx = U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :]
 
 ### The gradient — direction of steepest increase
 
-For f(x), the gradient ∇f(x) points where f increases fastest. To minimize f, move in the opposite direction. This is gradient descent.
+For f(x), the gradient ∇f(x) points where f increases fastest. To minimize f, move in the opposite direction. This is gradient descent. `lr` (**learning rate**) scales how big each step is: too high and updates overshoot and can diverge or oscillate; too low and convergence is needlessly slow. It's the first hyperparameter — a value you choose before training, as opposed to a parameter the model learns — you'll tune by hand.
 
 ```python
 def f(params):
@@ -171,7 +171,20 @@ for i in range(W.shape[0]):
 print(np.allclose(num_dW, d_W, atol=1e-5))   # True
 ```
 
+`allclose` is enough for a quick check, but gradient checks are more often reported as a single **relative error**, since it stays meaningful whether the gradient values are tiny or huge (a fixed absolute tolerance doesn't):
+
+```
+rel_error = norm(numeric_grad - analytic_grad) / (norm(numeric_grad) + norm(analytic_grad))
+```
+
+```python
+rel_error = np.linalg.norm(num_dW - d_W) / (np.linalg.norm(num_dW) + np.linalg.norm(d_W))
+print(rel_error)   # ~2e-11 — well under the usual 1e-4 pass/fail threshold
+```
+
 ### Gradient descent variants
+
+One **epoch** is one full pass through the entire training set. `n_epochs=30` means the training loop sees every training sample 30 times, split across however many batches it takes to cover them.
 
 - **Batch GD**: gradient over all n samples per update. Accurate but slow for large n.
 - **SGD**: gradient over 1 sample per update. Fast but very noisy.
@@ -409,4 +422,4 @@ print(kl_divergence(P, P))   # 0.0
 
 ---
 
-*Last updated: 2026-08-31*
+*Last updated: 2026-09-01*
