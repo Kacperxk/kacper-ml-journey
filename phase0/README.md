@@ -24,7 +24,7 @@ code itself (sections, projects) is yours to create as you go, see
 - [x] Section 4 — Aggregation
 - [x] Section 5 — Linear Algebra
 - [x] Section 6 — Einsum
-- [ ] Section 7 — Numerical Stability
+- [x] Section 7 — Numerical Stability
 - [ ] Section 8 — ML Patterns
 
 ## Core Projects (`phase0/projects/`)
@@ -43,4 +43,4 @@ code itself (sections, projects) is yours to create as you go, see
 
 ---
 
-_Last updated: 2026-08-29_
+_Last updated: 2026-09-01_
