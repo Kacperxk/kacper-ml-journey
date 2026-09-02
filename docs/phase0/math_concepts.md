@@ -347,6 +347,24 @@ print(cross_entropy(y_true, y_good))   # ~0.105 — low, good
 print(cross_entropy(y_true, y_bad))    # ~1.099 — high, bad
 ```
 
+### Binary cross-entropy — the two-class case
+
+Same idea, but for a single predicted probability instead of a softmax vector — no one-hot encoding needed.
+
+`loss = -(y*log(p) + (1-y)*log(1-p))`, where `y` is the true label (0 or 1) and `p` is the predicted probability of class 1. Only one term is active per example: if `y=1` the `(1-y)` term vanishes, leaving `-log(p)`; if `y=0` the `y` term vanishes, leaving `-log(1-p)`.
+
+Mathematically identical to categorical cross-entropy applied to `[1-p, p]` vs one-hot `[1-y, y]` — it's the two-class special case, not a separate formula.
+
+```python
+def binary_cross_entropy(y_pred_prob, y_true):
+    eps = 1e-9
+    return -np.mean(y_true*np.log(y_pred_prob+eps) + (1-y_true)*np.log(1-y_pred_prob+eps))
+
+y_true = np.array([1, 0, 1, 1, 0], dtype=float)
+y_pred = np.array([0.9, 0.1, 0.8, 0.7, 0.3])
+print(binary_cross_entropy(y_pred, y_true))   # ~0.229 — low, good predictions
+```
+
 ### The gradient of softmax + cross-entropy — the elegant shortcut
 
 Cross-entropy is almost always applied directly to softmax's output. Individually, softmax's derivative and log's derivative are both messy — but chained together for this specific pairing, nearly everything cancels, leaving one of the simplest gradients in ML:
@@ -422,4 +440,4 @@ print(kl_divergence(P, P))   # 0.0
 
 ---
 
-*Last updated: 2026-09-01*
+*Last updated: 2026-09-02*
