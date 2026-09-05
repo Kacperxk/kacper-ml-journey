@@ -112,7 +112,7 @@ Linear algebra and calculus have real university coursework behind them already 
 ### Duration: ~8 weeks | Goal: Understand how ML works at the algorithmic level
 
 ### 1A — Core ML Concepts
-Bias-variance tradeoff, train/val/test splits, cross-validation, loss functions (MSE, MAE, Cross-Entropy), optimization (GD/SGD/mini-batch), learning rate, regularization (L1/L2/dropout — connects to what you know from econometrics), evaluation metrics (accuracy, precision, recall, F1, ROC-AUC), feature engineering and scaling.
+Bias-variance tradeoff, train/val/test splits, cross-validation, loss functions (MSE, MAE, Cross-Entropy), optimization (GD/SGD/mini-batch), learning rate, regularization (L1/L2/dropout — L2/ridge already covered in Phase 0's Project 3), evaluation metrics (accuracy, precision, recall, F1, ROC-AUC), feature engineering and scaling.
 
 **Resources:** *Hands-On Machine Learning* by Aurélien Géron (3rd ed.), chapters 1–9. StatQuest with Josh Starmer on YouTube.
 
