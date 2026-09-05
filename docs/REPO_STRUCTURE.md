@@ -22,6 +22,10 @@ kacper-ml-journey/
 │   ├── ROADMAP.md                     # the 18-month, 6-phase roadmap
 │   ├── GIT_GUIDE.md                   # canonical git workflow and commit convention
 │   ├── REPO_STRUCTURE.md              # this file
+│   ├── mastery/                       # evidence-based depth tracking, separate from completion
+│   │   └── phase0.md                  # one file per phase, populated as evidence accrues
+│   ├── audits/                        # dated, evidence-based periodic repo/curriculum reviews
+│   │   └── 2026-09-05-full-audit.md
 │   └── phase0/                        # Phase 0 teaching content, drills, and project specs
 │       ├── README.md                  # index: links, time structure, completion checklist
 │       ├── python_concepts.md         # Python — OOP, functions, errors, types (read, don't drill)
@@ -86,4 +90,4 @@ Lives at the repo root, already populated for Phase 0 — see `requirements.txt`
 
 ---
 
-*Last updated: 2026-08-17*
+*Last updated: 2026-09-05*
