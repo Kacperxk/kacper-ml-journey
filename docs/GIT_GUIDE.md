@@ -46,16 +46,9 @@ git commit -m "chore: add matplotlib to requirements.txt"
 
 Use this convention everywhere.
 
-## Branching (use for every project, not for exercise drills)
+## Branching
 
-```bash
-git checkout -b project/linear-regression
-# work, commit, work, commit...
-git checkout main
-git merge project/linear-regression
-git branch -d project/linear-regression
-git push origin --delete project/linear-regression   # if you pushed the branch
-```
+Not used in this repo — every commit goes straight to `main`, for drills and projects alike. Simpler history for a solo, linear curriculum; revisit only if work ever needs to happen in parallel (e.g. fixing an old project while a new one is mid-flight).
 
 ## Tagging milestones
 
@@ -154,4 +147,4 @@ Never leave a session without committing something — even if it's just a note 
 
 ---
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-05*
