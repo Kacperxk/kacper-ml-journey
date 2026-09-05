@@ -8,7 +8,7 @@ is the practice.
 
 ## The Right Mindset
 
-Your econometrics degree means you know most of this math already. The goal is not to learn new material — it is to connect what you know to how it appears in ML code. For every formula you review, implement it in NumPy. This habit of "formula → code" is the core skill of ML engineering.
+Linear algebra (1.1) and calculus (1.2) build on real university coursework — the goal there is connecting what you already know to how it appears in ML code. Probability (1.3) is different: genuinely new material, built from zero, not assumed. Either way, for every formula you meet here, implement it in NumPy in the same sitting. This habit of "formula → code" is the core skill of ML engineering.
 
 ---
 
@@ -78,7 +78,9 @@ M_approx = U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :]
 
 ### The gradient — direction of steepest increase
 
-For f(x), the gradient ∇f(x) points where f increases fastest. To minimize f, move in the opposite direction. This is gradient descent. `lr` (**learning rate**) scales how big each step is: too high and updates overshoot and can diverge or oscillate; too low and convergence is needlessly slow. It's the first hyperparameter — a value you choose before training, as opposed to a parameter the model learns — you'll tune by hand.
+For a single-variable function $f(x)$, the derivative $f'(x)$ is the slope — how fast $f$ changes as $x$ changes, the thing you already know from calculus. Once a function takes more than one input — $f(x, y)$, say — you get one derivative per input, each computed by holding every other input fixed. This is a **partial derivative**, written $\frac{\partial f}{\partial x}$ (how $f$ changes as $x$ moves, with $y$ frozen) and $\frac{\partial f}{\partial y}$ (same, for $y$). Stack every partial derivative into one vector and you get the **gradient**, $\nabla f = \left[\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right]$ — nothing more exotic than "the ordinary derivative, done once per input variable, collected into a vector."
+
+The gradient points in the direction $f$ increases fastest. To minimize $f$, move in the opposite direction — this is gradient descent. `lr` (**learning rate**) scales how big each step is: too high and updates overshoot and can diverge or oscillate; too low and convergence is needlessly slow. It's the first hyperparameter — a value you choose before training, as opposed to a parameter the model learns — you'll tune by hand.
 
 ```python
 def f(params):
@@ -251,6 +253,60 @@ print(f(params))   # ~0.020 — momentum's averaging cancels noise vanilla GD re
 
 ## 1.3 — Probability: The Language of ML
 
+This section assumes nothing from prior coursework — start here for real, not as a refresher.
+
+### What is a random variable, and what is a distribution?
+
+A random variable is a quantity whose value comes from some process with uncertainty built in: which face a die lands on, whether a coin comes up heads, which digit an MNIST image actually shows. It's usually written as a capital letter, $X$, with a specific observed value written lowercase, $x$ — $X$ is the die roll before you look, $x=4$ is what you saw after.
+
+A **probability distribution** is the full pattern of how likely each value of $X$ is. Two flavors come up constantly in ML:
+
+**Discrete** — a countable set of distinct outcomes (a die has exactly 6 faces; a classifier has exactly $k$ classes). Described by a **probability mass function (PMF)**, written $P(X=x)$: the actual probability of that one exact value. A valid PMF satisfies $\sum_x P(X=x) = 1$ — probabilities across every possible outcome add up to exactly 1.
+
+**Continuous** — the value can be any real number in a range (a person's height, a model's raw pre-rounding output). No single exact value has positive probability here — "what's the probability height is *exactly* 174.000...cm" is meaningless, since there are infinitely many values arbitrarily close to it. Instead you get a **probability density function (PDF)**, $f(x)$, and probability comes from the *area under the curve* over a range: $P(a \le X \le b) = \int_a^b f(x)\,dx$. A valid PDF satisfies $\int_{-\infty}^{\infty} f(x)\,dx = 1$ — total area under the whole curve is 1.
+
+You've already produced something PMF-shaped without the name: `np.bincount(labels)` after k-means gave you a count per cluster. Divide those counts by the total and you have an empirical PMF over cluster membership.
+
+### Bernoulli — one coin flip
+
+Models a single yes/no, 0/1 outcome. $X \sim \text{Bernoulli}(p)$ means $X=1$ with probability $p$ and $X=0$ with probability $1-p$ — a coin, fair if $p=0.5$, biased otherwise. Its PMF, written as one formula instead of two separate cases:
+
+$$P(X=x) = p^x (1-p)^{1-x}, \quad x \in \{0, 1\}$$
+
+Check it by hand: at $x=1$, this collapses to $p^1(1-p)^0 = p$. At $x=0$, it collapses to $p^0(1-p)^1 = 1-p$. Same formula, both cases — it works because anything to the power 0 is 1, which silences whichever term shouldn't apply.
+
+This is the exact distribution behind every binary classification label. A model outputting "probability this email is spam" is estimating the $p$ of a Bernoulli distribution over the true label — the direct bridge to binary cross-entropy further down this section.
+
+### Categorical — a die with $k$ sides
+
+The multi-class generalization of Bernoulli: $k$ possible outcomes, each with its own probability $p_1, \dots, p_k$, satisfying $\sum_k p_k = 1$ and every $p_k \ge 0$. An ordinary 6-sided die is Categorical with $k=6$ and every $p_i = 1/6$.
+
+This is the exact distribution a classifier's output represents. Softmax's entire job (below) is producing a valid set of $p_1, \dots, p_k$ from raw scores — its output vector literally *is* the parameter vector of a Categorical distribution over your classes.
+
+### Gaussian (Normal) — the bell curve
+
+The most common continuous distribution in ML — weight initialization, additive noise, and `np.random.randn` all draw from it. PDF:
+
+$$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \, e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
+
+$\mu$ (mu) is the mean — where the curve is centered. $\sigma$ (sigma) is the standard deviation — how spread out it is: small $\sigma$ gives a tall narrow spike, large $\sigma$ gives a short wide spread. `np.random.randn` draws from the **standard normal**, the special case $\mu=0, \sigma=1$.
+
+This is the exact formula behind something you've already seen empirically: a histogram of 20,000 `np.random.randn` samples comes out tall in the middle, tapering off symmetrically on both sides — that shape *is* this formula, plotted. It's also why `cluster1 = np.random.randn(50, 2) + [5, 5]` produces a tight cloud centered at `(5, 5)` instead of scattered points: adding a constant shifts $\mu$ (moves the center) without touching $\sigma$ (the spread is untouched) — verified below.
+
+```python
+import numpy as np
+
+def gaussian_pdf(x, mu, sigma):
+    return (1 / (sigma * np.sqrt(2*np.pi))) * np.exp(-(x - mu)**2 / (2 * sigma**2))
+
+print(gaussian_pdf(0, 0, 1))   # 0.399 — peak of the standard normal
+print(gaussian_pdf(1, 0, 1))   # 0.242 — already dropping off, one std away from center
+
+# shifting mu moves the center; sigma controls the spread — independently of each other
+shifted = np.random.randn(100_000) + 5   # same-shaped distribution, centered at 5 instead of 0
+print(shifted.mean(), shifted.std())      # ~5.0, ~1.0 — center moved, spread unchanged
+```
+
 ### Expectation, variance, and covariance
 
 Expectation `E[X]` is the probability-weighted average outcome of a random variable — for a sample of data, the empirical estimate is just the mean. Variance `Var(X) = E[(X - E[X])^2]` measures spread around that mean; standard deviation is its square root, in the same units as X. Covariance measures how two variables move together: `Cov(X,Y) = E[(X-E[X])(Y-E[Y])]` — positive means they rise and fall together, negative means one rises as the other falls, near-zero means no linear relationship.
@@ -313,6 +369,8 @@ print(probs)           # [0.63, 0.23, 0.14]
 print(probs.sum())     # 1.0
 ```
 
+`probs` here is exactly the parameter vector of a Categorical distribution (above) over the possible classes — softmax doesn't just produce "probability-like numbers," it produces a genuine, valid PMF.
+
 ### Cross-entropy loss
 
 Measures how well a predicted probability matches the true class.
@@ -354,6 +412,8 @@ Same idea, but for a single predicted probability instead of a softmax vector �
 `loss = -(y*log(p) + (1-y)*log(1-p))`, where `y` is the true label (0 or 1) and `p` is the predicted probability of class 1. Only one term is active per example: if `y=1` the `(1-y)` term vanishes, leaving `-log(p)`; if `y=0` the `y` term vanishes, leaving `-log(1-p)`.
 
 Mathematically identical to categorical cross-entropy applied to `[1-p, p]` vs one-hot `[1-y, y]` — it's the two-class special case, not a separate formula.
+
+It's also not an arbitrary penalty someone invented — it's the negative log of the Bernoulli PMF from earlier in this section. Take $P(X=x) = p^x(1-p)^{1-x}$, plug in the true label for $x$, and negate the log: $-\log\left(p^y(1-p)^{1-y}\right) = -\left(y\log p + (1-y)\log(1-p)\right)$ — exactly the formula above. "Minimize binary cross-entropy" and "maximize the likelihood of the true label under a Bernoulli model" are the same instruction.
 
 ```python
 def binary_cross_entropy(y_pred_prob, y_true):
@@ -404,7 +464,7 @@ Negate (optimizers minimize): `minimize -sum_i log P(sample_i | θ)`.
 For classifiers, `P(sample_i | θ)` = predicted probability of the correct class.
 Result: `minimize -sum_i log(predicted_correct_prob_i)` — this IS cross-entropy.
 
-The loss function is not arbitrary. It is MLE written in code form.
+The loss function is not arbitrary. It is MLE written in code form — binary cross-entropy is MLE under a Bernoulli label distribution, categorical cross-entropy is MLE under a Categorical one. Same principle both times: write down the probability of the data actually being what it is, maximize it.
 
 ### KL Divergence
 
@@ -433,11 +493,15 @@ print(kl_divergence(P, P))   # 0.0
 
 ## 1.4 — Resources for Math
 
-- *Mathematics for Machine Learning* (Deisenroth, Faisal, Ong) — free PDF at mml-book.github.io. Directly connects math to ML. With your background you can move fast.
-- 3Blue1Brown "Essence of Linear Algebra" on YouTube — visual intuition first.
-- 3Blue1Brown "Neural Networks" series — builds intuition for calculus in backprop.
-- StatQuest with Josh Starmer on YouTube — probability and statistics with extraordinary clarity.
+**Linear algebra and calculus** (1.1, 1.2) — refreshers/deepening, not first exposure:
+- *Mathematics for Machine Learning* (Deisenroth, Faisal, Ong), chapters 2 and 5 — free PDF at mml-book.github.io. Directly connects the linear algebra and vector calculus above to ML notation.
+- 3Blue1Brown "Essence of Linear Algebra" on YouTube — visual intuition for eigenvalues/SVD above.
+- 3Blue1Brown "Neural Networks" series (episodes 3–4) — visual intuition for the chain rule / backprop section above.
+
+**Probability** (1.3) — this is new material, and video-first is the right way in before the formulas above are the second pass:
+- StatQuest with Josh Starmer, in this order: "Probability vs Likelihood," "The Normal Distribution, Clearly Explained," "Maximum Likelihood, Clearly Explained." Each is 10–20 minutes and covers exactly one of the ideas above with concrete pictures before any formula.
+- *Mathematics for Machine Learning*, chapter 6 (Probability and Distributions) — once the StatQuest videos give you the intuition, this chapter gives the same material the notation used above.
 
 ---
 
-*Last updated: 2026-09-02*
+*Last updated: 2026-09-05*
