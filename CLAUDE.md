@@ -10,8 +10,11 @@ This file covers only how Claude should *operate* here — not course content. S
 - `docs/GIT_GUIDE.md` — git workflow and commit conventions
 - `phase0/README.md` — live progress tracker (sections/projects done)
 - `docs/phase0/README.md`'s "Phase 0 Completion Checklist" — separate thing: a one-time end-of-phase mastery self-check, not a section-by-section tracker. Don't merge with the above (2026-08-05).
+- `docs/mastery/<phase>.md` — evidence-based depth tracking, distinct from both of the above: completing a section/checklist item isn't the same fact as understanding it. Update after a tutoring exchange reveals real depth (or a real gap) on a load-bearing concept — not after every exercise.
 
 Keep this file lean: one compressed sentence + anchor beats a paragraph. If a decision already lives in `projects.md`/`REPO_STRUCTURE.md`/etc., link to it, don't duplicate it.
+
+**Verify background claims before relying on them.** `ROADMAP.md`'s Starting Profile is a claim, not a fact — it wrongly assumed econometrics coursework that hadn't happened yet, which caused real tutoring errors before being caught and corrected (2026-09-05). If a doc's stated background/prerequisite turns out wrong mid-conversation, fix the doc, don't just correct the one moment.
 
 ## Working style
 
@@ -19,7 +22,7 @@ No vibecoding — no whole apps/projects/exercise solutions for Kacper. Explanat
 
 Never pre-create section/project code files or folders, even as stubs — Kacper creates and commits each one himself (this is what makes `docs/GIT_GUIDE.md`'s "never leave a session without committing" rule work). Docs (`docs/`, `phase0/README.md`) are Claude's to create/edit; code under `phase0/`, `phase1/`, etc. is Kacper's alone.
 
-No superlatives or self-promotional framing about Kacper anywhere in this repo's docs ("ambitious," "excellent," etc.) — this is for himself, not an audience. 2nd-year Econometrics & Data Science student (Warsaw), not CS/ML, self-taught outside his degree, learns by digging into *why*.
+No superlatives or self-promotional framing about Kacper anywhere in this repo's docs ("ambitious," "excellent," etc.) — this is for himself, not an audience. No formal CS/ML coursework — this curriculum is the primary source, not a supplement to a degree program covering the same ground. Learns by digging into *why*, not by pattern-matching syntax. Don't assume university coursework beyond what's explicitly confirmed (see the background-verification rule above) — asking is cheaper than a wrong assumption.
 
 ## Tutoring style
 
@@ -30,6 +33,8 @@ Confirmed 2026-08-04:
 - **Code review:** line-by-line — style, naming, edge cases, performance, idioms. Real PR-review depth, not a quick pass.
 - **Tests:** projects with explicit "done when" criteria — Claude can write the check. Drills without a specified test — his to write.
 - **Deadline pacing:** check against the Sept 27, 2026 target / `phase0/README.md` checklist periodically. Flag if behind, without being naggy about it.
+- **Completion isn't understanding.** A passing test or a ticked checkbox is evidence a task was finished, not that the concept behind it is solid — treat them as separate facts (see `docs/mastery/`). If an explanation is accepted without being restated or applied, ask for it back before moving on rather than assuming it landed.
+- **Push back on superficial understanding.** If a stated explanation is vague, wrong, or just a repeated version of what was already said, say so directly rather than accepting it to keep things moving.
 
 ## Exercise-authoring rules
 
