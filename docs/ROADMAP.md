@@ -1,5 +1,5 @@
 # ML Engineer Roadmap
-### For: Econometrics & Data Science student, University of Warsaw | 3–4 hrs/day | ~18 months
+### 3–4 hrs/day | ~18 months
 
 ---
 
@@ -10,12 +10,13 @@
 ## Starting Profile
 
 **Background going in:**
-- Math foundation from econometrics coursework (linear algebra, calculus, probability/stats)
+- Dedicated university courses in Calculus and Linear Algebra — comfortable with derivatives, limits, matrix operations, eigenvalues
+- No Probability/Statistics coursework yet — this must be built from zero, not assumed
 - Python basics — can write scripts, understands control flow
-- Exposure to data concepts from your degree
 - C1 English — can read papers, docs, courses without friction
 
 **Gaps to close before ML work gets serious:**
+- Probability and statistics — genuinely new material, not a refresher. Phase 0's math track treats this accordingly (see `docs/phase0/math_concepts.md` 1.3).
 - Python needs to reach "fluent" level (OOP, clean code, tooling)
 - NumPy needs to be second nature
 - ML library stack (PyTorch above all) is essentially untouched
@@ -49,7 +50,7 @@ The goal here isn't to master everything — it's to remove blockers. You have t
 
 ### What's in Phase 0
 - **Concepts**: Python (OOP, functions, error handling, types, project structure, git) + NumPy (arrays, indexing, broadcasting, linear algebra, einsum, numerical stability) + Matplotlib (plot types, subplots, saving figures) + Math (linear algebra, calculus/backprop intuition, probability). Full teaching content in `docs/phase0/python_concepts.md`, `numpy_concepts.md`, `matplotlib_concepts.md`, `math_concepts.md`.
-- **Drills**: ~60 NumPy exercises, ~70 Python exercises — predict-before-run methodology. See `docs/phase0/python_exercises.md` and `numpy_exercises.md`.
+- **Drills**: 36 NumPy exercises, 24 Python exercises (several multi-part) — predict-before-run methodology. See `docs/phase0/python_exercises.md` and `numpy_exercises.md`.
 - **Projects**: see `docs/phase0/projects.md` — 4 core projects, done in order.
 - **Git**: see `docs/GIT_GUIDE.md`.
 
@@ -92,13 +93,13 @@ NumPy is the backbone of everything in ML. PyTorch tensors are conceptually the 
 
 ### 0C — Math: Confirm and Fill Gaps
 
-Your econometrics background covers some of this already. Run through this checklist — be honest about weak spots:
+Linear algebra and calculus have real university coursework behind them already — this checklist is a targeted refresher for ML-specific angles on that material, not a first exposure. Probability & Statistics is different: genuinely new material, taught from zero in `math_concepts.md` 1.3, not assumed.
 
 **Linear Algebra (critical — highest priority in all of ML):** matrix multiplication/transpose/inverse, dot products and cosine similarity, eigenvalues/eigenvectors, SVD, vector spaces/basis/rank/null space, norms (L1, L2, Frobenius).
 
 **Calculus (for backpropagation):** partial derivatives and the gradient, chain rule (this IS backprop), Jacobians/Hessians (conceptual), Taylor series.
 
-**Probability & Statistics (your econometrics gives you most of this):** distributions (Gaussian, Bernoulli, Categorical, softmax-as-distribution), MLE, Bayes' theorem, expectation/variance/covariance, KL divergence and cross-entropy as loss functions.
+**Probability & Statistics (new material — built from zero):** random variables and distributions, Bernoulli/Categorical/Gaussian, expectation/variance/covariance, Bayes' theorem, MLE, KL divergence and cross-entropy as loss functions.
 
 **Resources (fill gaps only):**
 - *Mathematics for Machine Learning* — Deisenroth, Faisal, Ong — free PDF at mml-book.github.io
@@ -286,4 +287,4 @@ Note: months 2–14 will compress against university semester load — this sche
 
 ---
 
-*Last updated: 2026-08-29*
+*Last updated: 2026-09-05*
