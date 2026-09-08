@@ -20,8 +20,18 @@ def main() -> None:
 
     batch_gd = LinearRegression(method="gd").fit(X, y)
     mini_batch_gd = LinearRegression(method="gd", batch_size=32).fit(X, y)
-
     plot_loss_curves(batch_gd.loss_history, mini_batch_gd.loss_history)
+
+    X_collinear = X.copy()
+    X_collinear[:, 0] = X_collinear[:, 0] + np.random.randn(200) * 0.01
+    X_extended = np.hstack([X, X_collinear[:, [0]]])
+    model_ridge = LinearRegression(method="gd", alpha=0.1, n_epochs=1000).fit(
+        X_extended, y
+    )
+    model_plain = LinearRegression(method="gd", alpha=0.0, n_epochs=1000).fit(
+        X_extended, y
+    )
+    assert np.abs(model_ridge.w).sum() < np.abs(model_plain.w).sum()
 
 
 if __name__ == "__main__":
