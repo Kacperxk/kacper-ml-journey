@@ -41,7 +41,7 @@ class LinearRegression:
     def _fit_closed_form(self, X: np.ndarray, y: np.ndarray) -> None:
         ones = np.ones((X.shape[0], 1))
         X_aug = np.hstack([X, ones])
-        coef, residuals, rank, s = np.linalg.lstsq(X_aug, y, rcond=None)
+        coef = np.linalg.lstsq(X_aug, y, rcond=None)[0]
         self.w = coef[:-1]
         self.b = coef[-1]
 
@@ -50,11 +50,17 @@ class LinearRegression:
         self.b = 0.0
 
         for _ in range(self.n_epochs):
-            y_pred = X @ self.w + self.b
-            d_out = 2 / y.size * (y_pred - y)
-            grad_w = X.T @ d_out
-            grad_b = d_out.sum()
+            batch_loss = []
+            batch_size = self.batch_size if self.batch_size is not None else X.shape[0]
+            for batch in range(0, X.shape[0], batch_size):
+                X_batch = X[batch : batch + batch_size]
+                y_batch = y[batch : batch + batch_size]
+                y_pred = X_batch @ self.w + self.b
+                d_out = 2 / y_batch.size * (y_pred - y_batch)
+                grad_w = X_batch.T @ d_out
+                grad_b = d_out.sum()
 
-            self.w = self.w - self.lr * grad_w
-            self.b = self.b - self.lr * grad_b
-            self.loss_history.append(mse(y, y_pred))
+                self.w = self.w - self.lr * grad_w
+                self.b = self.b - self.lr * grad_b
+                batch_loss.append(mse(y_batch, y_pred))
+            self.loss_history.append(np.mean(batch_loss))
