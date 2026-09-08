@@ -58,6 +58,7 @@ class LinearRegression:
                 y_pred = X_batch @ self.w + self.b
                 d_out = 2 / y_batch.size * (y_pred - y_batch)
                 grad_w = X_batch.T @ d_out
+                grad_w = grad_w + 2 * self.alpha * self.w
                 grad_b = d_out.sum()
 
                 self.w = self.w - self.lr * grad_w
