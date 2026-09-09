@@ -1,6 +1,6 @@
 import numpy as np
 from .metrics import r_squared, mse
-from .optimizers import vanilla_step
+from .optimizers import vanilla_step, momentum_step, adam_step
 
 
 class LinearRegression:
@@ -47,8 +47,15 @@ class LinearRegression:
         self.b = coef[-1]
 
     def _fit_gd(self, X: np.ndarray, y: np.ndarray) -> None:
-        self.w = np.zeros(X.shape[1])
+        t = 0
         self.b = 0.0
+        velocity_b = 0.0
+        v_b = 0.0
+        m_b = 0.0
+        self.w = np.zeros(X.shape[1])
+        velocity_w = np.zeros(X.shape[1])
+        v_w = np.zeros(X.shape[1])
+        m_w = np.zeros(X.shape[1])
 
         for _ in range(self.n_epochs):
             batch_loss = []
@@ -62,7 +69,19 @@ class LinearRegression:
                 grad_w = grad_w + 2 * self.alpha * self.w
                 grad_b = d_out.sum()
 
-                self.w = vanilla_step(self.w, grad_w, self.lr)
-                self.b = vanilla_step(self.b, grad_b, self.lr)
+                if self.optimizer == "vanilla":
+                    self.w = vanilla_step(self.w, grad_w, self.lr)
+                    self.b = vanilla_step(self.b, grad_b, self.lr)
+                elif self.optimizer == "momentum":
+                    self.w, velocity_w = momentum_step(
+                        self.w, grad_w, velocity_w, self.lr
+                    )
+                    self.b, velocity_b = momentum_step(
+                        self.b, grad_b, velocity_b, self.lr
+                    )
+                elif self.optimizer == "adam":
+                    t += 1
+                    self.w, m_w, v_w = adam_step(self.w, grad_w, m_w, v_w, t, self.lr)
+                    self.b, m_b, v_b = adam_step(self.b, grad_b, m_b, v_b, t, self.lr)
                 batch_loss.append(mse(y_batch, y_pred))
             self.loss_history.append(np.mean(batch_loss))
