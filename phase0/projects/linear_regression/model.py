@@ -1,5 +1,6 @@
 import numpy as np
 from .metrics import r_squared, mse
+from .optimizers import vanilla_step
 
 
 class LinearRegression:
@@ -61,7 +62,7 @@ class LinearRegression:
                 grad_w = grad_w + 2 * self.alpha * self.w
                 grad_b = d_out.sum()
 
-                self.w = self.w - self.lr * grad_w
-                self.b = self.b - self.lr * grad_b
+                self.w = vanilla_step(self.w, grad_w, self.lr)
+                self.b = vanilla_step(self.b, grad_b, self.lr)
                 batch_loss.append(mse(y_batch, y_pred))
             self.loss_history.append(np.mean(batch_loss))
