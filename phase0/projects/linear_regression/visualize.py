@@ -35,8 +35,20 @@ def plot_weight_convergence(weight_history: np.ndarray) -> None:
     fig, ax = plt.subplots()
     for i in range(weight_history.shape[1]):
         ax.plot(weight_history[:, i], label=f"w{i}")
-    ax.set_xlabel("epochs")
-    ax.set_ylabel("weights")
+    ax.set_xlabel("epoch")
+    ax.set_ylabel("weight")
     ax.set_title("Weight convergence over epochs")
     ax.legend()
     fig.savefig(FIGURES_DIR / "weight_convergence.png")
+
+
+def plot_optimizer_comparison(loss_histories: dict[str, list[float]]) -> None:
+    FIGURES_DIR.mkdir(exist_ok=True)
+    fig, ax = plt.subplots()
+    for label, loss_history in loss_histories.items():
+        ax.plot(loss_history, label=label)
+    ax.set_xlabel("step")
+    ax.set_ylabel("loss")
+    ax.set_title("Optimizer loss comparison")
+    ax.legend()
+    fig.savefig(FIGURES_DIR / "optimizer_comparison.png")
