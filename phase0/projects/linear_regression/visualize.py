@@ -28,3 +28,15 @@ def plot_predictions_vs_truth(y_true: np.ndarray, y_pred: np.ndarray) -> None:
     ax.set_ylabel("predicted values")
     ax.set_title("True vs Predicted values")
     fig.savefig(FIGURES_DIR / "predictions.png")
+
+
+def plot_weight_convergence(weight_history: np.ndarray) -> None:
+    FIGURES_DIR.mkdir(exist_ok=True)
+    fig, ax = plt.subplots()
+    for i in range(weight_history.shape[1]):
+        ax.plot(weight_history[:, i], label=f"w{i}")
+    ax.set_xlabel("epochs")
+    ax.set_ylabel("weights")
+    ax.set_title("Weight convergence over epochs")
+    ax.legend()
+    fig.savefig(FIGURES_DIR / "weight_convergence.png")
