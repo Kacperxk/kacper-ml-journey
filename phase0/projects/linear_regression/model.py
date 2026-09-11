@@ -24,6 +24,7 @@ class LinearRegression:
         self.w = None
         self.b = None
         self.loss_history = []
+        self.weight_history = []
 
     def fit(self, X: np.ndarray, y: np.ndarray) -> "LinearRegression":
         if self.method == "gd":
@@ -85,3 +86,4 @@ class LinearRegression:
                     self.b, m_b, v_b = adam_step(self.b, grad_b, m_b, v_b, t, self.lr)
                 batch_loss.append(mse(y_batch, y_pred))
             self.loss_history.append(np.mean(batch_loss))
+            self.weight_history.append(self.w.copy())
