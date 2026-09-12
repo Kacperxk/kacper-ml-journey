@@ -1,5 +1,5 @@
 import numpy as np
-from .layers import relu, softmax
+from .layers import relu, relu_backward, softmax
 
 
 class TwoLayerNet:
@@ -20,3 +20,11 @@ class TwoLayerNet:
         cache = {"X": X, "z1": z1, "a1": a1, "z2": z2, "probs": probs}
 
         return probs, cache
+
+    def backward(self, y_true_onehot: np.ndarray, cache: dict) -> dict:
+        n = y_true_onehot.shape[0]
+        d_logits = (cache["probs"] - y_true_onehot) / n
+        dW2 = cache["a1"].T @ d_logits
+        db2 = d_logits.sum(axis=0)
+        d_a1 = d_logits @ self.W2.T
+        d_z1 = relu_backward(d_a1, cache["z1"])
