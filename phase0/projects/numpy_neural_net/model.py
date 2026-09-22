@@ -1,5 +1,5 @@
 import numpy as np
-from .layers import relu, relu_backward, softmax
+from .layers import relu, relu_backward, softmax, cross_entropy
 
 
 class TwoLayerNet:
@@ -31,3 +31,33 @@ class TwoLayerNet:
         dW1 = cache["X"].T @ d_z1
         db1 = d_z1.sum(axis=0)
         return {"W1": dW1, "b1": db1, "W2": dW2, "b2": db2}
+
+    def gradient_check(
+        self, X: np.ndarray, y_true_onehot: np.ndarray, eps: float = 1e-5
+    ) -> dict:
+        cache = self.forward(X)[1]
+        analytic_grads = self.backward(y_true_onehot, cache)
+
+        relative_errors = {}
+
+        for key in analytic_grads.keys():
+            param = getattr(self, key)
+            numeric = np.zeros_like(param)
+
+            it = np.nditer(param, flags=["multi_index"])
+            for _ in it:
+                idx = it.multi_index
+                original = param[idx]
+                param[idx] = original + eps
+                loss_plus = cross_entropy(y_true_onehot, self.forward(X)[0])
+                param[idx] = original - eps
+                loss_minus = cross_entropy(y_true_onehot, self.forward(X)[0])
+                param[idx] = original
+                numeric[idx] = (loss_plus - loss_minus) / (2 * eps)
+
+            analytic = analytic_grads[key]
+            relative_errors[key] = np.linalg.norm(numeric - analytic) / (
+                np.linalg.norm(numeric) + np.linalg.norm(analytic)
+            )
+
+        return relative_errors
