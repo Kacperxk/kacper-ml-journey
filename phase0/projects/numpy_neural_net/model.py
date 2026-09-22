@@ -32,6 +32,13 @@ class TwoLayerNet:
         db1 = d_z1.sum(axis=0)
         return {"W1": dW1, "b1": db1, "W2": dW2, "b2": db2}
 
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        probs = self.forward(X)[0]
+        return probs.argmax(axis=1)
+
+    def params(self) -> dict:
+        return {"W1": self.W1, "b1": self.b1, "W2": self.W2, "b2": self.b2}
+
     def gradient_check(
         self, X: np.ndarray, y_true_onehot: np.ndarray, eps: float = 1e-5
     ) -> dict:
