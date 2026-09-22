@@ -28,3 +28,6 @@ class TwoLayerNet:
         db2 = d_logits.sum(axis=0)
         d_a1 = d_logits @ self.W2.T
         d_z1 = relu_backward(d_a1, cache["z1"])
+        dW1 = cache["X"].T @ d_z1
+        db1 = d_z1.sum(axis=0)
+        return {"W1": dW1, "b1": db1, "W2": dW2, "b2": db2}
