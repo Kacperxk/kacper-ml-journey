@@ -29,6 +29,8 @@ git commit -m "feat(p0/numpy): implement pairwise distance without loops"
 git push
 ```
 
+Working across more than one machine (e.g. PC and laptop): run `git pull` before starting new work on whichever machine you're using. Skipping this causes local/remote history to diverge — recoverable (see 2026-09-23 audit), but a `git pull` first avoids it entirely.
+
 ## Commit message convention
 
 Format: `<type>(<scope>): <description>`
@@ -147,4 +149,4 @@ Never leave a session without committing something — even if it's just a note 
 
 ---
 
-*Last updated: 2026-09-05*
+*Last updated: 2026-09-23*
