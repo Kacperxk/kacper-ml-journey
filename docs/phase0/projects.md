@@ -540,11 +540,128 @@ Do these in this priority order if you have time. Skip them entirely if you don'
 
 1. **Data Preprocessing Engine** (`StandardScaler`, `MinMaxScaler`, `OneHotEncoder`, `train_test_split` from scratch in NumPy). Reasonable to fold directly into Project 3's data-prep step instead of building standalone.
 2. **Config Manager** (dot-notation config object with freezing, merging, diffing). Useful engineering pattern, lowest ML relevance of the stretch set.
-3. **Mini Tensor Library** (`microtensor` — OOP wrapper around NumPy with dunder-method arithmetic). Largely superseded by Project 4 above.
+3. **Scalar Autograd Engine** (`microtensor`) — full spec below. Chosen over the other three stretch options (2026-09-23) specifically to reinforce backpropagation, the concept that took longest to land in Project 4.
 4. **Mini ML Framework** (pure-Python, no NumPy, deliberately skips real backprop). Interesting for project-structure fluency but explicitly doesn't complete the learning loop (no real gradients) — lowest priority.
 
-Ask if you want a fuller spec for any of these when you're ready to build one.
+Ask if you want a fuller spec for any of the others when you're ready to build one.
 
 ---
 
-*Last updated: 2026-09-01*
+### Stretch Project — Scalar Autograd Engine (`microtensor`)
+**Focus:** computational graphs, automatic differentiation, topological sort, gradient accumulation
+**Time:** ~6-10 hours
+
+Project 4 required hand-deriving the backward pass for one fixed network architecture. This project builds the *general machine* that does that automatically for any expression: a `Value` class that remembers the computation that produced it, so calling `.backward()` on a final result computes every intermediate gradient via the chain rule — no per-architecture derivation needed. Same underlying math as Project 4, applied at the level of individual scalar operations instead of whole-array linear-algebra steps. This is deliberately close to Karpathy's micrograd (recommended earlier for the Project 4 backprop struggle) — the point is to build your own small version of it, not follow along with his, so most of the design below is left for you to work out rather than fully specified.
+
+**On gradient accumulation — the one genuinely new idea here.** If the same `Value` is used more than once in an expression (e.g. `y = x * x`), both uses contribute to `dy/dx`, and the contributions must be *summed*, not overwritten — this is the multivariable chain rule showing up for the first time in this phase (Project 4's network never reused a single scalar in two places). Each `_backward` closure should use `+=` on a child's `.grad`, never `=`.
+
+**On zeroing gradients — a real, classic gotcha.** Because `backward()` accumulates via `+=`, gradients from a previous training step will silently add on top of the new step's gradients unless every parameter's `.grad` is reset to `0.0` before each `backward()` call. This is exactly why PyTorch requires an explicit `optimizer.zero_grad()` every step in Phase 2 — forgetting it is a subtle bug (loss still decreases, just incorrectly) rather than a crash.
+
+#### Structure
+
+```
+microtensor/
+├── __init__.py
+├── engine.py            # Value — the scalar autograd engine itself
+├── nn.py                # Neuron, Layer, MLP built entirely out of Value operations
+└── run_experiments.py   # verify against Project 4's hand-derived example, train a tiny MLP
+```
+
+#### `engine.py`
+
+```python
+class Value:
+    """A scalar that remembers the operation and operands that produced it, so
+    gradients can be computed automatically via the chain rule."""
+
+    def __init__(self, data: float, _children: tuple = (), _op: str = "") -> None:
+        """Store data and grad (starts at 0.0). _children/_op are internal
+        bookkeeping for the computational graph. _backward starts as a no-op —
+        each operation below overwrites it with that operation's local
+        gradient rule."""
+
+    def __add__(self, other: "Value | float") -> "Value":
+        """out = self + other. d(out)/d(self) = 1, d(out)/d(other) = 1."""
+
+    def __mul__(self, other: "Value | float") -> "Value":
+        """out = self * other. d(out)/d(self) = other.data, d(out)/d(other) = self.data."""
+
+    def __pow__(self, other: int | float) -> "Value":
+        """out = self ** other (other is a plain number, not a Value).
+        d(out)/d(self) = other * self.data ** (other - 1)."""
+
+    def relu(self) -> "Value":
+        """out = max(0, self). Gradient passes through unchanged where
+        self.data > 0, blocked otherwise — same rule as Project 4's
+        relu_backward, now for a single scalar."""
+
+    def backward(self) -> None:
+        """Compute .grad for every Value in this node's graph, treating this
+        node as the final loss. Build a topological ordering of the graph via
+        DFS (every node after all nodes that depend on it), set this node's own
+        .grad = 1.0, then walk the order in reverse calling each node's
+        ._backward() — reverse order guarantees a node's gradient is fully
+        accumulated before it propagates further back."""
+
+    # __radd__, __rmul__, __neg__, __sub__, __rsub__, __truediv__ — implement
+    # each in terms of __add__/__mul__/__pow__ above (e.g. self - other is
+    # self + (-other)) so none of them need their own _backward rule.
+```
+
+#### `nn.py`
+
+```python
+class Neuron:
+    """Weighted sum of inputs plus bias, optional ReLU."""
+
+    def __init__(self, n_inputs: int, nonlin: bool = True) -> None:
+        """Small random Value weights (one per input), zero Value bias — same
+        init reasoning as TwoLayerNet, one neuron at a time here."""
+
+    def __call__(self, x: list[Value]) -> Value:
+        """sum(wi * xi) + b, then .relu() if nonlin else the raw sum."""
+
+    def parameters(self) -> list[Value]:
+        """This neuron's weights plus its bias, as a flat list."""
+
+
+class Layer:
+    """A list of Neurons, all reading the same inputs, each producing one output."""
+
+
+class MLP:
+    """A list of Layers chained together — each layer's output list feeds the
+    next layer's input. Final layer should use nonlin=False (raw output, no
+    ReLU) — same reasoning as TwoLayerNet's un-activated logits before softmax."""
+```
+
+`Layer`/`MLP`'s exact constructor signatures and `parameters()` (collecting every parameter from every sub-component) are yours to design, following `Neuron`'s pattern above.
+
+#### `run_experiments.py`
+
+```python
+def verify_against_hand_derivation() -> None:
+    """Rebuild Project 4's hand-worked backprop example (2 features, 2 hidden
+    units, 1 sample) using Value objects and .backward() instead of manual
+    NumPy gradient formulas. Confirm every resulting .grad matches the
+    hand-computed numbers from that example (dW1[0,0] = 0.0542, etc.) to
+    several decimal places."""
+
+def verify_gradient_accumulation() -> None:
+    """Build an expression reusing the same Value more than once (e.g.
+    y = x * x), call .backward(), and confirm .grad correctly sums the
+    contribution from every use rather than reflecting only the last one."""
+
+def train_tiny_mlp() -> None:
+    """Build a small MLP, train it on a toy dataset (a handful of points —
+    this is scalar-based and will be slow at real dataset sizes) with plain
+    gradient descent: zero every parameter's .grad, call loss.backward(),
+    then p.data -= lr * p.grad for each parameter. Track loss per epoch and
+    confirm it decreases."""
+```
+
+**Done when:** `Value`'s `+`, `*`, `**`, and `relu` all produce correct forward values; `backward()`'s gradients match Project 4's hand-derived example to at least 4 decimal places; a deliberately-reused `Value` accumulates gradient correctly from multiple paths instead of only reflecting the last one; a tiny MLP trains via plain gradient descent with explicit zeroing and its loss visibly decreases over training.
+
+---
+
+*Last updated: 2026-09-23*

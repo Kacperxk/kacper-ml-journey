@@ -38,7 +38,7 @@ code itself (sections, projects) is yours to create as you go, see
 
 - [ ] Data Preprocessing Engine
 - [ ] Config Manager
-- [ ] Mini Tensor Library (microtensor)
+- [ ] Scalar Autograd Engine (microtensor)
 - [ ] Mini ML Framework
 
 ---
