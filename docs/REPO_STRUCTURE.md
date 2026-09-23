@@ -51,10 +51,12 @@ kacper-ml-journey/
 │       ├── data_pipeline/             # Project 2 — Data Pipeline
 │       ├── linear_regression/         # Project 3 — Linear Regression + GD Visualizer
 │       ├── numpy_neural_net/          # Project 4 — capstone
-│       └── stretch/                   # optional, only if ahead of schedule
+│       └── stretch/                   # optional, only if ahead of schedule — of the 4 listed
+│           │                           # in projects.md, only microtensor is actually planned
+│           │                           # (2026-09-23); the other 3 stay here as possibilities only
 │           ├── preprocessing_engine/
 │           ├── config_manager/
-│           ├── microtensor/
+│           ├── microtensor/           # the one actually being built
 │           └── mini_ml/
 │
 ├── phase1/                            # Classical ML — structure TBD, expand once you start
@@ -90,4 +92,4 @@ Lives at the repo root, already populated for Phase 0 — see `requirements.txt`
 
 ---
 
-*Last updated: 2026-09-05*
+*Last updated: 2026-09-23*

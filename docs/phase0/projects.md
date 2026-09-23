@@ -394,7 +394,7 @@ def main() -> None:
 
 A `TwoLayerNet` class (`Linear → ReLU → Linear → Softmax`, cross-entropy loss) implemented entirely in NumPy, including a manual backward pass via the chain rule. Trained with mini-batch SGD on synthetic classification data. Must pass a numerical gradient check before you trust any training results.
 
-This is the Phase 0 capstone and directly sets up Phase 2's PyTorch/backprop work — it fully replaces the need for the Mini Tensor Library stretch project below, which covers the same ground at lower depth.
+This is the Phase 0 capstone and directly sets up Phase 2's PyTorch/backprop work. (The original plan for the "Mini Tensor Library" stretch item below assumed it would cover the same ground at lower depth and be redundant with this project — that assumption no longer holds; see the stretch section's Scalar Autograd Engine spec, which goes deeper than this project rather than repeating it.)
 
 **On the backward pass:** the hard part is the very first gradient — from the loss back through softmax. Don't derive softmax's own Jacobian; `math_concepts.md` 1.3 has the combined softmax+cross-entropy shortcut (`d_logits = (probs - y_true) / n`), which is where backprop actually starts here. Everything after that (through the second Linear, through ReLU, through the first Linear) is the same shape-matching chain-rule pattern from `math_concepts.md` 1.2, just applied twice in sequence.
 
