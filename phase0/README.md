@@ -32,7 +32,7 @@ code itself (sections, projects) is yours to create as you go, see
 - [x] Project 1 — CLI Weather Tool
 - [x] Project 2 — Data Pipeline
 - [x] Project 3 — Linear Regression from Scratch (incl. GD/momentum/Adam comparison)
-- [ ] Project 4 — NumPy Neural Network (capstone)
+- [x] Project 4 — NumPy Neural Network (capstone)
 
 ## Stretch (only if ahead of schedule, in priority order)
 
@@ -43,4 +43,4 @@ code itself (sections, projects) is yours to create as you go, see
 
 ---
 
-_Last updated: 2026-09-11_
+_Last updated: 2026-09-23_
