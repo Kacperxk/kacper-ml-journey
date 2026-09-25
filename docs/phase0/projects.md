@@ -559,6 +559,8 @@ Project 4 required hand-deriving the backward pass for one fixed network archite
 
 #### Structure
 
+Lives at `phase0/projects/microtensor/`, alongside the core projects — no separate `stretch/` folder for a single project.
+
 ```
 microtensor/
 ├── __init__.py
@@ -594,6 +596,14 @@ class Value:
         """out = max(0, self). Gradient passes through unchanged where
         self.data > 0, blocked otherwise — same rule as Project 4's
         relu_backward, now for a single scalar."""
+
+    def exp(self) -> "Value":
+        """out = e ** self. d(out)/d(self) = e ** self.data (i.e. out.data)."""
+
+    def log(self) -> "Value":
+        """out = ln(self), self.data > 0. d(out)/d(self) = 1 / self.data.
+        exp and log are what make softmax + cross-entropy expressible in
+        Value operations — needed to rebuild Project 4's worked example below."""
 
     def backward(self) -> None:
         """Compute .grad for every Value in this node's graph, treating this
@@ -660,8 +670,8 @@ def train_tiny_mlp() -> None:
     confirm it decreases."""
 ```
 
-**Done when:** `Value`'s `+`, `*`, `**`, and `relu` all produce correct forward values; `backward()`'s gradients match Project 4's hand-derived example to at least 4 decimal places; a deliberately-reused `Value` accumulates gradient correctly from multiple paths instead of only reflecting the last one; a tiny MLP trains via plain gradient descent with explicit zeroing and its loss visibly decreases over training.
+**Done when:** `Value`'s `+`, `*`, `**`, `relu`, `exp`, and `log` all produce correct forward values; `backward()`'s gradients match Project 4's hand-derived example to at least 4 decimal places; a deliberately-reused `Value` accumulates gradient correctly from multiple paths instead of only reflecting the last one; a tiny MLP trains via plain gradient descent with explicit zeroing and its loss visibly decreases over training.
 
 ---
 
-*Last updated: 2026-09-23*
+*Last updated: 2026-09-26*
