@@ -1,3 +1,6 @@
+import math
+
+
 class Value:
     def __init__(self, data: float, _children: tuple = (), _op: str = "") -> None:
         self.data = data
@@ -35,16 +38,38 @@ class Value:
         out._backward = _backward
         return out
 
+    def __pow__(self, other: int | float) -> "Value":
+        out = Value(self.data**other, (self,), f"**{other}")
 
-def main():
-    a = Value(2.0)
-    b = Value(3.0)
-    c = a * b
-    c.grad = 1.0
-    c._backward()
-    print(a)
-    print(b)
+        def _backward():
+            self.grad += other * self.data ** (other - 1) * out.grad
 
+        out._backward = _backward
+        return out
 
-if __name__ == "__main__":
-    main()
+    def relu(self) -> "Value":
+        out = Value(max(self.data, 0), (self,), "relu")
+
+        def _backward():
+            self.grad += (1 if self.data > 0 else 0) * out.grad
+
+        out._backward = _backward
+        return out
+
+    def exp(self) -> "Value":
+        out = Value(math.exp(self.data), (self,), "exp")
+
+        def _backward():
+            self.grad += out.data * out.grad
+
+        out._backward = _backward
+        return out
+
+    def log(self) -> "Value":
+        out = Value(math.log(self.data), (self,), "log")
+
+        def _backward():
+            self.grad += (1 / self.data) * out.grad
+
+        out._backward = _backward
+        return out
