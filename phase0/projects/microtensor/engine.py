@@ -47,6 +47,27 @@ class Value:
         out._backward = _backward
         return out
 
+    def __neg__(self) -> "Value":
+        return self * -1
+
+    def __sub__(self, other: "Value | float") -> "Value":
+        return self + (-other)
+
+    def __truediv__(self, other) -> "Value":
+        return self * other**-1
+
+    def __radd__(self, other) -> "Value":
+        return self + other
+
+    def __rmul__(self, other) -> "Value":
+        return self * other
+
+    def __rsub__(self, other) -> "Value":
+        return (-self) + other
+
+    def __rtruediv__(self, other) -> "Value":
+        return other * self**-1
+
     def relu(self) -> "Value":
         out = Value(max(self.data, 0), (self,), "relu")
 
