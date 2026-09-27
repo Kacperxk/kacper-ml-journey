@@ -69,7 +69,7 @@ class Value:
         return other * self**-1
 
     def relu(self) -> "Value":
-        out = Value(max(self.data, 0), (self,), "relu")
+        out = Value(max(self.data, 0.0), (self,), "relu")
 
         def _backward():
             self.grad += (1 if self.data > 0 else 0) * out.grad
