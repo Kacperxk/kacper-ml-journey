@@ -1,4 +1,6 @@
+import random
 from .engine import Value
+from .nn import MLP
 
 
 def verify_gradient_accumulation() -> None:
@@ -41,9 +43,36 @@ def verify_against_hand_derivation() -> None:
     assert abs(W2[1][1].grad - 0.54239) < 1e-4
 
 
+def train_tiny_mlp() -> None:
+    random.seed(0)
+    X = [[0.0, 0.0], [0.0, 1.0], [1.0, 0.0], [1.0, 1.0]]
+    Y = [-1.0, 1.0, 1.0, -1.0]
+
+    model = MLP(2, [4, 4, 1])
+
+    losses = []
+    for _ in range(300):
+        loss = sum((model(x) - y) ** 2 for x, y in zip(X, Y))
+
+        for p in model.parameters():
+            p.grad = 0.0
+
+        loss.backward()
+
+        for p in model.parameters():
+            p.data -= 0.05 * p.grad
+
+        losses.append(loss.data)
+
+    preds = [model(x).data for x in X]
+    assert losses[-1] < losses[0] * 0.01
+    assert preds[0] < 0 and preds[1] > 0 and preds[2] > 0 and preds[3] < 0
+
+
 def main() -> None:
     verify_gradient_accumulation()
     verify_against_hand_derivation()
+    train_tiny_mlp()
 
 
 if __name__ == "__main__":
