@@ -1,15 +1,16 @@
 # CLAUDE.md
 
-`ml-engineering-course` (GitHub: Kacperxk/kacper-ml-journey) — Kacper's self-directed ML engineering curriculum, currently Phase 0 (Python/NumPy/Math foundations). Read this file first in any session in this repo.
+`ml-engineering-course` (GitHub: Kacperxk/kacper-ml-journey) — Kacper's self-directed ML engineering curriculum. Phase 0 (Python/NumPy/Math foundations) complete 2026-09-27; Phase 1 not yet planned. Read this file first in any session in this repo.
 
 This file covers only how Claude should *operate* here — not course content. Source of truth for content:
 
 - `docs/ROADMAP.md` — full 6-phase plan
 - `docs/REPO_STRUCTURE.md` — file layout (a target, not pre-built — see Working style)
-- `docs/phase0/projects.md` — current phase's project specs
+- `docs/phase0/projects.md` — Phase 0's project specs
 - `docs/GIT_GUIDE.md` — git workflow and commit conventions
-- `phase0/README.md` — live progress tracker (sections/projects done)
-- `docs/phase0/README.md`'s "Phase 0 Completion Checklist" — separate thing: a one-time end-of-phase mastery self-check, not a section-by-section tracker. Don't merge with the above (2026-08-05).
+- `phase0/README.md` — Phase 0 progress tracker (sections/projects done)
+- `docs/phase0/README.md`'s "Phase 0 Completion Checklist" — separate thing: a one-time end-of-phase mastery self-check, not a section-by-section tracker and not a gate on marking the phase complete. Don't merge with the above (2026-08-05). Still open for Kacper as of Phase 0's completion.
+- `docs/audits/` — dated repo/curriculum audits; read the latest before a new one.
 - `docs/mastery/<phase>.md` — evidence-based depth tracking, distinct from both of the above: completing a section/checklist item isn't the same fact as understanding it. Update after a tutoring exchange reveals real depth (or a real gap) on a load-bearing concept — not after every exercise.
 
 Keep this file lean: one compressed sentence + anchor beats a paragraph. If a decision already lives in `projects.md`/`REPO_STRUCTURE.md`/etc., link to it, don't duplicate it.
@@ -32,7 +33,7 @@ Confirmed 2026-08-04:
 - **Confused about a concept** (code already works, doesn't understand why): answer directly — that's tutoring, not solving the exercise for him.
 - **Code review:** line-by-line — style, naming, edge cases, performance, idioms. Real PR-review depth, not a quick pass.
 - **Tests:** projects with explicit "done when" criteria — Claude can write the check. Drills without a specified test — his to write.
-- **Deadline pacing:** check against the Sept 27, 2026 target / `phase0/README.md` checklist periodically. Flag if behind, without being naggy about it.
+- **Deadline pacing:** check against the current phase's target date and progress tracker periodically. Flag if behind, without being naggy about it.
 - **Completion isn't understanding.** A passing test or a ticked checkbox is evidence a task was finished, not that the concept behind it is solid — treat them as separate facts (see `docs/mastery/`). If an explanation is accepted without being restated or applied, ask for it back before moving on rather than assuming it landed.
 - **Push back on superficial understanding.** If a stated explanation is vague, wrong, or just a repeated version of what was already said, say so directly rather than accepting it to keep things moving.
 
@@ -50,7 +51,7 @@ Applies to any exercise file Claude writes or edits, this phase or later. Before
 
 ## Git identity — never set it locally in this repo
 
-If a commit fails with "Author identity unknown," never run `git config user.name`/`user.email` without `--global` — a local config silently overrides Kacper's identity for every future commit from any tool, and breaks GitHub attribution. Happened twice, misattributed 18 of the first ~22 commits (caught 2026-08-05). If identity ever needs fixing, ask Kacper for his exact name/email.
+If a commit fails with "Author identity unknown," never run `git config user.name`/`user.email` without `--global` — a local config silently overrides Kacper's identity for every future commit from any tool, and breaks GitHub attribution. Happened twice, misattributed 18 of the first ~22 commits (2026-08-05) — those 18 stayed wrong on GitHub until 2026-09-13, when Claude repeated the mistake on 13 more commits by using an email from conversation context; all 31 rewritten (see `docs/audits/2026-09-23-full-audit.md`). When committing for Kacper with `-c user.name=... -c user.email=...`, take both from `git config --global` or existing `git log`, never from context. If identity ever needs fixing, ask Kacper.
 
 ## Conventions
 
@@ -58,4 +59,4 @@ If a commit fails with "Author identity unknown," never run `git config user.nam
 - Commit messages: `type(scope): description` — see `docs/GIT_GUIDE.md`.
 - `docs/` = planning/instructional material. Phase folders (`phase0/`, `phase1/`, ...) = code + short status README only. No exercise prose in code folders.
 - Moving/deleting a doc: grep the whole repo for the old filename first — stale cross-references are an easy, repeatable miss.
-- Phase 0 target: **September 27, 2026**. If behind, cut scope (drop a stretch project, skip comfortable exercises) rather than let the date slip.
+- Every phase gets a fixed target date. If behind, cut scope (drop a stretch project, skip comfortable exercises) rather than let the date slip. Phase 0's (Sept 27, 2026) was met.
