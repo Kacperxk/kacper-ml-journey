@@ -1,10 +1,13 @@
 # Phase 0 — Foundations
 
-Target date: **September 27, 2026**. Full concept explanations and exercise
-problem statements live in `docs/phase0/`; project specs live in
-`docs/phase0/projects.md`. This file is just a live status checklist — the
-code itself (sections, projects) is yours to create as you go, see
+**Complete — 2026-09-27** (target date: September 27, 2026). Full concept
+explanations and exercise problem statements live in `docs/phase0/`; project
+specs live in `docs/phase0/projects.md`. This file is just a status
+checklist — the code itself (sections, projects) is yours to create, see
 `CLAUDE.md`'s working-style note.
+
+The end-of-phase self-assessment in `docs/phase0/README.md` ("Phase 0
+Completion Checklist") is still open — yours to go through, not a blocker.
 
 ## Python (`phase0/python/`, 7 sections)
 
@@ -34,13 +37,13 @@ code itself (sections, projects) is yours to create as you go, see
 - [x] Project 3 — Linear Regression from Scratch (incl. GD/momentum/Adam comparison)
 - [x] Project 4 — NumPy Neural Network (capstone)
 
-## Stretch (only if ahead of schedule, in priority order)
+## Stretch
 
-- [ ] Data Preprocessing Engine
-- [ ] Config Manager
-- [ ] Scalar Autograd Engine (microtensor)
-- [ ] Mini ML Framework
+One chosen out of four (2026-09-23), to reinforce backpropagation. The other three were not built.
+
+- [x] Scalar Autograd Engine (`microtensor`)
+- Not built: Data Preprocessing Engine, Config Manager, Mini ML Framework
 
 ---
 
-_Last updated: 2026-09-23_
+_Last updated: 2026-09-27_
