@@ -536,14 +536,12 @@ def main() -> None:
 
 ## Optional Stretch (only if you finish core projects with time to spare before Sept 27)
 
-Do these in this priority order if you have time. Skip them entirely if you don't — none of them teach something the 4 core projects don't already cover, they just go deeper or practice the same skill in a different shape.
+Outcome (2026-09-27): only #3 was built. The other three were not, and aren't carried into Phase 1.
 
 1. **Data Preprocessing Engine** (`StandardScaler`, `MinMaxScaler`, `OneHotEncoder`, `train_test_split` from scratch in NumPy). Reasonable to fold directly into Project 3's data-prep step instead of building standalone.
 2. **Config Manager** (dot-notation config object with freezing, merging, diffing). Useful engineering pattern, lowest ML relevance of the stretch set.
-3. **Scalar Autograd Engine** (`microtensor`) — full spec below. Chosen over the other three stretch options (2026-09-23) specifically to reinforce backpropagation, the concept that took longest to land in Project 4.
+3. **Scalar Autograd Engine** (`microtensor`) — full spec below; built 2026-09-27. Chosen over the other three stretch options (2026-09-23) specifically to reinforce backpropagation, the concept that took longest to land in Project 4.
 4. **Mini ML Framework** (pure-Python, no NumPy, deliberately skips real backprop). Interesting for project-structure fluency but explicitly doesn't complete the learning loop (no real gradients) — lowest priority.
-
-Ask if you want a fuller spec for any of the others when you're ready to build one.
 
 ---
 
@@ -613,7 +611,7 @@ class Value:
         ._backward() — reverse order guarantees a node's gradient is fully
         accumulated before it propagates further back."""
 
-    # __radd__, __rmul__, __neg__, __sub__, __rsub__, __truediv__ — implement
+    # __radd__, __rmul__, __neg__, __sub__, __rsub__, __truediv__, __rtruediv__ — implement
     # each in terms of __add__/__mul__/__pow__ above (e.g. self - other is
     # self + (-other)) so none of them need their own _backward rule.
 ```

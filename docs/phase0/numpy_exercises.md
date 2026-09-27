@@ -1,5 +1,5 @@
 # NumPy Exercises — Phase 0 Proficiency
-## ~60 exercises across 8 sections
+## 36 exercises (several multi-part) across 8 sections
 
 ---
 
@@ -1191,4 +1191,4 @@ Projects are tracked separately — see `docs/phase0/projects.md` and `phase0/RE
 
 ---
 
-*Last updated: 2026-08-29*
+*Last updated: 2026-09-27*

@@ -22,9 +22,10 @@ plan, deadlines, and project specs live one level up (`docs/ROADMAP.md`,
 | `matplotlib_concepts.md` | Figure/Axes anatomy, plot types, subplots, log scale, heatmaps, saving figures. |
 | `math_concepts.md` | Linear algebra, calculus/backprop intuition, and probability, connected directly to ML code. |
 | `habits_and_tools.md` | Engineering habits, math-to-code habits, learning habits, editor setup. Applies throughout, not section-specific. |
+| `*_project_explained.pdf` | Kacper's own in-depth write-ups of Project 3 (Linear Regression) and Project 4 (NumPy Neural Network). |
 
 Projects (CLI Weather Tool, Data Pipeline, Linear Regression from Scratch,
-NumPy Neural Network, plus stretch) are specified separately in
+NumPy Neural Network, plus the Scalar Autograd Engine stretch project) are specified separately in
 `docs/phase0/projects.md` — not duplicated here.
 
 ---
@@ -52,6 +53,8 @@ Rule: never leave a session without committing something to Git — see `docs/GI
 ## Phase 0 Completion Checklist
 
 Go through this honestly before moving to Phase 1. "I sort of know this" is not the same as "I can do this without looking anything up."
+
+Status: Phase 0 was marked complete on 2026-09-27 with this checklist still open — it's a self-assessment, not a gate. Only Kacper ticks these.
 
 ### Python
 - [ ] Can write a class with `__init__`, instance variables, properties, `@staticmethod`, `@classmethod`, and relevant dunder methods from memory
@@ -85,4 +88,4 @@ Go through this honestly before moving to Phase 1. "I sort of know this" is not 
 
 ---
 
-*Last updated: 2026-09-05*
+*Last updated: 2026-09-27*

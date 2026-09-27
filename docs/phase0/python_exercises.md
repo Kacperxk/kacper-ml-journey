@@ -1,5 +1,5 @@
 # Python Exercises — Phase 0 Proficiency
-## ~70 exercises across 7 sections + Git/GitHub drills
+## 24 exercises (several multi-part) across 7 sections + Git/GitHub drills
 
 ---
 
@@ -1880,4 +1880,4 @@ Projects are tracked separately — see `docs/phase0/projects.md` and `phase0/RE
 
 ---
 
-*Last updated: 2026-08-18*
+*Last updated: 2026-09-27*

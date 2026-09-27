@@ -42,7 +42,7 @@ These phases overlap in practice. Don't treat them as strict sequential blocks �
 ---
 
 ## PHASE 0 — Foundations Refresh
-### Target date: **September 27, 2026** (~8 weeks from Aug 3, 2026) | Goal: Arrive at Phase 1 with zero weak spots holding you back
+### Target date: **September 27, 2026** (~8 weeks from Aug 3, 2026) — **completed 2026-09-27** | Goal: Arrive at Phase 1 with zero weak spots holding you back
 
 This date is fixed, not aspirational. University restarts in October and your daily hours drop — Phase 0 needs to be behind you before then. If you're not done by the target date, **cut remaining scope** (drop a stretch project, skip an exercise section you're already comfortable with) rather than slip the date. An unfinished Phase 0 that ends on time beats a "complete" one that eats into semester 3.
 
@@ -51,7 +51,7 @@ The goal here isn't to master everything — it's to remove blockers. You have t
 ### What's in Phase 0
 - **Concepts**: Python (OOP, functions, error handling, types, project structure, git) + NumPy (arrays, indexing, broadcasting, linear algebra, einsum, numerical stability) + Matplotlib (plot types, subplots, saving figures) + Math (linear algebra, calculus/backprop intuition, probability). Full teaching content in `docs/phase0/python_concepts.md`, `numpy_concepts.md`, `matplotlib_concepts.md`, `math_concepts.md`.
 - **Drills**: 36 NumPy exercises, 24 Python exercises (several multi-part) — predict-before-run methodology. See `docs/phase0/python_exercises.md` and `numpy_exercises.md`.
-- **Projects**: see `docs/phase0/projects.md` — 4 core projects, done in order.
+- **Projects**: see `docs/phase0/projects.md` — 4 core projects, done in order, plus one stretch project (Scalar Autograd Engine).
 - **Git**: see `docs/GIT_GUIDE.md`.
 
 ### 0A — Python: From Mediocre to Fluent
@@ -236,7 +236,7 @@ Follow major lab research blogs, Hugging Face Blog, Karpathy, Sebastian Raschka'
 
 | Month | Primary Focus | Side Track |
 |-------|--------------|------------|
-| 1 | Phase 0 (target date Sept 27) | Git, CLI tools |
+| 1 | Phase 0 (completed Sept 27) | Git, CLI tools |
 | 2 | Phase 1: classical ML + first Kaggle project | Leetcode starts |
 | 3 | Phase 2: neural nets from scratch + backprop | Read first papers |
 | 4 | Phase 2: PyTorch core + CNN project | Fast.ai |
@@ -287,4 +287,4 @@ Note: months 2–14 will compress against university semester load — this sche
 
 ---
 
-*Last updated: 2026-09-05*
+*Last updated: 2026-09-27*

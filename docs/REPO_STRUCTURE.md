@@ -16,6 +16,7 @@ kacper-ml-journey/
 ├── README.md                          # master overview — your public face
 ├── CLAUDE.md                          # entry point for any Claude session in this repo
 ├── .gitignore                         # single gitignore for the whole repo (see docs/GIT_GUIDE.md)
+├── .python-version                    # pinned Python version
 ├── requirements.txt                   # grows as you add libraries each phase
 │
 ├── docs/                              # planning + instructional material
@@ -25,19 +26,21 @@ kacper-ml-journey/
 │   ├── mastery/                       # evidence-based depth tracking, separate from completion
 │   │   └── phase0.md                  # one file per phase, populated as evidence accrues
 │   ├── audits/                        # dated, evidence-based periodic repo/curriculum reviews
-│   │   └── 2026-09-05-full-audit.md
+│   │   └── YYYY-MM-DD-full-audit.md   # one file per audit
 │   └── phase0/                        # Phase 0 teaching content, drills, and project specs
 │       ├── README.md                  # index: links, time structure, completion checklist
 │       ├── python_concepts.md         # Python — OOP, functions, errors, types (read, don't drill)
-│       ├── python_exercises.md        # ~70 Python drills + Git/GitHub drills
+│       ├── python_exercises.md        # 24 Python drills (several multi-part) + Git/GitHub drills
 │       ├── numpy_concepts.md          # NumPy — arrays, broadcasting, linear algebra, einsum
-│       ├── numpy_exercises.md         # ~60 NumPy drills
+│       ├── numpy_exercises.md         # 36 NumPy drills (several multi-part)
 │       ├── matplotlib_concepts.md     # figure/axes, plot types, subplots, saving
 │       ├── math_concepts.md           # linear algebra, calculus, probability
 │       ├── habits_and_tools.md        # engineering/debugging/learning habits, editor setup
-│       └── projects.md                # 4 core projects + 4 optional stretch, full specs
+│       ├── projects.md                # 4 core projects + stretch options (full spec: microtensor)
+│       ├── linear_regression_project_explained.pdf     # Kacper's in-depth notes, Project 3
+│       └── NumPy_Neural_Network_project_explained.pdf  # Kacper's in-depth notes, Project 4
 │
-├── phase0/                            # Foundations — target date Sept 27, 2026
+├── phase0/                            # Foundations — complete, 2026-09-27
 │   ├── README.md                      # live status checklist — section topics tracked here,
 │   │                                   # not duplicated below
 │   ├── python/                        # section1_*.py .. section7_*.py, one per section
@@ -51,8 +54,8 @@ kacper-ml-journey/
 │       ├── data_pipeline/             # Project 2 — Data Pipeline
 │       ├── linear_regression/         # Project 3 — Linear Regression + GD Visualizer
 │       ├── numpy_neural_net/          # Project 4 — capstone
-│       └── microtensor/               # stretch — scalar autograd engine, the only stretch
-│                                       # project being built (other 3 in projects.md unplanned)
+│       └── microtensor/               # stretch — scalar autograd engine (the only stretch
+│                                       # project built; the other 3 in projects.md weren't)
 │
 ├── phase1/                            # Classical ML — structure TBD, expand once you start
 │   └── README.md                      # see docs/ROADMAP.md Phase 1 for topics/projects
@@ -67,7 +70,8 @@ kacper-ml-journey/
 │   └── README.md
 │
 ├── notebooks/                         # exploratory notebooks (not production)
-│   └── python_scratchpad.ipynb
+│   ├── python_scratchpad.ipynb
+│   └── matplotlib_practice.ipynb
 │
 └── resources/                         # your notes, summaries, reading list
     ├── paper_notes/
@@ -87,4 +91,4 @@ Lives at the repo root, already populated for Phase 0 — see `requirements.txt`
 
 ---
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-09-27*
