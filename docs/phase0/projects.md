@@ -625,8 +625,12 @@ class Neuron:
     """Weighted sum of inputs plus bias, optional ReLU."""
 
     def __init__(self, n_inputs: int, nonlin: bool = True) -> None:
-        """Small random Value weights (one per input), zero Value bias — same
-        init reasoning as TwoLayerNet, one neuron at a time here."""
+        """Random Value weights (one per input), e.g. random.uniform(-1, 1),
+        and a zero Value bias. Random for the same symmetry-breaking reason as
+        TwoLayerNet, but not its 0.01 scale: through 3 stacked layers, 0.01
+        weights shrink the signal and gradients so much that a small MLP
+        barely trains (checked 2026-09-27: loss stuck at its starting value
+        on XOR, vs. solved with uniform(-1, 1))."""
 
     def __call__(self, x: list[Value]) -> Value:
         """sum(wi * xi) + b, then .relu() if nonlin else the raw sum."""
@@ -674,4 +678,4 @@ def train_tiny_mlp() -> None:
 
 ---
 
-*Last updated: 2026-09-26*
+*Last updated: 2026-09-27*
