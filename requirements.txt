@@ -1,23 +1,26 @@
 # Phase 0 — Python, NumPy, Math foundations
 numpy>=1.26
-matplotlib>=3.8       # Projects 3 & 4 — loss curves, scatter plots, training curves
+matplotlib>=3.8       # plots throughout
 jupyter>=1.0
 requests>=2.31        # Project 1 — CLI Weather Tool (Open-Meteo API)
-scikit-learn>=1.4     # Project 3 — California Housing dataset only, not for modeling
-pytest>=8.0           # unit tests (Data Pipeline, stretch projects)
+pytest>=8.0           # unit tests
 
-# Phase 1 (add when you reach it)
-# pandas>=2.1
-# xgboost>=2.0
-# lightgbm>=4.0
-# seaborn>=0.13
-# optuna>=3.5
+# Phase 1 — Classical ML
+pandas>=3.0           # 1A — Copy-on-Write and str dtype are pandas 3 defaults
+seaborn>=0.13         # 1A — EDA plots
+duckdb>=1.1           # 1A — SQL on DataFrames/Parquet, no server
+scipy>=1.14           # 1B — distributions, tests
+statsmodels>=0.14     # 1B/1D — regression with inference (standard errors, CIs)
+scikit-learn>=1.9     # 1C onward — main ML library
+# ISLP                # optional: book's lab helpers — pulls in torch, lightning, pygam; datasets are also CSVs on statlearning.com
+xgboost>=2.1          # 1E — gradient boosting
+lightgbm>=4.5         # 1E — gradient boosting
+optuna>=4.0           # 1C/capstone — hyperparameter search
 
 # Phase 2 (add when you reach it)
-# torch>=2.2
-# torchvision>=0.17
+# torch
+# torchvision
 
 # Dev (optional)
-# black>=24.0
-# ruff>=0.3
-# mypy>=1.10
+# ruff
+# mypy

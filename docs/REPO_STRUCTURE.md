@@ -25,6 +25,11 @@ kacper-ml-journey/
 │   ├── REPO_STRUCTURE.md              # this file
 │   ├── mastery/                       # evidence-based depth tracking, separate from completion
 │   │   └── phase0.md                  # one file per phase, populated as evidence accrues
+│   ├── dsa/                           # Data Structures & Algorithms parallel track
+│   │   └── README.md                  # path (book + NeetCode 150), method, progress
+│   ├── phase1/                        # Phase 1 plan, reading guides, specs
+│   │   ├── README.md                  # sections, resources, reading map, project outlines
+│   │   └── ...                        # section docs and projects.md, added as each section starts
 │   ├── audits/                        # dated, evidence-based periodic repo/curriculum reviews
 │   │   └── YYYY-MM-DD-full-audit.md   # one file per audit
 │   └── phase0/                        # Phase 0 teaching content, drills, and project specs
@@ -57,8 +62,13 @@ kacper-ml-journey/
 │       └── microtensor/               # stretch — scalar autograd engine (the only stretch
 │                                       # project built; the other 3 in projects.md weren't)
 │
-├── phase1/                            # Classical ML — structure TBD, expand once you start
-│   └── README.md                      # see docs/ROADMAP.md Phase 1 for topics/projects
+├── phase1/                            # Classical ML — target date Nov 29, 2026
+│   ├── README.md                      # live status checklist
+│   ├── <section folders>              # layout decided per section spec in docs/phase1/
+│   └── projects/                      # data project, from-scratch models, capstone
+│
+├── dsa/                               # DSA track solutions: <NN>-<block>/<problem_slug>.py
+│                                       # (see docs/dsa/README.md)
 │
 ├── phase2/                            # Deep Learning Core — structure TBD, expand once you start
 │   └── README.md                      # see docs/ROADMAP.md Phase 2 for topics/projects
@@ -91,4 +101,4 @@ Lives at the repo root, already populated for Phase 0 — see `requirements.txt`
 
 ---
 
-*Last updated: 2026-09-27*
+*Last updated: 2026-09-28*

@@ -36,7 +36,7 @@ Working across more than one machine (e.g. PC and laptop): run `git pull` before
 Format: `<type>(<scope>): <description>`
 
 - **type**: one of `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
-- **scope**: which phase/area — `p0/python`, `p0/numpy`, `p1/sklearn`, etc. For a project specifically, scope to that project, not the generic `p0/projects` — e.g. `p0/weather-tool`, `p0/data-pipeline` — so `git log` can tell which project a commit belongs to.
+- **scope**: which phase/area — `p0/python`, `p0/numpy`, `p1/pandas`, `p1/stats`, etc. For a project specifically, scope to that project, not the generic `p1/projects` — e.g. `p0/weather-tool`, `p1/capstone` — so `git log` can tell which project a commit belongs to. DSA track: `dsa/<block>`, e.g. `dsa/arrays-hashing`.
 
 ```bash
 git commit -m "feat(p0/numpy): implement pairwise distance without loops"
@@ -57,12 +57,16 @@ Not used in this repo — every commit goes straight to `main`, for drills and p
 ```bash
 # End of each exercise section
 git tag -a p0-python-s1 -m "Phase 0: Python Section 1 complete"
+git tag -a p1-1a-pandas -m "Phase 1: Section 1A complete"
 
 # End of each project
 git tag -a p0-project1-weather -m "Phase 0 Project 1: CLI Weather Tool complete"
 
 # End of each phase
 git tag -a phase0-complete -m "Phase 0 complete — Python, NumPy, math foundations"
+
+# End of each DSA block
+git tag -a dsa-01-arrays-hashing -m "DSA block 1: Arrays & Hashing complete"
 
 git push --tags
 ```
@@ -149,4 +153,4 @@ Never leave a session without committing something — even if it's just a note 
 
 ---
 
-*Last updated: 2026-09-23*
+*Last updated: 2026-09-28*

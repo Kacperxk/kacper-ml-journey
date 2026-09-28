@@ -1,14 +1,16 @@
 # CLAUDE.md
 
-`ml-engineering-course` (GitHub: Kacperxk/kacper-ml-journey) — Kacper's self-directed ML engineering curriculum. Phase 0 (Python/NumPy/Math foundations) complete 2026-09-27; Phase 1 not yet planned. Read this file first in any session in this repo.
+`ml-engineering-course` (GitHub: Kacperxk/kacper-ml-journey) — Kacper's self-directed ML engineering curriculum. Phase 0 (Python/NumPy/Math foundations) complete 2026-09-27; currently Phase 1 (Classical ML), target 2026-11-29. Read this file first in any session in this repo.
 
 This file covers only how Claude should *operate* here — not course content. Source of truth for content:
 
 - `docs/ROADMAP.md` — full 6-phase plan
 - `docs/REPO_STRUCTURE.md` — file layout (a target, not pre-built — see Working style)
-- `docs/phase0/projects.md` — Phase 0's project specs
+- `docs/phase1/README.md` — current phase's plan, reading map, sections; section/project specs added to `docs/phase1/` as each starts
+- `phase1/README.md` — current phase's progress tracker
+- `docs/dsa/README.md` — DSA parallel track: path, method, progress. Tracked like phase work, not background — see Tutoring style
 - `docs/GIT_GUIDE.md` — git workflow and commit conventions
-- `phase0/README.md` — Phase 0 progress tracker (sections/projects done)
+- `docs/phase0/projects.md`, `phase0/README.md` — Phase 0's specs and tracker (complete)
 - `docs/phase0/README.md`'s "Phase 0 Completion Checklist" — separate thing: a one-time end-of-phase mastery self-check, not a section-by-section tracker and not a gate on marking the phase complete. Don't merge with the above (2026-08-05). Still open for Kacper as of Phase 0's completion.
 - `docs/audits/` — dated repo/curriculum audits; read the latest before a new one.
 - `docs/mastery/<phase>.md` — evidence-based depth tracking, distinct from both of the above: completing a section/checklist item isn't the same fact as understanding it. Update after a tutoring exchange reveals real depth (or a real gap) on a load-bearing concept — not after every exercise.
@@ -33,7 +35,8 @@ Confirmed 2026-08-04:
 - **Confused about a concept** (code already works, doesn't understand why): answer directly — that's tutoring, not solving the exercise for him.
 - **Code review:** line-by-line — style, naming, edge cases, performance, idioms. Real PR-review depth, not a quick pass.
 - **Tests:** projects with explicit "done when" criteria — Claude can write the check. Drills without a specified test — his to write.
-- **Deadline pacing:** check against the current phase's target date and progress tracker periodically. Flag if behind, without being naggy about it.
+- **Deadline pacing:** check against the current phase's target date and progress tracker periodically. Flag if behind, without being naggy about it. Same for the DSA track (`docs/dsa/README.md`): its pace is part of the check, and every audit records it.
+- **Phase 1 uses textbooks (ISLP, Géron) as the teaching material.** Section docs are reading guides plus notes where the books are thin — don't re-write textbook content (see `docs/phase1/README.md`).
 - **Completion isn't understanding.** A passing test or a ticked checkbox is evidence a task was finished, not that the concept behind it is solid — treat them as separate facts (see `docs/mastery/`). If an explanation is accepted without being restated or applied, ask for it back before moving on rather than assuming it landed.
 - **Push back on superficial understanding.** If a stated explanation is vague, wrong, or just a repeated version of what was already said, say so directly rather than accepting it to keep things moving.
 
@@ -59,4 +62,4 @@ If a commit fails with "Author identity unknown," never run `git config user.nam
 - Commit messages: `type(scope): description` — see `docs/GIT_GUIDE.md`.
 - `docs/` = planning/instructional material. Phase folders (`phase0/`, `phase1/`, ...) = code + short status README only. No exercise prose in code folders.
 - Moving/deleting a doc: grep the whole repo for the old filename first — stale cross-references are an easy, repeatable miss.
-- Every phase gets a fixed target date. If behind, cut scope (drop a stretch project, skip comfortable exercises) rather than let the date slip. Phase 0's (Sept 27, 2026) was met.
+- Every phase gets a fixed target date. If behind, cut scope (drop a stretch project, skip comfortable exercises) rather than let the date slip. Phase 0's (Sept 27, 2026) was met; Phase 1's is Nov 29, 2026 (uni probability midterm Dec 4, exam session late Jan).

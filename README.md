@@ -4,7 +4,8 @@ Self-directed study toward becoming an ML engineer. Structured as a 6-phase,
 ~18-month curriculum covering Python foundations through LLMs and alignment.
 
 - **Phase 0** — Python, NumPy, Math Foundations: complete (2026-08-03 → 2026-09-27)
-- **Next:** Phase 1 — not yet planned
+- **Current: Phase 1** — Classical ML: started 2026-09-28, target 2026-11-29
+- **Parallel track:** Data Structures & Algorithms, from 2026-09-28
 
 ---
 
@@ -14,8 +15,8 @@ Working as an ML engineer on large-scale language models. The path there:
 build genuine depth in every layer of the stack — from Python internals to
 transformer training to alignment techniques.
 
-See `docs/ROADMAP.md` for the full plan, `docs/phase0/projects.md` for Phase 0's
-project specs, and `docs/GIT_GUIDE.md` for the workflow this repo follows.
+See `docs/ROADMAP.md` for the full plan, `docs/phase1/README.md` for the current
+phase, and `docs/GIT_GUIDE.md` for the workflow this repo follows.
 
 ---
 
@@ -24,13 +25,23 @@ project specs, and `docs/GIT_GUIDE.md` for the workflow this repo follows.
 | Phase | Topic | Duration | Status |
 |-------|-------|----------|--------|
 | 0 | Python · NumPy · Math Foundations | Aug 3 – Sept 27, 2026 | Complete |
-| 1 | Classical ML · Scikit-learn | ~8 weeks | Not started |
-| 2 | Deep Learning · Backprop · CNNs · RNNs | ~10 weeks | Not started |
-| 3 | LLMs · Transformers · Attention | ~12 weeks | Not started |
+| 1 | pandas · Statistics · Classical ML · scikit-learn | Sept 28 – Nov 29, 2026 | In progress |
+| 2 | Deep Learning · PyTorch · CNNs · RNNs · RL basics | ~10 weeks | Not started |
+| 3 | LLMs · Transformers · Post-training | ~12 weeks | Not started |
 | 4 | MLOps · Distributed Training · Inference | ~8 weeks | Not started |
 | 5 | Frontier Work & Portfolio | ongoing | Not started |
 
+Parallel track: Data Structures & Algorithms — `docs/dsa/README.md`.
+
 ---
+
+## Phase 1 — Current Progress
+
+See `phase1/README.md` for the live checklist.
+
+- **Sections** — 6: pandas & SQL, statistics for ML, workflow & evaluation,
+  linear models, trees & ensembles, other methods & unsupervised
+- **Projects** — data project, from-scratch models, end-to-end capstone
 
 ## Phase 0 — Summary
 
@@ -58,7 +69,7 @@ pip install -r requirements.txt
 
 ## Workflow
 
-See `docs/GIT_GUIDE.md` for commit conventions, branching, and tagging.
+See `docs/GIT_GUIDE.md` for commit conventions and tagging.
 
 ---
 
