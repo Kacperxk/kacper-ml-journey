@@ -111,7 +111,7 @@ Linear algebra and calculus have real university coursework behind them already 
 ## PHASE 1 — ML Theory + Classical ML
 ### Target date: **November 29, 2026** (~9 weeks from Sept 28, 2026) | Goal: Understand how ML works at the algorithmic and statistical level
 
-Full plan, reading map and specs: `docs/phase1/README.md`. Six sections:
+Full plan, reading map and specs: `docs/phase1/README.md`. Six modules (30 sections in total):
 
 - **1A — pandas & SQL:** DataFrames, cleaning, groupby/merge/reshape, pandas 3 Copy-on-Write, EDA, SQL via DuckDB.
 - **1B — Statistics for ML:** estimators, bias/variance, confidence intervals, bootstrap, hypothesis testing, MLE ↔ loss functions.

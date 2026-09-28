@@ -27,9 +27,11 @@ kacper-ml-journey/
 │   │   └── phase0.md                  # one file per phase, populated as evidence accrues
 │   ├── dsa/                           # Data Structures & Algorithms parallel track
 │   │   └── README.md                  # path (book + NeetCode 150), method, progress
-│   ├── phase1/                        # Phase 1 plan, reading guides, specs
-│   │   ├── README.md                  # sections, resources, reading map, project outlines
-│   │   └── ...                        # section docs and projects.md, added as each section starts
+│   ├── phase1/                        # Phase 1 plan, reading guides, drills, specs
+│   │   ├── README.md                  # modules, sections, resources, reading map, project outlines
+│   │   ├── <module>_concepts.md       # per module: reading guide + notes (added when module starts)
+│   │   ├── <module>_exercises.md      # per module: drills by section (added when module starts)
+│   │   └── projects.md                # project specs (added before each project)
 │   ├── audits/                        # dated, evidence-based periodic repo/curriculum reviews
 │   │   └── YYYY-MM-DD-full-audit.md   # one file per audit
 │   └── phase0/                        # Phase 0 teaching content, drills, and project specs
@@ -64,7 +66,12 @@ kacper-ml-journey/
 │
 ├── phase1/                            # Classical ML — target date Nov 29, 2026
 │   ├── README.md                      # live status checklist
-│   ├── <section folders>              # layout decided per section spec in docs/phase1/
+│   ├── pandas/                        # section1_*.ipynb .. section8_*.ipynb
+│   ├── stats/                         # section1_*.ipynb .. section4_*.ipynb
+│   ├── evaluation/                    # section1_*.ipynb .. section5_*.ipynb
+│   ├── linear_models/                 # section1_*.ipynb .. section4_*.ipynb
+│   ├── trees/                         # section1_*.ipynb .. section4_*.ipynb
+│   ├── other_methods/                 # section1_*.ipynb .. section5_*.ipynb
 │   └── projects/                      # data project, from-scratch models, capstone
 │
 ├── dsa/                               # DSA track solutions: <NN>-<block>/<problem_slug>.py

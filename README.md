@@ -39,7 +39,7 @@ Parallel track: Data Structures & Algorithms — `docs/dsa/README.md`.
 
 See `phase1/README.md` for the live checklist.
 
-- **Sections** — 6: pandas & SQL, statistics for ML, workflow & evaluation,
+- **Modules** — 6 (30 sections): pandas & SQL, statistics for ML, workflow & evaluation,
   linear models, trees & ensembles, other methods & unsupervised
 - **Projects** — data project, from-scratch models, end-to-end capstone
 

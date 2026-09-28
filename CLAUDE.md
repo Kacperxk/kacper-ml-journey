@@ -6,7 +6,7 @@ This file covers only how Claude should *operate* here — not course content. S
 
 - `docs/ROADMAP.md` — full 6-phase plan
 - `docs/REPO_STRUCTURE.md` — file layout (a target, not pre-built — see Working style)
-- `docs/phase1/README.md` — current phase's plan, reading map, sections; section/project specs added to `docs/phase1/` as each starts
+- `docs/phase1/README.md` — current phase's plan: modules, sections, reading map; per-module concepts/exercises docs and project specs added to `docs/phase1/` as each starts
 - `phase1/README.md` — current phase's progress tracker
 - `docs/dsa/README.md` — DSA parallel track: path, method, progress. Tracked like phase work, not background — see Tutoring style
 - `docs/GIT_GUIDE.md` — git workflow and commit conventions

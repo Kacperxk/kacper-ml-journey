@@ -8,40 +8,97 @@ Goal: understand how ML works at the algorithmic and statistical level, and run 
 
 ## How this phase works
 
-- **Two books, both read, not re-written here.** ISLP for the statistical view and theory, Géron for scikit-learn practice and engineering habits. Section docs in this folder are reading guides: which chapters when, plus short notes only where the books are thin or where material connects back to Phase 0.
-- **Build it, then use the library** — continued from Phase 0. Logistic regression, a decision tree, and a small gradient booster get written from scratch and checked against scikit-learn before relying on scikit-learn's versions.
-- **Drills stay predict-before-run** (as in `docs/phase0/numpy_exercises.md`). Section specs, drills, and project specs are written one section at a time, right before each section starts.
-- **Probability runs in parallel at university** (Rachunek prawdopodobieństwa, winter 2026/27; midterm 2026-12-04). Phase 1 leans on it and doesn't re-teach it. Mathematical statistics comes at university only next semester, so section 1B covers the ML-relevant statistics here.
+Same shape as Phase 0: **modules** (like Phase 0's Python and NumPy) split into numbered **sections**, each with drills.
+
+| Per module | File | Written |
+|---|---|---|
+| Concepts: reading guide + notes | `docs/phase1/<module>_concepts.md` | When the module starts |
+| Drills, grouped by section | `docs/phase1/<module>_exercises.md` | When the module starts |
+| Your answers, one notebook per section | `phase1/<module>/section<N>_<topic>.ipynb` | By you |
+| Project specs | `docs/phase1/projects.md` | Before each project starts |
+
+- **The books teach; the concepts docs guide.** Each concepts section says what to read (ISLP, Géron, McKinney, docs), then adds short notes only where the books are thin, out of date (e.g. McKinney predates pandas 3), or where material connects back to Phase 0.
+- **Every module has code drills**, including statistics: its drills check theory by simulation (sampling distributions, bootstrap, permutation tests) in NumPy/SciPy.
+- **Drills are predict-before-run**, as in `docs/phase0/numpy_exercises.md`. Every written task ends in `assert`s.
+- **Build it, then use the library** — continued from Phase 0: logistic regression, a CART tree, and a small gradient booster are built from scratch in Project 2 and checked against scikit-learn.
+- **Probability runs in parallel at university** (Rachunek prawdopodobieństwa, winter 2026/27; midterm 2026-12-04). Phase 1 leans on it and doesn't re-teach it. Mathematical statistics comes at university only next semester, so Module 1B covers the ML-relevant statistics here.
 
 ## Resources
 
 | Resource | Use | Access |
 |---|---|---|
-| *An Introduction to Statistical Learning with Applications in Python* (ISLP) — James, Witten, Hastie, Tibshirani, Taylor | Theory spine | Free PDF, statlearning.com |
-| *Hands-On Machine Learning with Scikit-Learn and PyTorch* — Géron (2025), Part I (ch. 1–8) | Practice spine; Part II carries into Phase 2 | O'Reilly |
-| pandas user guide (pandas 3.x) + *Python for Data Analysis*, 3rd ed. — McKinney | pandas | Free online |
-| scikit-learn user guide (1.9+) | API reference, evaluation chapter | Free online |
+| *An Introduction to Statistical Learning with Applications in Python* (ISLP) — James, Witten, Hastie, Tibshirani, Taylor | Theory spine (1B–1F) | Free PDF, statlearning.com |
+| *Hands-On Machine Learning with Scikit-Learn and PyTorch* — Géron (2025), Part I (ch. 1–8) | Practice spine (1C–1F); Part II carries into Phase 2 | O'Reilly |
+| *Python for Data Analysis*, 3rd ed. — McKinney | pandas (1A) | Free online, wesmckinney.com/book |
+| pandas (3.x), seaborn, DuckDB, scikit-learn (1.9+) docs | API reference | Free online |
 | StatQuest (YouTube) | Visual intuition per topic | Free |
 | *Introduction to Probability* — Blitzstein & Hwang | Probability backup, alongside the uni course | Free PDF |
 
-## Sections
+## Modules
 
-| Section | Topics | Reading | Time |
-|---|---|---|---|
-| **1A — pandas & SQL** | Series/DataFrame, `.loc`/`.iloc`, dtypes (incl. pandas 3 `str` dtype), missing data, groupby/aggregation, merge/join, reshape (pivot/melt), datetimes, Copy-on-Write; EDA with seaborn; SQL (SELECT, WHERE, GROUP BY, JOIN, window functions) on DataFrames/Parquet via DuckDB | McKinney ch. 5–10; pandas user guide; Géron ch. 2 (data part) | ~1.5 wk |
-| **1B — Statistics for ML** | Estimators and their bias/variance, standard errors, confidence intervals, bootstrap, hypothesis testing basics, MLE — and why MSE is the Gaussian MLE and cross-entropy the Bernoulli/Categorical MLE (Phase 0's `math_concepts.md` 1.3, now applied) | ISLP 2.1–2.2, 3.1.2, 5.2, 13.1; StatQuest | ~1 wk |
-| **1C — Workflow & evaluation** | Problem framing, train/val/test, cross-validation (k-fold, stratified, grouped, time-based), data leakage, bias–variance tradeoff, learning curves, metrics (regression; classification: confusion matrix, precision/recall/F1, ROC-AUC, PR-AUC, log loss, calibration), class imbalance, baselines; scikit-learn estimators/transformers, `Pipeline`, `ColumnTransformer`, hyperparameter search | Géron ch. 1–3; ISLP ch. 2, 5; scikit-learn "Model selection and evaluation" | ~1.5 wk |
-| **1D — Linear models** | Linear regression with inference, Ridge/Lasso/Elastic Net, logistic and softmax regression (logistic from scratch), feature engineering (scaling, encoding, interactions, polynomial features) | ISLP ch. 3, 4, 6 (7 skim); Géron ch. 4 | ~1 wk |
-| **1E — Trees & ensembles** | CART decision tree (from scratch), bagging, random forests, gradient boosting (concept + small from-scratch version), XGBoost/LightGBM/CatBoost in practice, feature importance (impurity vs. permutation, SHAP overview) | ISLP ch. 8; Géron ch. 5–6; StatQuest gradient boosting series | ~1.5 wk |
-| **1F — Other methods & unsupervised** | k-NN, SVMs (margins, kernels), Naive Bayes, PCA, clustering beyond k-means (hierarchical, DBSCAN, Gaussian mixtures) | ISLP ch. 9, 12; Géron ch. 7–8 | ~1 wk |
+### 1A — pandas & SQL · `phase1/pandas/` · ~1.5 weeks
 
-## Projects
+1. Series & DataFrame fundamentals
+2. Indexing, selection & Copy-on-Write
+3. Cleaning: missing data, dtypes, strings
+4. Transforming & groupby
+5. Combining: concat & merge
+6. Reshaping & time
+7. EDA & visualization
+8. SQL with DuckDB
+
+### 1B — Statistics for ML · `phase1/stats/` · ~1 week
+
+1. Sampling & estimators — sampling distributions, bias, variance, MSE of an estimator
+2. Maximum likelihood — and why MSE / cross-entropy are MLE losses
+3. Confidence intervals & the bootstrap
+4. Hypothesis testing — p-values, permutation tests, multiple testing
+
+Reading: ISLP 2.1–2.2, 3.1.2, 4.3.2, 5.2, 13.1–13.3; StatQuest.
+
+### 1C — Workflow & evaluation · `phase1/evaluation/` · ~1.5 weeks
+
+1. The scikit-learn API — estimators, transformers, `Pipeline`, `ColumnTransformer`
+2. Splitting & cross-validation — train/val/test, k-fold, stratified, grouped, time-based; leakage
+3. Metrics — regression; confusion matrix, precision/recall/F1, ROC/PR curves, log loss, calibration
+4. Bias–variance, learning & validation curves, hyperparameter search
+5. Imbalanced data & baselines
+
+Reading: Géron ch. 1–3; ISLP ch. 2, 5; scikit-learn "Model selection and evaluation".
+
+### 1D — Linear models · `phase1/linear_models/` · ~1 week
+
+1. Linear regression as inference — standard errors, confidence intervals, diagnostics
+2. Regularization — Ridge, Lasso, Elastic Net
+3. Logistic & softmax regression
+4. Feature engineering — encoding, scaling, interactions, polynomial features
+
+Reading: ISLP ch. 3, 4, 6 (7 skim); Géron ch. 4.
+
+### 1E — Trees & ensembles · `phase1/trees/` · ~1.5 weeks
+
+1. Decision trees — splitting criteria, depth, overfitting
+2. Bagging & random forests
+3. Gradient boosting — concept, XGBoost/LightGBM, early stopping
+4. Interpreting models — impurity vs. permutation importance, partial dependence, SHAP overview
+
+Reading: ISLP ch. 8; Géron ch. 5–6; StatQuest gradient boosting series.
+
+### 1F — Other methods & unsupervised · `phase1/other_methods/` · ~1 week
+
+1. k-NN & the curse of dimensionality
+2. Support vector machines
+3. Naive Bayes
+4. PCA
+5. Clustering — k-means, hierarchical, DBSCAN, Gaussian mixtures
+
+Reading: ISLP ch. 9, 12; Géron ch. 7–8.
+
+## Projects · `phase1/projects/`
 
 1. **Data project** (after 1A, a few days) — clean and analyse a real, messy dataset with pandas and SQL.
 2. **From-scratch models** (across 1D–1E) — logistic regression, CART tree, small gradient booster in one package, each verified against scikit-learn.
 3. **Capstone** (~1.5 wk, end of phase) — end-to-end tabular ML on a real dataset: EDA, leakage-proof pipeline, cross-validation, 3+ model families, tuning, one final test evaluation, error analysis, written report. Optional: compare against a tabular foundation model (TabPFN).
-
-Full specs: `docs/phase1/projects.md`, written before each project starts.
 
 ## Out of scope
 

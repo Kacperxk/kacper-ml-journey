@@ -7,6 +7,7 @@ pytest>=8.0           # unit tests
 
 # Phase 1 — Classical ML
 pandas>=3.0           # 1A — Copy-on-Write and str dtype are pandas 3 defaults
+pyarrow>=17.0         # 1A — Parquet files; backs pandas 3 str dtype
 seaborn>=0.13         # 1A — EDA plots
 duckdb>=1.1           # 1A — SQL on DataFrames/Parquet, no server
 scipy>=1.14           # 1B — distributions, tests

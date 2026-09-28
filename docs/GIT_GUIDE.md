@@ -36,7 +36,7 @@ Working across more than one machine (e.g. PC and laptop): run `git pull` before
 Format: `<type>(<scope>): <description>`
 
 - **type**: one of `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
-- **scope**: which phase/area — `p0/python`, `p0/numpy`, `p1/pandas`, `p1/stats`, etc. For a project specifically, scope to that project, not the generic `p1/projects` — e.g. `p0/weather-tool`, `p1/capstone` — so `git log` can tell which project a commit belongs to. DSA track: `dsa/<block>`, e.g. `dsa/arrays-hashing`.
+- **scope**: which phase/area — `p0/python`, `p0/numpy`, `p1/pandas`, `p1/stats`, `p1/linear-models`, etc. For a project specifically, scope to that project, not the generic `p1/projects` — e.g. `p0/weather-tool`, `p1/capstone` — so `git log` can tell which project a commit belongs to. DSA track: `dsa/<block>`, e.g. `dsa/arrays-hashing`.
 
 ```bash
 git commit -m "feat(p0/numpy): implement pairwise distance without loops"
@@ -57,7 +57,7 @@ Not used in this repo — every commit goes straight to `main`, for drills and p
 ```bash
 # End of each exercise section
 git tag -a p0-python-s1 -m "Phase 0: Python Section 1 complete"
-git tag -a p1-1a-pandas -m "Phase 1: Section 1A complete"
+git tag -a p1-pandas-s1 -m "Phase 1: pandas Section 1 complete"
 
 # End of each project
 git tag -a p0-project1-weather -m "Phase 0 Project 1: CLI Weather Tool complete"
