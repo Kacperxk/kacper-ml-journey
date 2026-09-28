@@ -11,12 +11,12 @@
 
 **Background going in:**
 - Dedicated university courses in Calculus and Linear Algebra — comfortable with derivatives, limits, matrix operations, eigenvalues
-- No Probability/Statistics coursework yet — this must be built from zero, not assumed
+- No Probability/Statistics coursework at the start (Aug 2026). Probability calculus runs at university in winter 2026/27, alongside Phase 1; mathematical statistics follows in summer 2027
 - Python basics — can write scripts, understands control flow
 - C1 English — can read papers, docs, courses without friction
 
 **Gaps to close before ML work gets serious:**
-- Probability and statistics — genuinely new material, not a refresher. Phase 0's math track treats this accordingly (see `docs/phase0/math_concepts.md` 1.3).
+- Probability and statistics — genuinely new material, not a refresher. Phase 0's math track introduced it (`docs/phase0/math_concepts.md` 1.3); Phase 1's section 1B covers the ML-relevant statistics before university does.
 - Python needs to reach "fluent" level (OOP, clean code, tooling)
 - NumPy needs to be second nature
 - ML library stack (PyTorch above all) is essentially untouched
@@ -29,8 +29,8 @@
 ## The Big Picture — All 6 Phases
 
 ```
-Phase 0 │ Foundations Refresh         │ ~8 weeks (see below)
-Phase 1 │ ML Theory + Classical ML    │ ~8 weeks
+Phase 0 │ Foundations Refresh         │ ~8 weeks (done, 2026-09-27)
+Phase 1 │ ML Theory + Classical ML    │ ~9 weeks (target 2026-11-29)
 Phase 2 │ Deep Learning Core          │ ~10 weeks
 Phase 3 │ LLMs & Transformers         │ ~12 weeks
 Phase 4 │ MLOps & Systems             │ ~8 weeks
@@ -109,19 +109,25 @@ Linear algebra and calculus have real university coursework behind them already 
 ---
 
 ## PHASE 1 — ML Theory + Classical ML
-### Duration: ~8 weeks | Goal: Understand how ML works at the algorithmic level
+### Target date: **November 29, 2026** (~9 weeks from Sept 28, 2026) | Goal: Understand how ML works at the algorithmic and statistical level
 
-### 1A — Core ML Concepts
-Bias-variance tradeoff, train/val/test splits, cross-validation, loss functions (MSE, MAE, Cross-Entropy), optimization (GD/SGD/mini-batch), learning rate, regularization (L1/L2/dropout — L2/ridge already covered in Phase 0's Project 3), evaluation metrics (accuracy, precision, recall, F1, ROC-AUC), feature engineering and scaling.
+Full plan, reading map and specs: `docs/phase1/README.md`. Six sections:
 
-**Resources:** *Hands-On Machine Learning* by Aurélien Géron (3rd ed.), chapters 1–9. StatQuest with Josh Starmer on YouTube.
+- **1A — pandas & SQL:** DataFrames, cleaning, groupby/merge/reshape, pandas 3 Copy-on-Write, EDA, SQL via DuckDB.
+- **1B — Statistics for ML:** estimators, bias/variance, confidence intervals, bootstrap, hypothesis testing, MLE ↔ loss functions.
+- **1C — Workflow & evaluation:** train/val/test, cross-validation, leakage, bias–variance tradeoff, metrics, calibration, imbalance, scikit-learn pipelines and tuning.
+- **1D — Linear models:** regression with inference, Ridge/Lasso/Elastic Net, logistic/softmax regression (from scratch), feature engineering.
+- **1E — Trees & ensembles:** CART (from scratch), random forests, gradient boosting, XGBoost/LightGBM/CatBoost, feature importance.
+- **1F — Other methods & unsupervised:** k-NN, SVMs, Naive Bayes, PCA, clustering.
 
-### 1B — Classical Algorithms (Scikit-learn)
-Linear/Logistic Regression, Decision Trees, Random Forests, Gradient Boosting (XGBoost/LightGBM), k-NN, SVMs, k-Means, PCA.
+GD/SGD, learning rate, L2 regularization and MSE/cross-entropy were covered in Phase 0 — revisited here only where new.
 
-**Resources:** *Hands-On ML* chapters 4–7. Scikit-learn User Guide. Kaggle Learn.
+**Resources:** *An Introduction to Statistical Learning with Applications in Python* (ISLP, free) as the theory spine; *Hands-On Machine Learning with Scikit-Learn and PyTorch* (Géron, 2025), Part I, as the practice spine. pandas user guide, *Python for Data Analysis* (McKinney, 3rd ed.), scikit-learn user guide, StatQuest.
 
-**Project for Phase 1:** Pick a real Kaggle dataset (Titanic, House Prices, or similar). Build a complete pipeline: EDA, feature engineering, 3+ models, hyperparameter tuning, proper held-out evaluation. Write it up in a notebook, push to GitHub. First portfolio piece.
+**Projects for Phase 1:**
+1. Data project — clean and analyse a real, messy dataset with pandas and SQL.
+2. From-scratch models — logistic regression, CART, a small gradient booster, each verified against scikit-learn.
+3. Capstone — end-to-end tabular ML on a real dataset: EDA, leakage-proof pipeline, cross-validation, 3+ model families, tuning, one final test evaluation, error analysis, written report. First portfolio piece.
 
 ---
 
@@ -131,20 +137,25 @@ Linear/Logistic Regression, Decision Trees, Random Forests, Gradient Boosting (X
 ### 2A — Neural Networks from First Principles
 The neuron, layers and depth, activation functions (ReLU, GELU), forward pass, backprop (mathematically), weight initialization (Xavier/Kaiming), batch norm, dropout.
 
-**Resources:** Andrej Karpathy's "Neural Networks: Zero to Hero" (the single best resource — watch all of it). *Deep Learning* by Goodfellow et al., chapters 6–9 (free at deeplearningbook.org). 3Blue1Brown "Neural Networks" series.
+**Resources:** Andrej Karpathy's "Neural Networks: Zero to Hero" (the single best resource — watch all of it). *Understanding Deep Learning* by Simon Prince (free, udlbook.github.io) as the theory book. *Hands-On Machine Learning with Scikit-Learn and PyTorch* (Géron), Part II — continues Phase 1's book. 3Blue1Brown "Neural Networks" series. *Deep Learning* (Goodfellow et al., 2016) as a reference only.
 
 ### 2B — PyTorch
 Tensors, `torch.autograd`, `nn.Module`, core layers, loss functions, optimizers, the training loop (`zero_grad → forward → loss → backward → step`), `DataLoader`/`Dataset`, GPU usage, saving/loading models.
 
-**Resources:** Official PyTorch tutorials ("Learn the Basics"). Karpathy's micrograd and makemore repos.
+**Resources:** Official PyTorch tutorials ("Learn the Basics"). Karpathy's makemore repo (micrograd's ground is already covered by `microtensor`).
 
 **Projects for Phase 2:**
-1. MLP from scratch in pure NumPy/Python (Karpathy's micrograd project) — non-negotiable.
+1. From-scratch project — replacement to be decided when Phase 2 is planned. The original "MLP from scratch (micrograd)" is already done: Phase 0's Project 4 (NumPy network, manual backprop) and stretch project `microtensor` (scalar autograd). Candidates: array-based autograd engine, or reimplementing core PyTorch pieces (`nn.Module`, optimizer) to understand its internals.
 2. CNN image classifier on CIFAR-10 in PyTorch, full custom training loop.
 3. Reproduce a small paper (LeNet, a simple RNN LM, or a basic VAE).
 
 ### 2C — Important Architectures
 CNNs (convolution, pooling, ResNet), RNNs/LSTMs (vanishing gradients), autoencoders/VAEs, embeddings.
+
+### 2D — Reinforcement Learning Fundamentals (bridge to Phase 3)
+MDPs, returns, policy gradients (REINFORCE), advantage/baselines, PPO intuition. Needed for Phase 3's post-training (GRPO/RLVR) — nothing else in the roadmap teaches it.
+
+**Resources:** Sutton & Barto, *Reinforcement Learning: An Introduction* (2nd ed., free), ch. 13 (policy gradients). Exact resources confirmed when Phase 2 is planned.
 
 ---
 
@@ -154,20 +165,20 @@ CNNs (convolution, pooling, ResNet), RNNs/LSTMs (vanishing gradients), autoencod
 ### 3A — The Transformer Architecture
 Read *"Attention Is All You Need"* (Vaswani et al., 2017) — twice, once before and once after the concepts below. Tokenization (BPE, SentencePiece), embeddings + positional encoding, self-attention (`softmax(QKᵀ/√d_k)V`), causal masking, multi-head attention, feed-forward layers, layer norm, residual connections, encoder vs decoder blocks, scaling laws (Chinchilla).
 
-**Resources:** Karpathy's "Let's build GPT from scratch" (mandatory). *The Illustrated Transformer* by Jay Alammar. Sebastian Raschka's LLM writeups. Research blogs from major AI labs (Anthropic, OpenAI, DeepMind, etc.).
+**Resources:** Karpathy's "Let's build GPT from scratch" (mandatory) and his nanochat repo (Oct 2025 — full pipeline: tokenizer, pretraining, SFT, RL, chat inference). *The Illustrated Transformer* by Jay Alammar. Sebastian Raschka's LLM writeups. Research blogs from major AI labs (Anthropic, OpenAI, DeepMind, etc.).
 
 ### 3B — Training Language Models
-Pre-training (next-token prediction, data curation, gradient accumulation, mixed precision, distributed training basics — DDP, model/pipeline/tensor parallelism, ZeRO), fine-tuning (SFT, RLHF, Constitutional AI-style techniques, RLAIF, LoRA/QLoRA, DPO).
+Pre-training (next-token prediction, data curation, gradient accumulation, mixed precision, distributed training basics — DDP, model/pipeline/tensor parallelism, ZeRO), post-training (SFT; preference optimization — RLHF with PPO as the historical baseline, DPO; RL with verifiable rewards — GRPO and variants, as used for reasoning models; Constitutional AI / RLAIF; distillation), parameter-efficient fine-tuning (LoRA/QLoRA).
 
-**Resources:** Hugging Face course. LoRA paper (arxiv 2106.09685). DPO, Chinchilla papers.
+**Resources:** Hugging Face course and TRL docs. LoRA (arxiv 2106.09685), DPO, Chinchilla, DeepSeek-R1 (GRPO) papers.
 
 ### 3C — Key Ecosystem Tools
 Hugging Face Transformers/Datasets, PEFT, TRL, vLLM, LangChain/LlamaIndex (know what they do, don't obsess).
 
 **Projects for Phase 3:**
-1. Build a GPT from scratch (Karpathy's nanoGPT, character-level) — non-negotiable.
+1. Build a GPT from scratch (nanoGPT, character-level), then run the full nanochat pipeline at small scale — non-negotiable.
 2. Fine-tune an open-source LLM (7B class) with LoRA via Hugging Face + PEFT.
-3. Implement a toy RLHF pipeline — minimal reward model, scoring, simplified preference optimization.
+3. Toy post-training: GRPO on a small model with a verifiable reward (e.g. arithmetic), compared against DPO on preference data.
 
 ---
 
@@ -184,7 +195,7 @@ GPU fundamentals, mixed precision (FP16/BF16), gradient checkpointing, Flash Att
 Eval frameworks (LM Eval Harness), benchmark literacy (MMLU, HumanEval, SWE-bench, GPQA, MATH), red-teaming, hallucination/calibration, bias/fairness evaluation, model/system cards.
 
 ### 4D — Deployment
-Inference optimization (vLLM, TensorRT-LLM, ONNX), REST APIs (FastAPI), batch inference, model versioning.
+Inference optimization (vLLM, SGLang, TensorRT-LLM, ONNX; continuous batching, paged KV cache), REST APIs (FastAPI), batch inference, model versioning.
 
 **Project for Phase 4:** Deploy your fine-tuned LLM from Phase 3 as a REST API (FastAPI + vLLM), containerized with Docker, with wandb tracking and at least some unit tests. Full GitHub README.
 
@@ -201,7 +212,7 @@ Start small (docs, examples, tests) in a major ML repo (e.g. Hugging Face Transf
 
 ### 5C — Portfolio Strategy
 Tier 1 (Phases 0–2): from-scratch implementations, classical ML pipeline, CNN classifier.
-Tier 2 (Phase 3): GPT from scratch, fine-tuned LLM with LoRA, toy RLHF/DPO.
+Tier 2 (Phase 3): GPT from scratch (nanoGPT/nanochat), fine-tuned LLM with LoRA, toy GRPO/DPO post-training.
 Tier 3 (Phase 4): deployed model API, experiment tracking, distributed training or quantization work.
 Tier 4 (Phase 5): paper reproduction with your own analysis, an original experiment, a write-up explaining something you learned deeply.
 
@@ -214,7 +225,7 @@ Follow major lab research blogs, Hugging Face Blog, Karpathy, Sebastian Raschka'
 
 ## Parallel Tracks (Run Alongside Everything)
 
-**Leetcode / DSA:** 2–3 problems/week, consistently. Focus: arrays, hashmaps, trees, graphs, DP, recursion. Resource: Neetcode.io.
+**Data Structures & Algorithms:** structured path, not random LeetCode — one reading + 2–3 problems/week, from Phase 1 on. Plan and progress: `docs/dsa/README.md`.
 
 **Linear Algebra Deepening:** eigendecomposition in the context of PCA, SVD in the context of LoRA, optimization theory.
 
@@ -224,7 +235,7 @@ Follow major lab research blogs, Hugging Face Blog, Karpathy, Sebastian Raschka'
 
 ## Recommended Full Resource Stack (Prioritized)
 
-**Books:** *Mathematics for Machine Learning* (free PDF), *Hands-On Machine Learning* (Géron), *Deep Learning* (Goodfellow, free PDF), *Fluent Python* (Ramalho).
+**Books:** *Mathematics for Machine Learning* (free PDF), *An Introduction to Statistical Learning with Applications in Python* (free PDF), *Hands-On Machine Learning with Scikit-Learn and PyTorch* (Géron, 2025), *Understanding Deep Learning* (Prince, free PDF), *Fluent Python* (Ramalho), *Problem Solving with Algorithms and Data Structures using Python* (free online). *Deep Learning* (Goodfellow, free PDF) as a reference.
 
 **Video courses:** Karpathy "Neural Networks: Zero to Hero", Fast.ai "Practical Deep Learning", Hugging Face Course, CS231n Stanford, DeepLearning.AI short courses.
 
@@ -237,15 +248,15 @@ Follow major lab research blogs, Hugging Face Blog, Karpathy, Sebastian Raschka'
 | Month | Primary Focus | Side Track |
 |-------|--------------|------------|
 | 1 | Phase 0 (completed Sept 27) | Git, CLI tools |
-| 2 | Phase 1: classical ML + first Kaggle project | Leetcode starts |
-| 3 | Phase 2: neural nets from scratch + backprop | Read first papers |
-| 4 | Phase 2: PyTorch core + CNN project | Fast.ai |
-| 5 | Phase 2: architectures, wrap up | Reproduce a paper |
-| 6 | Phase 3: Transformers + Attention | Attention paper |
-| 7 | Phase 3: Build GPT from scratch | Read BERT, GPT-2 |
-| 8 | Phase 3: Hugging Face ecosystem + fine-tuning | LoRA paper |
-| 9 | Phase 3: RLHF-style training, DPO | Alignment papers |
-| 10 | Phase 3 wrap: LoRA fine-tuning project | Open model papers |
+| 2 | Phase 1: pandas, statistics, evaluation | DSA track starts |
+| 3 | Phase 1: models + capstone (target Nov 29) | DSA |
+| 4 | Phase 2: neural nets, PyTorch core | Read first papers |
+| 5 | Phase 2: CNN project, architectures | Reproduce a paper |
+| 6 | Phase 2 wrap: RL fundamentals | Fast.ai |
+| 7 | Phase 3: Transformers + attention, GPT from scratch | Attention paper |
+| 8 | Phase 3: nanochat pipeline, Hugging Face ecosystem | GPT-2/3, Chinchilla papers |
+| 9 | Phase 3: fine-tuning (LoRA project) | LoRA paper |
+| 10 | Phase 3 wrap: post-training — DPO, GRPO | DeepSeek-R1, alignment papers |
 | 11 | Phase 4: MLOps — Docker, wandb, tracking | Flash Attention |
 | 12 | Phase 4: Deployment — FastAPI, vLLM | Open source contribution |
 | 13 | Phase 4: distributed training concepts | DeepSpeed docs |
@@ -254,7 +265,7 @@ Follow major lab research blogs, Hugging Face Blog, Karpathy, Sebastian Raschka'
 | 16 | Phase 5: portfolio polish, applications | Interview prep |
 | 17–18 | Interview rounds, networking, open source | Stay current |
 
-Note: months 2–14 will compress against university semester load — this schedule assumes ~3–4 hrs/day holds through the year. Revisit and adjust once you know your actual semester workload in October.
+Note: semester workload checked 2026-09-28 — 3–4 hrs/day holds for Phase 1. Rows from month 4 on are re-checked when each phase is planned.
 
 ---
 
@@ -287,4 +298,4 @@ Note: months 2–14 will compress against university semester load — this sche
 
 ---
 
-*Last updated: 2026-09-27*
+*Last updated: 2026-09-28*
