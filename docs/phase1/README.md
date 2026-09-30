@@ -21,7 +21,7 @@ Same shape as Phase 0: **modules** (like Phase 0's Python and NumPy) split into 
 - **Every module has code drills**, including statistics: its drills check theory by simulation (sampling distributions, bootstrap, permutation tests) in NumPy/SciPy.
 - **Drills are predict-before-run**, as in `docs/phase0/numpy_exercises.md`. Every written task ends in `assert`s.
 - **Build it, then use the library** — continued from Phase 0: logistic regression, a CART tree, and a small gradient booster are built from scratch in Project 2 and checked against scikit-learn.
-- **Probability runs in parallel at university** (Rachunek prawdopodobieństwa, winter 2026/27; midterm 2026-12-04). Phase 1 leans on it and doesn't re-teach it. Mathematical statistics comes at university only next semester, so Module 1B covers the ML-relevant statistics here.
+- **Probability runs in parallel at university** (Rachunek prawdopodobieństwa, winter 2026/27; midterm 2026-12-04). Module 1B assumes none of it has been covered yet (decided 2026-09-30): it teaches the probability it needs — random variables, expectation/variance, common distributions, likelihood — from Blitzstein & Hwang. Mathematical statistics comes at university only next semester, so Module 1B covers the ML-relevant statistics here.
 
 ## Resources
 
@@ -32,7 +32,7 @@ Same shape as Phase 0: **modules** (like Phase 0's Python and NumPy) split into 
 | *Python for Data Analysis*, 3rd ed. — McKinney | pandas (1A) | Free online, wesmckinney.com/book |
 | pandas (3.x), seaborn, DuckDB, scikit-learn (1.9+) docs | API reference | Free online |
 | StatQuest (YouTube) | Visual intuition per topic | Free |
-| *Introduction to Probability* — Blitzstein & Hwang | Probability backup, alongside the uni course | Free PDF |
+| *Introduction to Probability* — Blitzstein & Hwang | Probability for 1B, ahead of the uni course | Free PDF |
 
 ## Modules
 
@@ -92,7 +92,7 @@ Reading: ISLP ch. 8; Géron ch. 5–6; StatQuest gradient boosting series.
 4. PCA
 5. Clustering — k-means, hierarchical, DBSCAN, Gaussian mixtures
 
-Reading: ISLP ch. 9, 12; Géron ch. 7–8.
+Reading: ISLP ch. 9, 12; Géron ch. 7–8, Appendix C (SVMs).
 
 ## Projects · `phase1/projects/`
 
@@ -106,4 +106,4 @@ Polars (mentioned in 1A, not drilled), time series forecasting, deep learning (P
 
 ---
 
-*Last updated: 2026-09-28*
+*Last updated: 2026-09-30*

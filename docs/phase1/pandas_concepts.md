@@ -24,6 +24,7 @@ assert pd.__version__.startswith("3."), pd.__version__
 - `df["col"]` returns a Series; `df[["col"]]` returns a one-column DataFrame.
 - First look at any table: `shape`, `dtypes`, `info()`, `head()`, `describe()`.
 - **pandas 3:** text columns get the dedicated `str` dtype, not `object` (McKinney shows `object`).
+- `select_dtypes(include=...)` picks columns by dtype: `"number"` for all numeric columns, `"str"` for text. Older code uses `"object"` for text — pandas 3 still accepts it but warns that it's deprecated.
 - **CSV vs Parquet.** CSV is plain text: every dtype is re-guessed on read, and dates come back as strings unless you parse them. Parquet stores the schema: dtypes survive a round trip. Use Parquet for your own intermediate files.
 
 ## Section 2 — Indexing, selection & Copy-on-Write
@@ -121,4 +122,4 @@ assert pd.__version__.startswith("3."), pd.__version__
 
 ---
 
-*Last updated: 2026-09-29*
+*Last updated: 2026-09-30*
