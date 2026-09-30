@@ -83,69 +83,11 @@ git stash / git stash pop           # save work without committing
 git revert HEAD                     # undo last commit safely (new commit, no history rewrite)
 ```
 
-## `.gitignore` (single version for the whole repo)
+## `.gitignore`
 
-```gitignore
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.venv/
-venv/
-env/
-.env
-*.egg-info/
-dist/
-build/
+One file at the repo root covers the whole repo — see `.gitignore` itself, not a copy here. It ignores virtualenvs and caches, data files (`*.csv`, `*.parquet`, `*.json`, ...), model files, generated outputs, and secrets.
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Data — commit code that generates/downloads data, not the data itself
-data/
-*.csv
-*.tsv
-*.parquet
-*.feather
-*.h5
-*.hdf5
-*.json
-*.json.gz
-*.jsonl
-
-# Models — large binary files do not belong in git
-checkpoints/
-*.pt
-*.pth
-*.onnx
-*.pkl
-*.pickle
-*.safetensors
-
-# Outputs — generated, reproducible from code
-output/
-outputs/
-results/
-logs/
-*.log
-figures/
-
-# Secrets
-.env
-.env.*
-*_key.json
-credentials.json
-secrets/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# IDE
-.vscode/settings.json
-.idea/
-```
+- **Data:** commit the code that downloads or generates a dataset, not the data. A small fixture a project needs to run its tests gets an explicit `!path` exception (e.g. `!phase0/projects/data_pipeline/sample.jsonl`).
 
 ## Rule for every exercise/project session
 
@@ -153,4 +95,4 @@ Never leave a session without committing something — even if it's just a note 
 
 ---
 
-*Last updated: 2026-09-28*
+*Last updated: 2026-09-30*

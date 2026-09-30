@@ -12,7 +12,7 @@ seaborn>=0.13         # 1A — EDA plots
 duckdb>=1.1           # 1A — SQL on DataFrames/Parquet, no server
 scipy>=1.14           # 1B — distributions, tests
 statsmodels>=0.14     # 1B/1D — regression with inference (standard errors, CIs)
-scikit-learn>=1.9     # 1C onward — main ML library
+scikit-learn>=1.9     # 1C onward — main ML library; also Phase 0 Project 3 (California Housing)
 # ISLP                # optional: book's lab helpers — pulls in torch, lightning, pygam; datasets are also CSVs on statlearning.com
 xgboost>=2.1          # 1E — gradient boosting
 lightgbm>=4.5         # 1E — gradient boosting

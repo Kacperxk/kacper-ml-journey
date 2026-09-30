@@ -104,8 +104,8 @@ Note: Phase 5 ("Frontier Work & Portfolio") has no folder — it's ongoing, non-
 
 ## requirements.txt
 
-Lives at the repo root, already populated for Phase 0 — see `requirements.txt` directly rather than duplicating its contents here. Add each later phase's packages when you actually reach that phase.
+Lives at the repo root, already populated for Phases 0 and 1 — see `requirements.txt` directly rather than duplicating its contents here. Add each later phase's packages when you actually reach that phase.
 
 ---
 
-*Last updated: 2026-09-28*
+*Last updated: 2026-09-30*

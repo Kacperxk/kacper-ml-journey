@@ -2,7 +2,7 @@
 
 A slow, structured side track running alongside every phase from Phase 1 on. Not a priority over the current phase, but tracked and reviewed like everything else — not background LeetCode.
 
-**Pace:** one reading + 2–3 problems per week (~2–3 hours). At that rate the full path takes roughly 14 months — finishing around when interview prep starts (`docs/ROADMAP.md`, month 14–15).
+**Pace:** one reading + 2–3 problems per week (~2–3 hours). At that rate the full path takes roughly 14 months — finishing around when interview prep starts (`docs/ROADMAP.md`, month 15–16).
 
 ---
 
@@ -69,4 +69,4 @@ Started: 2026-09-28.
 
 ---
 
-*Last updated: 2026-09-28*
+*Last updated: 2026-09-30*

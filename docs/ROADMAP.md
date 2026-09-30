@@ -16,7 +16,7 @@
 - C1 English — can read papers, docs, courses without friction
 
 **Gaps to close before ML work gets serious:**
-- Probability and statistics — genuinely new material, not a refresher. Phase 0's math track introduced it (`docs/phase0/math_concepts.md` 1.3); Phase 1's section 1B covers the ML-relevant statistics before university does.
+- Probability and statistics — genuinely new material, not a refresher. Phase 0's math track introduced it (`docs/phase0/math_concepts.md` 1.3); Phase 1's Module 1B covers the ML-relevant statistics before university does.
 - Python needs to reach "fluent" level (OOP, clean code, tooling)
 - NumPy needs to be second nature
 - ML library stack (PyTorch above all) is essentially untouched
@@ -117,7 +117,7 @@ Full plan, reading map and specs: `docs/phase1/README.md`. Six modules (30 secti
 - **1B — Statistics for ML:** estimators, bias/variance, confidence intervals, bootstrap, hypothesis testing, MLE ↔ loss functions.
 - **1C — Workflow & evaluation:** train/val/test, cross-validation, leakage, bias–variance tradeoff, metrics, calibration, imbalance, scikit-learn pipelines and tuning.
 - **1D — Linear models:** regression with inference, Ridge/Lasso/Elastic Net, logistic/softmax regression (from scratch), feature engineering.
-- **1E — Trees & ensembles:** CART (from scratch), random forests, gradient boosting, XGBoost/LightGBM/CatBoost, feature importance.
+- **1E — Trees & ensembles:** CART (from scratch), random forests, gradient boosting, XGBoost/LightGBM, feature importance.
 - **1F — Other methods & unsupervised:** k-NN, SVMs, Naive Bayes, PCA, clustering.
 
 GD/SGD, learning rate, L2 regularization and MSE/cross-entropy were covered in Phase 0 — revisited here only where new.
@@ -202,7 +202,7 @@ Inference optimization (vLLM, SGLang, TensorRT-LLM, ONNX; continuous batching, p
 ---
 
 ## PHASE 5 — Frontier Work & Portfolio
-### Duration: Ongoing from month ~15
+### Duration: Ongoing from month ~16
 
 ### 5A — Reading Research Papers
 How to read a paper (abstract/conclusion → figures → intro → methods → experiments). Build a reading list over time covering architecture foundations, training techniques, efficiency/systems, and alignment/safety — pull from arxiv.org, Papers With Code, and lab research blogs as you go, rather than committing to a fixed list now.
@@ -247,29 +247,29 @@ Follow major lab research blogs, Hugging Face Blog, Karpathy, Sebastian Raschka'
 
 | Month | Primary Focus | Side Track |
 |-------|--------------|------------|
-| 1 | Phase 0 (completed Sept 27) | Git, CLI tools |
-| 2 | Phase 1: pandas, statistics, evaluation | DSA track starts |
-| 3 | Phase 1: models + capstone (target Nov 29) | DSA |
-| 4 | Phase 2: neural nets, PyTorch core | Read first papers |
-| 5 | Phase 2: CNN project, architectures | Reproduce a paper |
-| 6 | Phase 2 wrap: RL fundamentals | Fast.ai |
-| 7 | Phase 3: Transformers + attention, GPT from scratch | Attention paper |
-| 8 | Phase 3: nanochat pipeline, Hugging Face ecosystem | GPT-2/3, Chinchilla papers |
-| 9 | Phase 3: fine-tuning (LoRA project) | LoRA paper |
-| 10 | Phase 3 wrap: post-training — DPO, GRPO | DeepSeek-R1, alignment papers |
-| 11 | Phase 4: MLOps — Docker, wandb, tracking | Flash Attention |
-| 12 | Phase 4: Deployment — FastAPI, vLLM | Open source contribution |
-| 13 | Phase 4: distributed training concepts | DeepSpeed docs |
-| 14 | Phase 4 wrap: evaluation, red-teaming, safety | System cards |
-| 15 | Phase 5: original research experiment | Paper writing |
-| 16 | Phase 5: portfolio polish, applications | Interview prep |
-| 17–18 | Interview rounds, networking, open source | Stay current |
+| 1–2 | Phase 0 (Aug 3 – Sept 27, completed) | Git, CLI tools |
+| 3 | Phase 1: pandas, statistics, evaluation | DSA track (from Sept 28) |
+| 4 | Phase 1: models + capstone (target Nov 29) | DSA |
+| 5 | Phase 2: neural nets, PyTorch core | Read first papers |
+| 6 | Phase 2: CNN project, architectures (uni exam session late Jan) | Reproduce a paper |
+| 7 | Phase 2 wrap: RL fundamentals | Fast.ai |
+| 8 | Phase 3: Transformers + attention, GPT from scratch | Attention paper |
+| 9 | Phase 3: nanochat pipeline, Hugging Face ecosystem | GPT-2/3, Chinchilla papers |
+| 10 | Phase 3: fine-tuning (LoRA project) | LoRA paper |
+| 11 | Phase 3 wrap: post-training — DPO, GRPO | DeepSeek-R1, alignment papers |
+| 12 | Phase 4: MLOps — Docker, wandb, tracking | Flash Attention |
+| 13 | Phase 4: Deployment — FastAPI, vLLM | Open source contribution |
+| 14 | Phase 4: distributed training concepts | DeepSpeed docs |
+| 15 | Phase 4 wrap: evaluation, red-teaming, safety | System cards |
+| 16 | Phase 5: original research experiment | Paper writing |
+| 17 | Phase 5: portfolio polish, applications | Interview prep |
+| 18 | Interview rounds, networking, open source | Stay current |
 
-Note: semester workload checked 2026-09-28 — 3–4 hrs/day holds for Phase 1. Rows from month 4 on are re-checked when each phase is planned.
+Month 1 = August 2026. Semester workload checked 2026-09-28 — 3–4 hrs/day holds for Phase 1. Rows from month 5 on are re-checked when each phase is planned.
 
 ---
 
-## Interview Preparation (Start Month 14–15)
+## Interview Preparation (Start Month 15–16)
 
 **ML Engineer interviews typically have:**
 1. Coding round — Leetcode medium, clean Python
@@ -298,4 +298,4 @@ Note: semester workload checked 2026-09-28 — 3–4 hrs/day holds for Phase 1. 
 
 ---
 
-*Last updated: 2026-09-28*
+*Last updated: 2026-09-30*
