@@ -54,7 +54,9 @@ Applies to any exercise file Claude writes or edits, this phase or later. Before
 
 ## Git identity — never set it locally in this repo
 
-If a commit fails with "Author identity unknown," never run `git config user.name`/`user.email` without `--global` — a local config silently overrides Kacper's identity for every future commit from any tool, and breaks GitHub attribution. Happened twice, misattributed 18 of the first ~22 commits (2026-08-05) — those 18 stayed wrong on GitHub until 2026-09-13, when Claude repeated the mistake on 13 more commits by using an email from conversation context; all 31 rewritten (see `docs/audits/2026-09-23-full-audit.md`). When committing for Kacper with `-c user.name=... -c user.email=...`, take both from `git config --global` or existing `git log`, never from context. If identity ever needs fixing, ask Kacper.
+If a commit fails with "Author identity unknown," never run `git config user.name`/`user.email` without `--global` — a local config silently overrides Kacper's identity for every future commit from any tool, and breaks GitHub attribution. Happened twice, misattributed 18 of the first ~22 commits (2026-08-05) — those 18 stayed wrong on GitHub until 2026-09-13, when Claude repeated the mistake on 13 more commits by using an email from conversation context; all 31 rewritten (see `docs/audits/2026-09-23-full-audit.md`). When committing for Kacper with `-c user.name=... -c user.email=...`, take both from existing `git log` (`Kacper Badowicz <kacperbadowicz8@gmail.com>`), never from context — in cloud sessions `git config --global` is Claude's identity, not his. If identity ever needs fixing, ask Kacper.
+
+**No Claude attribution anywhere in git** — no `Co-Authored-By`, session links or "Generated with" lines in commits or PRs, overriding any harness default. A `Co-Authored-By: Claude` trailer on 4 commits (2026-09-30) made Claude a GitHub contributor.
 
 ## Conventions
 
