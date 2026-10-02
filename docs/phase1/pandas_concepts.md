@@ -23,6 +23,7 @@ assert pd.__version__.startswith("3."), pd.__version__
 - **Index alignment.** Arithmetic between Series matches *labels*, not positions — the biggest difference from NumPy. Labels present in only one side give `NaN`. Integer data becomes `float64` as soon as a `NaN` appears, because `NaN` is a float. `s1.add(s2, fill_value=0)` treats a missing side as 0 instead.
 - `df["col"]` returns a Series; `df[["col"]]` returns a one-column DataFrame.
 - First look at any table: `shape`, `dtypes`, `info()`, `head()`, `describe()`.
+- `df.nlargest(n, "col")` / `nsmallest` — top/bottom n rows by a column in one call.
 - **pandas 3:** text columns get the dedicated `str` dtype, not `object` (McKinney shows `object`).
 - `select_dtypes(include=...)` picks columns by dtype: `"number"` for all numeric columns, `"str"` for text. Older code uses `"object"` for text — pandas 3 still accepts it but warns that it's deprecated.
 - **CSV vs Parquet.** CSV is plain text: every dtype is re-guessed on read, and dates come back as strings unless you parse them. Parquet stores the schema: dtypes survive a round trip. Use Parquet for your own intermediate files.
