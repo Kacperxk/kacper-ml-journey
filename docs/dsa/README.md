@@ -10,7 +10,7 @@ A slow, structured side track running alongside every phase from Phase 1 on. Not
 
 | Resource | Use | Access |
 |---|---|---|
-| *Problem Solving with Algorithms and Data Structures using Python*, 3rd ed. — Miller & Ranum | Theory spine: a first university DSA course, in Python | Free, runestone.academy (pythonds3) |
+| *Problem Solving with Algorithms and Data Structures using Python*, 3rd ed. — Miller & Ranum | Theory spine: a first university DSA course, in Python | Free, runestone.academy/ns/books/published/pythonds3 — not the 2013 PDF, whose section numbers differ |
 | NeetCode 150 (neetcode.io) | Practice spine: 150 problems grouped by pattern, easy → hard within each group | Free |
 | NeetCode's per-problem explanation videos | Where the book is thin: two pointers, sliding window, backtracking, DP, greedy, intervals | Free |
 
@@ -51,7 +51,7 @@ Block 9's topological sort is the same algorithm as `microtensor`'s `Value.backw
 
 ## Progress
 
-- [ ] 0 — Big-O & Python data structures
+- [x] 0 — Big-O & Python data structures
 - [ ] 1 — Arrays & Hashing
 - [ ] 2 — Two Pointers, Sliding Window
 - [ ] 3 — Stack
@@ -69,4 +69,4 @@ Started: 2026-09-28.
 
 ---
 
-*Last updated: 2026-09-30*
+*Last updated: 2026-10-03*
