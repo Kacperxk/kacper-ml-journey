@@ -13,6 +13,11 @@ Depth of load-bearing concepts, backed by evidence. Separate from `phase1/README
 - **Boolean masks and operator precedence** — *Understood*, 2026-10-04. Ex 2.2 correct. Used attribute access again (`books.year` — same review point as Ex 1.2) and `!=` instead of `~`; both fixed. Precedence: grouped the broken line correctly (`books["year"] < (1980 & books["price"]) > 15`); the reason (`&` binds tighter than comparisons) added after a prompt; first fixed line had misplaced brackets.
 - **Copy-on-Write and chained assignment** — *Understood*, 2026-10-04. Ex 2.3: both blocks predicted correctly. First explanation put the copy in the assignment; the get-then-set split of `a[x][y] = v` explained by Claude. Then applied it unprompted to `books.loc[mask]["price"] = 99.0` (no change), but didn't say whether pandas warns. Part B correct; explained why a 6-value right side fits 3 selected rows (index alignment).
 - **pandas vs NumPy defaults (views vs. copies)** — *Practiced*, 2026-10-04. Ex 2.4: all predictions and `to_numpy(copy=True)` correct. Why pandas chose the opposite default: first answer wrong (mixed dtypes); answered questions on the CoW guide's "Previous behavior" example; the NumPy-vs-pandas contrast given by Claude, comment written from Claude's scaffold.
+- **Missing values (`NaN` vs. text placeholders, float upcast, `Int64`, `count` vs `size`)** — *Understood*, 2026-10-05. Ex 3.1: every prediction correct on the first try, including `"N/A"` not counting as missing and `Int64` giving `<NA>`. Ex 3.5 correct; switched from `~isna()` to `dropna(subset=...)` after review.
+- **Text-to-number conversion (`pd.to_numeric(errors="coerce")`)** — *Implemented*, 2026-10-05. Ex 3.2: needed a pointer to the concepts doc; then correct, including selecting the failed strings with a Section 2 mask.
+- **Normalise before deduplicating** — *Understood*, 2026-10-05. Ex 3.3: predicted 0 duplicates before normalising. First comment vague ("to discover every possible duplicate"); after a prompt, explained `duplicated` compares exact strings so case differences hide duplicates. Whitespace part added by Claude.
+- **Splitting text columns (`str.split`)** — *Practiced*, 2026-10-05. Ex 3.4: two errors — lists instead of columns (no `expand=True`) and splitting on `","` instead of `", "`; both found with docs pointers and printing the failing assert's left side.
+- **Ordered categoricals** — *Practiced*, 2026-10-05. Ex 3.6: first attempt replaced the column with the expected sorted list and omitted `categories`, so the order was inferred alphabetically; fixed after an API pointer. Predicted a value outside the categories raises an error — in pandas 3.0 it becomes `NaN` with a deprecation warning (raising is planned). Link to `to_numeric(errors="coerce")` given by Claude.
 
 ## DSA track
 
@@ -22,4 +27,4 @@ Depth of load-bearing concepts, backed by evidence. Separate from `phase1/README
 
 ---
 
-*Last updated: 2026-10-04*
+*Last updated: 2026-10-05*

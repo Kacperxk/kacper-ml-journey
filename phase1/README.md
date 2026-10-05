@@ -8,7 +8,7 @@ create as you go, see `CLAUDE.md`'s working-style note.
 
 - [x] Section 1 — Series & DataFrame fundamentals
 - [x] Section 2 — Indexing, selection & Copy-on-Write
-- [ ] Section 3 — Cleaning: missing data, dtypes, strings
+- [x] Section 3 — Cleaning: missing data, dtypes, strings
 - [ ] Section 4 — Transforming & groupby
 - [ ] Section 5 — Combining: concat & merge
 - [ ] Section 6 — Reshaping & time
@@ -64,4 +64,4 @@ DSA progress: `docs/dsa/README.md`.
 
 ---
 
-_Last updated: 2026-10-04_
+_Last updated: 2026-10-05_
